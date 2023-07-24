@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.Api", "MyHealth.Api\MyHealth.Api.csproj", "{96FF803D-073A-4308-AE59-3E55A3C97629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.Data", "MyHealth.Data\MyHealth.Data.csproj", "{F7425B5C-F7DB-4E15-AA72-8DB148197195}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96FF803D-073A-4308-AE59-3E55A3C97629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96FF803D-073A-4308-AE59-3E55A3C97629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96FF803D-073A-4308-AE59-3E55A3C97629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96FF803D-073A-4308-AE59-3E55A3C97629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7425B5C-F7DB-4E15-AA72-8DB148197195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7425B5C-F7DB-4E15-AA72-8DB148197195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7425B5C-F7DB-4E15-AA72-8DB148197195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7425B5C-F7DB-4E15-AA72-8DB148197195}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27F055DE-C85C-4B42-B55C-6C7392A36B48}
+	EndGlobalSection
+EndGlobal
