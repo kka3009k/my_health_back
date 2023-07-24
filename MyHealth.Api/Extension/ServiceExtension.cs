@@ -40,8 +40,8 @@ public static class ServiceExtension
                     Email = "kka3009k@icloud.com"
                 }
             });
-            /*c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MyHealth.Api.xml"));
-            c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MyHealth.Data.xml"));*/
+            c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MyHealth.Api.xml"));
+            c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MyHealth.Data.xml"));
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
