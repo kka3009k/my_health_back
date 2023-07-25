@@ -29,6 +29,10 @@ namespace MyHealth.Data.Entities
             CustomConfigure(pBuilder);
         }
 
+        /// <summary>
+        /// Рассширяет логику настройки модели в БД
+        /// </summary>
+        /// <param name="pBuilder"></param>
         public virtual void CustomConfigure(EntityTypeBuilder<TEntity> pBuilder) { }
     }
 }

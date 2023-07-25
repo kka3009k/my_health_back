@@ -15,6 +15,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+[Ll]ogs/
 
 # VS folders
 .vs/
@@ -34,3 +35,45 @@ bld/
 .env
 .idea/
 .cr
+
+# Mono auto generated files
+mono_crash.*
+
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# Benchmark Results
+BenchmarkDotNet.Artifacts/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# StyleCop
+StyleCopReport.xml
+
+# NVidia Nsight GPU debugger configuration file
+*.nvuser
+
+# MFractors (Xamarin productivity tool) working folder
+.mfractor/
+
+# Local History for Visual Studio
+.localhistory/
+
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
+
+# Ionide (cross platform F# VS Code tools) working folder
+.ionide/
+/src/DotNetEd.AutoAdmin/out/
+/src/out/
+/src/DotNetEd.CoreAdmin/out/*
+/src/DotNetEd.CoreAdmin/out/*
+/src/DotNetEd.CoreAdmin/out/*

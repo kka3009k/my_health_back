@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyHealth.Data.Entities;
 using MyHealth.Data.Utils;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,25 @@ namespace MyHealth.Data
         {
             builder.ApplyConfigEntities();
         }
+
+        #endregion
+
+        #region DbSets
+
+        /// <summary>
+        /// Пользователи
+        /// </summary>
+        public DbSet<User> Users { get; set; }
+        
+        /// <summary>
+        /// Данные авторизации
+        /// </summary>
+        public DbSet<UserLoginData> UserLoginData { get; set; }
+
+        /// <summary>
+        /// Данные верификации телефона
+        /// </summary>
+        public DbSet<PhoneVerificationData> PhoneVerificationData { get; set; }
 
         #endregion
     }
