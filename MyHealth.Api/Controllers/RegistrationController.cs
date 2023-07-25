@@ -22,7 +22,7 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Первичная регистрация
+        /// РџРµСЂРІРёС‡РЅР°СЏ СЂРµРіРёСЃС‚СЂР°С†РёСЏ
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -31,18 +31,18 @@ namespace MyHealth.Api.Controllers
             var userExists = await _db.UserLoginData.AnyAsync(a => a.UserID != null && a.Phone == pUser.Phone);
 
             if (userExists)
-                return BadRequest("Пользователь существует");
+                return BadRequest("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
 
             return Ok();
         }
 
         /// <summary>
-        /// Подтверждение регистрации
+        /// РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЂРµРіРёСЃС‚СЂР°С†РёРё
         /// </summary>
         /// <param name="pUser"></param>
         /// <returns></returns>
         [HttpPost, Route("Confirm")]
-        public async Task<IActionResult> Сonfirm([FromBody] ConfirmRegistrationDto pConfirmUser)
+        public async Task<IActionResult> РЎonfirm([FromBody] ConfirmRegistrationDto pConfirmUser)
         {
             var user = new User
             {
