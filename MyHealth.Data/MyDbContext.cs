@@ -28,12 +28,7 @@ namespace MyHealth.Data
         /// Пользователи
         /// </summary>
         public DbSet<User> Users { get; set; }
-        
-        /// <summary>
-        /// Данные авторизации
-        /// </summary>
-        public DbSet<UserLoginData> UserLoginData { get; set; }
-
+       
         /// <summary>
         /// Данные верификации телефона
         /// </summary>

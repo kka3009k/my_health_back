@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -28,7 +29,7 @@ namespace MyHealth.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration(UserRegistrationDto pUser)
         {
-            var userExists = await _db.UserLoginData.AnyAsync(a => a.UserID != null && a.Phone == pUser.Phone);
+            var userExists = await _db.Users.AnyAsync(a => a.Phone == pUser.Phone);
 
             if (userExists)
                 return BadRequest("Пользователь существует");
@@ -39,31 +40,26 @@ namespace MyHealth.Api.Controllers
         /// <summary>
         /// Подтверждение регистрации
         /// </summary>
-        /// <param name="pUser"></param>
+        /// <param name="pConfirmUser"></param>
         /// <returns></returns>
-        [HttpPost, Route("Confirm")]
+        [HttpPost("confirm")]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Сonfirm([FromBody] ConfirmRegistrationDto pConfirmUser)
         {
             var user = new User
             {
                 FirstName = pConfirmUser.FirstName,
                 LastName = pConfirmUser.LastName,
-                Role = RoleTypes.Client
-            };
-
-            await _db.AddAsync(user);
-
-            var loginData = new UserLoginData
-            {
+                Role = RoleTypes.Client,
                 Email = pConfirmUser.Email,
                 Phone = pConfirmUser.Phone,
-                UserRef = user,
                 PasswordHash = ComputeSha256Hash(pConfirmUser.Password)
             };
 
-            await _db.AddAsync(loginData);
+            await _db.AddAsync(user);
             await _db.SaveChangesAsync();
-            return Ok();
+
+            return  Ok(new UserDto());
         }
 
         private string ComputeSha256Hash(string pRawData)

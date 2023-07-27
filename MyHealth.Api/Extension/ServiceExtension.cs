@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MyHealth.Api.Swagger;
 
 namespace MyHealth.Api.Extension;
 
@@ -18,6 +19,7 @@ public static class ServiceExtension
 {
     public static void ConfigureApi(this IServiceCollection services)
     {
+        services.AddRouting(options => options.LowercaseUrls = true);
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder =>
@@ -40,8 +42,11 @@ public static class ServiceExtension
                     Email = "kka3009k@icloud.com"
                 }
             });
-            c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MyHealth.Api.xml"));
-            c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MyHealth.Data.xml"));
+            var apiXmlPath = Path.Combine(AppContext.BaseDirectory, "MyHealth.Api.xml");
+            var dataXmlPath = Path.Combine(AppContext.BaseDirectory, "MyHealth.Data.xml");
+            c.IncludeXmlComments(apiXmlPath);
+            c.IncludeXmlComments(dataXmlPath);
+            c.SchemaFilter<EnumTypesSchemaFilter>(dataXmlPath);
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,

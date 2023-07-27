@@ -14,12 +14,24 @@ namespace MyHealth.Data.Entities
     [Table("Users")]
     public class User : EntityBase<User>
     {
-        [StringLength(128)]
+        /// <summary>
+        /// Телефон
+        /// </summary>
         [Required]
-        public string FirstName { get; set; }
+        [StringLength(12)]
+        public string Phone { get; set; }
 
         [StringLength(128)]
-        public string LastName { get; set; }
+        public string? FirstName { get; set; }
+
+        [StringLength(128)]
+        public string? LastName { get; set; }
+
+        [StringLength(256)]
+        public string? Email { get; set; }
+
+        [StringLength(128)]
+        public string? PasswordHash { get; set; }
 
         public RoleTypes? Role { get; set; }
     }
