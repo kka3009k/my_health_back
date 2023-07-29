@@ -18,7 +18,7 @@ namespace MyHealth.Data.Entities
         /// Код сущности
         /// </summary>
         [Key]
-        public int ID { get; set; }
+        public virtual int ID { get; set; }
     }
 
     public class EntityBase<TEntity> : EntityBase, IEntityTypeConfiguration<TEntity> where TEntity : class
