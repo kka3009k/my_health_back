@@ -23,7 +23,7 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Первичная регистрация
+        /// Регистрация нового пользователя
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -34,32 +34,20 @@ namespace MyHealth.Api.Controllers
             if (userExists)
                 return BadRequest("Пользователь существует");
 
-            return Ok();
-        }
-
-        /// <summary>
-        /// Подтверждение регистрации
-        /// </summary>
-        /// <param name="pConfirmUser"></param>
-        /// <returns></returns>
-        [HttpPost("confirm")]
-        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Сonfirm([FromBody] ConfirmRegistrationDto pConfirmUser)
-        {
             var user = new User
             {
-                FirstName = pConfirmUser.FirstName,
-                LastName = pConfirmUser.LastName,
+                FirstName = pUser.FirstName,
+                LastName = pUser.LastName,
                 Role = RoleTypes.Client,
-                Email = pConfirmUser.Email,
-                Phone = pConfirmUser.Phone,
-                PasswordHash = ComputeSha256Hash(pConfirmUser.Password)
+                Email = pUser.Email,
+                Phone = pUser.Phone,
+                PasswordHash = ComputeSha256Hash(pUser.Password)
             };
 
             await _db.AddAsync(user);
             await _db.SaveChangesAsync();
 
-            return  Ok(new UserDto());
+            return Ok();
         }
 
         private string ComputeSha256Hash(string pRawData)

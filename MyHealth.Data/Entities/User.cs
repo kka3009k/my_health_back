@@ -17,9 +17,8 @@ namespace MyHealth.Data.Entities
         /// <summary>
         /// Телефон
         /// </summary>
-        [Required]
         [StringLength(12)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         [StringLength(128)]
         public string? FirstName { get; set; }
@@ -34,5 +33,11 @@ namespace MyHealth.Data.Entities
         public string? PasswordHash { get; set; }
 
         public RoleTypes? Role { get; set; }
+
+        [StringLength(128)]
+        public string? FirebaseUid { get; set; }
+
+        [NotMapped]
+        public string UserName => !string.IsNullOrWhiteSpace(Phone) ? Phone : Email;
     }
 }
