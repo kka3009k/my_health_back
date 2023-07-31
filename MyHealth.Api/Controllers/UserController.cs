@@ -23,7 +23,7 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Получить данные пользователя
+        /// РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -35,7 +35,7 @@ namespace MyHealth.Api.Controllers
             var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == userId);
 
             if (user == null)
-                return BadRequest("Пользователь не найден");
+                return BadRequest("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ");
 
             return Ok(new UserDto
             {

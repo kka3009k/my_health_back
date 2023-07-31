@@ -17,7 +17,7 @@ using Firebase_Auth = FirebaseAdmin.Auth.FirebaseAuth;
 namespace MyHealth.Api.Controllers
 {
     /// <summary>
-    /// Авторизация
+    /// РђРІС‚РѕСЂРёР·Р°С†РёСЏ
     /// </summary>
     [ApiController]
     [Route("[controller]")]
@@ -33,9 +33,9 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Авторизация через Firebase
+        /// РђРІС‚РѕСЂРёР·Р°С†РёСЏ С‡РµСЂРµР· Firebase
         /// </summary>
-        /// <param name="token">Токен firebase</param>
+        /// <param name="token">РўРѕРєРµРЅ firebase</param>
         /// <returns></returns>
         [HttpPost("firebase")]
         [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
@@ -48,9 +48,9 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Авторизация через Firebase по Uid, использовать только для тестов
+        /// РђРІС‚РѕСЂРёР·Р°С†РёСЏ С‡РµСЂРµР· Firebase РїРѕ Uid, РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ РґР»СЏ С‚РµСЃС‚РѕРІ
         /// </summary>
-        /// <param name="uid">Индентификатор firebase</param>
+        /// <param name="uid">РРЅРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ firebase</param>
         /// <returns></returns>
         [HttpPost("firebase/uid")]
         [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
@@ -62,9 +62,9 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Обновление токена
+        /// РћР±РЅРѕРІР»РµРЅРёРµ С‚РѕРєРµРЅР°
         /// </summary>
-        /// <param name="refreshToken">Токен обновления</param>
+        /// <param name="refreshToken">РўРѕРєРµРЅ РѕР±РЅРѕРІР»РµРЅРёСЏ</param>
         /// <returns></returns>
         [HttpPost("refresh")]
         [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
@@ -82,7 +82,7 @@ namespace MyHealth.Api.Controllers
             var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == userId);
 
             if (user == null)
-                return BadRequest("Пользователь не найден");
+                return BadRequest("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ");
 
             var res = GenerateToken(user);
             return Ok(res);
