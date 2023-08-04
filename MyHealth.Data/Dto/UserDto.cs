@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace MyHealth.Data.Dto
 {
+    /// <summary>
+    /// Данные пользователя
+    /// </summary>
     public class UserDto
     {
-        public int? UserID { get; set; }
-
         /// <summary>
         /// Телефон
         /// </summary>
@@ -19,15 +20,58 @@ namespace MyHealth.Data.Dto
         [StringLength(12)]
         public string Phone { get; set; }
 
+        /// <summary>
+        /// Имя
+        /// </summary>
         [StringLength(128)]
         public string? FirstName { get; set; }
 
+        /// <summary>
+        /// Фамилия
+        /// </summary>
         [StringLength(128)]
         public string? LastName { get; set; }
+
+        /// <summary>
+        /// Отчество
+        /// </summary>
+        [StringLength(128)]
+        public string? Patronymic { get; set; }
 
         [StringLength(256)]
         public string? Email { get; set; }
 
-        public RoleTypes? Role { get; set; }
+        /// <summary>
+        /// ИНН
+        /// </summary>
+        [StringLength(14)]
+        public string? INN { get; set; }
+
+        /// <summary>
+        /// Дата рождения
+        /// </summary>
+        public DateTime? BirthDate { get; set; }
+
+        /// <summary>
+        /// Адрес
+        /// </summary>
+        public string? Address { get; set; }
+
+        /// <summary>
+        /// Пол
+        /// </summary>
+        public GenderTypes? Gender { get; set; }
+
+        /// <summary>
+        /// Тип крови
+        /// </summary>
+        public BloodTypes? Blood { get; set; }
+
+        /// <summary>
+        /// Резус фактор
+        /// </summary>
+        public RhFactorTypes? RhFactor { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
     }
 }

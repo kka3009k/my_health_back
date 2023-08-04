@@ -9,7 +9,7 @@ using System.Text;
 
 namespace MyHealth.Api.Controllers
 {
-    [ApiController]
+    /*[ApiController]
     [Route("[controller]")]
     public class RegistrationController : ControllerBase
     {
@@ -67,5 +67,5 @@ namespace MyHealth.Api.Controllers
                 return builder.ToString();
             }
         }
-    }
+    }*/
 }

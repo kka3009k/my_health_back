@@ -133,7 +133,6 @@ namespace MyHealth.Api.Controllers
 
                 return new AuthResDto
                 {
-                    UserID = pUser.ID,
                     AccessToken = accessToken,
                     AccessTokenExpiresAt = expiresAccessToken,
                     RefreshToken = refreshToken,
@@ -165,6 +164,7 @@ namespace MyHealth.Api.Controllers
                 {
                     new("UserName", pUser.UserName),
                     new("UserId", pUser.ID.ToString()),
+                    new("Role", pUser.Role.ToString()),
                 };
 
             var claimsIdentity =

@@ -22,17 +22,48 @@ namespace MyHealth.Data
 
         #endregion
 
+        #region Ovveride methodes
+
+        public override int SaveChanges()
+        {
+            UpdateTime();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            UpdateTime();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        #endregion
+
         #region DbSets
 
         /// <summary>
         /// Пользователи
         /// </summary>
         public DbSet<User> Users { get; set; }
-       
+
         /// <summary>
         /// Данные верификации телефона
         /// </summary>
         public DbSet<PhoneVerificationData> PhoneVerificationData { get; set; }
+
+        #endregion
+
+        #region Private methodes
+
+        private void UpdateTime()
+        {
+            var modifiedEntities = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified);
+
+            foreach (var entity in modifiedEntities)
+            {
+                if (entity.Entity is EntityBase entityBase)
+                    entityBase.UpdatedAt = DateTime.UtcNow;
+            }
+        }
 
         #endregion
     }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MyHealth.Api.Swagger;
+using MyHealth.Api.Service;
 
 namespace MyHealth.Api.Extension;
 
@@ -69,6 +70,8 @@ public static class ServiceExtension
                 }
             });
         });
+        services.AddHttpContextAccessor();
+        services.AddScoped<HttpContextService>();
     }
 
     public static void ConfigureDbContext(this IServiceCollection services)

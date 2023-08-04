@@ -12,9 +12,7 @@ namespace MyHealth.Data.Dto
     /// Результат авторизации
     /// </summary>
     public class AuthResDto
-    {
-        public int? UserID { get; set; }
-
+    { 
         public string? AccessToken { get; set; }
 
         public DateTime? AccessTokenExpiresAt { get; set; }

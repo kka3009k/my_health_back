@@ -14,10 +14,7 @@ namespace MyHealth.Data.Entities
     [Table("Users")]
     public class User : EntityBase<User>
     {
-        /// <summary>
-        /// Телефон
-        /// </summary>
-        [StringLength(12)]
+        [StringLength(14)]
         public string? Phone { get; set; }
 
         [StringLength(128)]
@@ -25,6 +22,9 @@ namespace MyHealth.Data.Entities
 
         [StringLength(128)]
         public string? LastName { get; set; }
+
+        [StringLength(128)]
+        public string? Patronymic { get; set; }
 
         [StringLength(256)]
         public string? Email { get; set; }
@@ -39,5 +39,19 @@ namespace MyHealth.Data.Entities
 
         [NotMapped]
         public string UserName => !string.IsNullOrWhiteSpace(Phone) ? Phone : Email;
+
+        [StringLength(14)]
+        public string? INN { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? BirthDate { get; set; }
+
+        public string? Address { get; set; }
+
+        public GenderTypes? Gender { get; set; }
+
+        public BloodTypes? Blood { get; set; }
+
+        public RhFactorTypes? RhFactor { get; set; }
     }
 }
