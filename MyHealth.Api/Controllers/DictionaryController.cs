@@ -11,29 +11,29 @@ namespace MyHealth.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EnumController : ControllerBase
+    public class DictionaryController : ControllerBase
     {
-        private readonly ILogger<EnumController> _logger;
+        private readonly ILogger<DictionaryController> _logger;
         private readonly MyDbContext _db;
         private HttpContextService _contextService;
 
-        public EnumController(ILogger<EnumController> logger, MyDbContext pDb, HttpContextService pContextService)
+        public DictionaryController(ILogger<DictionaryController> logger, MyDbContext pDb, HttpContextService pContextService)
         {
             _logger = logger;
             _db = pDb;
             _contextService = pContextService;
         }
 
-        /*/// <summary>
+        /// <summary>
         /// Тип крови
         /// </summary>
         /// <returns></returns>
         [HttpGet("blood_types")]
-        [ProducesResponseType(typeof(Dictionary<int, string>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetBloodTypes()
         {
             return Ok(new Dictionary<int, string> { { 1, "Первая" }, { 2, "Вторая" }, { 3, "Третья" }, { 4, "Четвертая" } });
-        }*/
+        }
     }
 }
