@@ -5,7 +5,9 @@ using MyHealth.Api.Service;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
+using System.ComponentModel;
 using System.Net;
+using System.Reflection;
 
 namespace MyHealth.Api.Controllers
 {
@@ -30,10 +32,48 @@ namespace MyHealth.Api.Controllers
         /// <returns></returns>
         [HttpGet("blood_types")]
         [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetBloodTypes()
+        public IActionResult GetBloodTypes() => Ok(GetEnumValues(typeof(BloodTypes)));
+
+        /// <summary>
+        /// Пол
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("gender_types")]
+        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
+        public IActionResult GetGenderTypes() => Ok(GetEnumValues(typeof(GenderTypes)));
+
+        /// <summary>
+        /// Резус фактор
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("rh_factor_types")]
+        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
+        public IActionResult GetRhFactorTypes() => Ok(GetEnumValues(typeof(RhFactorTypes)));
+
+        /// <summary>
+        /// Роли системы
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("role_types")]
+        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
+        public IActionResult GetRoleTypes() => Ok(GetEnumValues(typeof(RoleTypes)));
+
+        private List<DictionaryDto> GetEnumValues(Type pType)
         {
-            return Ok(new Dictionary<int, string> { { 1, "Первая" }, { 2, "Вторая" }, { 3, "Третья" }, { 4, "Четвертая" } });
+            var dictionaries = new List<DictionaryDto>();
+
+            foreach (var enumMemberName in Enum.GetValues(pType))
+            {
+                var memInfo = pType.GetMember(enumMemberName.ToString());
+
+                var description = memInfo[0].GetCustomAttribute<DescriptionAttribute>();
+
+                var enumMemberValue = Convert.ToInt32(enumMemberName);
+
+                dictionaries.Add(new DictionaryDto { Key = enumMemberValue, Value = description.Description.Trim() });
+            }
+
+            return dictionaries;
         }
     }
 }

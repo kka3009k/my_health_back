@@ -17,7 +17,7 @@ namespace MyHealth.Data.Dto
         /// Телефон
         /// </summary>
         [Required]
-        [StringLength(12)]
+        [StringLength(14)]
         public string Phone { get; set; }
 
         /// <summary>
@@ -72,6 +72,5 @@ namespace MyHealth.Data.Dto
         /// </summary>
         public RhFactorTypes? RhFactor { get; set; }
 
-        public DateTime? CreatedAt { get; set; }
     }
 }

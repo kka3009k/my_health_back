@@ -175,7 +175,7 @@ namespace MyHealth.Api.Controllers
 
         private bool IsDifferent(string pOld, string pNew)
         {
-            return !string.IsNullOrWhiteSpace(pNew) && !pOld.Equals(pNew);
+            return !string.IsNullOrWhiteSpace(pNew) && (!pOld?.Equals(pNew) ?? true);
         }
     }
 }
