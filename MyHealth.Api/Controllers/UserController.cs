@@ -52,7 +52,6 @@ namespace MyHealth.Api.Controllers
                 Blood = user.Blood,
                 Gender = user.Gender,
                 INN = user.INN,
-                CreatedAt = user.CreatedAt,
             });
         }
 
