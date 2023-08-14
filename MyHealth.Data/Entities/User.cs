@@ -53,5 +53,11 @@ namespace MyHealth.Data.Entities
         public BloodTypes? Blood { get; set; }
 
         public RhFactorTypes? RhFactor { get; set; }
+
+        #region Relationships
+
+        public ICollection<Metric> Metrics { get; set; }
+
+        #endregion
     }
 }
