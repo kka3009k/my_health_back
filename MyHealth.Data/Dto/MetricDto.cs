@@ -57,6 +57,7 @@ namespace MyHealth.Data.Entities
         /// <summary>
         /// Дата заполнения
         /// </summary>
-        public DateTime? DateFilling { get; set; }
+        [Required]
+        public DateTime DateFilling { get; set; }
     }
 }

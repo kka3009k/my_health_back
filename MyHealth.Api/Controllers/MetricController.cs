@@ -9,6 +9,9 @@ using System.Net;
 
 namespace MyHealth.Api.Controllers
 {
+    /// <summary>
+    /// Работа с метриками пользователя
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     [Authorize]
@@ -26,66 +29,114 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Получить данные пользователя
+        /// Получить текущие метрики пользователя.
         /// </summary>
+        /// <remarks>
+        /// Возравщает актуальную информацию по метрики отсортированную по DateFilling,
+        /// если метрики не найдены, то вернет пустые данные с DateFilling = текущая дата
+        /// </remarks>
         /// <returns></returns>
-        [HttpGet("me")]
-        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+        [HttpGet("current")]
+        [ProducesResponseType(typeof(MetricDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUser()
+        public async Task<IActionResult> GetCurrentMetric()
         {
             var userId = _contextService.UserId();
-            var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == userId);
+            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
 
-            if (user == null)
+            if (!hasUser)
                 return BadRequest("Пользователь не найден");
 
-            return Ok(new UserDto
+            var currentMetric = await _db.Metrics.OrderByDescending(o => o.DateFilling).FirstOrDefaultAsync(f => f.UserID == userId);
+
+            if (currentMetric == null)
+                return Ok(new MetricDto { DateFilling = DateTime.UtcNow.Date, });
+
+            return Ok(new MetricDto
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Phone = user.Phone,
-                RhFactor = user.RhFactor,
-                BirthDate = user.BirthDate,
-                Address = user.Address,
-                Blood = user.Blood,
-                Gender = user.Gender,
-                INN = user.INN,
+                Saturation = currentMetric.Saturation,
+                AbdominalGirth = currentMetric.AbdominalGirth,
+                ArterialPressureLower = currentMetric.ArterialPressureLower,
+                ArterialPressureUpper = currentMetric.ArterialPressureUpper,
+                DateFilling = currentMetric.DateFilling,
+                Height = currentMetric.Height,
+                IntraocularPressure = currentMetric.IntraocularPressure,
+                Pulse = currentMetric.Pulse,
+                Weight = currentMetric.Weight,
             });
         }
 
         /// <summary>
-        /// Обновить данные пользователя
+        /// Обновить данные метрики пользователя
         /// </summary>
-        /// <param name="pUser"></param>
+        /// <param name="pMetric"></param>
         /// <returns></returns>
         [HttpPost("update")]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateUser([FromBody] UserDto pUser)
+        public async Task<IActionResult> UpdateMetric([FromBody] MetricDto pMetric)
         {
             var userId = _contextService.UserId();
-            var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == userId);
+            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
 
-            if (user == null)
+            if (!hasUser)
                 return BadRequest("Пользователь не найден");
 
-            FillField(user.Email, pUser.Email, v => user.Email = v);
-            FillField(user.Phone, pUser.Phone, v => user.Phone = v);
-            FillField(user.FirstName, pUser.FirstName, v => user.FirstName = v);
-            FillField(user.LastName, pUser.LastName, v => user.LastName = v);
-            FillField(user.Patronymic, pUser.Patronymic, v => user.Patronymic = v);
-            FillField(user.INN, pUser.INN, v => user.INN = v);
-            FillField(user.Address, pUser.Address, v => user.Address = v);
-            FillField(user.Gender, pUser.Gender, v => user.Gender = v);
-            FillField(user.Blood, pUser.Blood, v => user.Blood = v);
-            FillField(user.RhFactor, pUser.RhFactor, v => user.RhFactor = v);
-            FillField(user.BirthDate, pUser.BirthDate, v => user.BirthDate = v);
+            var metric = await _db.Metrics.FirstOrDefaultAsync(f => f.UserID == userId && f.DateFilling == pMetric.DateFilling);
+
+            if (metric == null)
+            {
+                metric = new Metric();
+                metric.DateFilling = pMetric.DateFilling;
+                metric.UserID = userId;
+                await _db.AddAsync(metric);
+            }
+
+            FillField(metric.Saturation, pMetric.Saturation, v => metric.Saturation = v);
+            FillField(metric.AbdominalGirth, pMetric.AbdominalGirth, v => metric.AbdominalGirth = v);
+            FillField(metric.ArterialPressureLower, pMetric.ArterialPressureLower, v => metric.ArterialPressureLower = v);
+            FillField(metric.ArterialPressureUpper, pMetric.ArterialPressureUpper, v => metric.ArterialPressureUpper = v);
+            FillField(metric.Height, pMetric.Height, v => metric.Height = v);
+            FillField(metric.IntraocularPressure, pMetric.IntraocularPressure, v => metric.IntraocularPressure = v);
+            FillField(metric.Pulse, pMetric.Pulse, v => metric.Pulse = v);
+            FillField(metric.Weight, pMetric.Weight, v => metric.Weight = v);
 
             await _db.SaveChangesAsync();
 
-            return Ok(pUser);
+            return Ok(pMetric);
         }
+
+        /// <summary>
+        /// Получить историю метрики пользователя
+        /// </summary>
+        /// <param name="pStart">Дата начала</param>
+        /// <param name="pEnd">Дата окончания</param>
+        /// <returns></returns>
+        [HttpGet("history")]
+        [ProducesResponseType(typeof(List<MetricDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetHistoryMetric(DateTime pStart, DateTime pEnd)
+        {
+            var userId = _contextService.UserId();
+            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
+
+            if (!hasUser)
+                return BadRequest("Пользователь не найден");
+
+            var metrics = await _db.Metrics.Where(w => w.UserID == userId && w.DateFilling >= pStart && w.DateFilling <= pEnd).ToListAsync();
+            return Ok(metrics.Select(s => new MetricDto
+            {
+                Saturation = s.Saturation,
+                AbdominalGirth = s.AbdominalGirth,
+                ArterialPressureLower = s.ArterialPressureLower,
+                ArterialPressureUpper = s.ArterialPressureUpper,
+                DateFilling = s.DateFilling,
+                Height = s.Height,
+                IntraocularPressure = s.IntraocularPressure,
+                Pulse = s.Pulse,
+                Weight = s.Weight,
+            }).ToList());
+        }
+
 
         private void FillField(string pOld, string pNew, Action<string> pAction)
         {

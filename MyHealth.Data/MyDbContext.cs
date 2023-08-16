@@ -50,6 +50,8 @@ namespace MyHealth.Data
         /// </summary>
         public DbSet<PhoneVerificationData> PhoneVerificationData { get; set; }
 
+        public DbSet<Metric> Metrics { get; set; }
+
         #endregion
 
         #region Private methodes

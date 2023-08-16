@@ -58,6 +58,13 @@ namespace MyHealth.Data.Entities
         /// </summary>
         public int? ArterialPressureLower { get; set; }
 
+        /// <summary>
+        /// Дата заполнения
+        /// </summary>
+        [Column(TypeName = "date")]
+        [Required]
+        public DateTime DateFilling { get; set; }
+
 
         private protected override void CustomConfigure(EntityTypeBuilder<Metric> pBuilder)
         {
