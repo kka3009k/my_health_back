@@ -77,3 +77,5 @@ MigrationBackup/
 /src/DotNetEd.CoreAdmin/out/*
 /src/DotNetEd.CoreAdmin/out/*
 /src/DotNetEd.CoreAdmin/out/*
+
+file_storage/

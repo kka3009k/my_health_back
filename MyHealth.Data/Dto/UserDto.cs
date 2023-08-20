@@ -72,5 +72,10 @@ namespace MyHealth.Data.Dto
         /// </summary>
         public RhFactorTypes? RhFactor { get; set; }
 
+        /// <summary>
+        /// Путь к фото профиля
+        /// </summary>
+        public string AvatarUrl { get; set; }
+
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,10 +55,18 @@ namespace MyHealth.Data.Entities
 
         public RhFactorTypes? RhFactor { get; set; }
 
+        public int? AvatarFileID { get; set; }
+        public FileStorage? AvatarFile { get; set; }
+
         #region Relationships
 
         public ICollection<Metric> Metrics { get; set; }
 
         #endregion
+
+        private protected override void CustomConfigure(EntityTypeBuilder<User> pBuilder)
+        {
+            pBuilder.HasOne(h => h.AvatarFile).WithMany().HasForeignKey(h => h.AvatarFileID);
+        }
     }
 }

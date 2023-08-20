@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MyHealth.Api.Swagger;
 using MyHealth.Api.Service;
+using MyHealth.Api.Static;
 
 namespace MyHealth.Api.Extension;
 
@@ -20,6 +21,9 @@ public static class ServiceExtension
 {
     public static void ConfigureApi(this IServiceCollection services)
     {
+        if (!Directory.Exists(Constants.FileStoragePath))
+            Directory.CreateDirectory(Constants.FileStoragePath);
+
         services.AddRouting(options => options.LowercaseUrls = true);
         services.AddCors(options =>
         {

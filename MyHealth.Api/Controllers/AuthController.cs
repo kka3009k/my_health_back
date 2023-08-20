@@ -142,7 +142,7 @@ namespace MyHealth.Api.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($@"GenerateToken -> {ex.Message}");
-                return null;
+                throw;
             }
         }
 

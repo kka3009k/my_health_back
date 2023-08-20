@@ -52,6 +52,8 @@ namespace MyHealth.Data
 
         public DbSet<Metric> Metrics { get; set; }
 
+        public DbSet<FileStorage> FileStorages { get; set; }
+
         #endregion
 
         #region Private methodes

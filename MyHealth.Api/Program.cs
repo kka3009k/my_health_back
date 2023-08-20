@@ -7,6 +7,8 @@ using Google.Apis.Auth.OAuth2;
 using FirebaseAdmin.Auth;
 using Firebase.Auth;
 using Google;
+using Microsoft.Extensions.FileProviders;
+using MyHealth.Api.Static;
 
 Env.Load();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -33,6 +35,11 @@ app.UseSwaggerUI();
 app.MapControllers();
 
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Constants.FileStoragePath),
+    RequestPath = new PathString("/file_storage")
+});
 app.UseRouting();
 
 app.UseAuthentication();
