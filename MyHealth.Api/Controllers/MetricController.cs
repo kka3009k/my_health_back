@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyHealth.Api.Extension;
 using MyHealth.Api.Service;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
@@ -91,14 +92,14 @@ namespace MyHealth.Api.Controllers
                 await _db.AddAsync(metric);
             }
 
-            FillField(metric.Saturation, pMetric.Saturation, v => metric.Saturation = v);
-            FillField(metric.AbdominalGirth, pMetric.AbdominalGirth, v => metric.AbdominalGirth = v);
-            FillField(metric.ArterialPressureLower, pMetric.ArterialPressureLower, v => metric.ArterialPressureLower = v);
-            FillField(metric.ArterialPressureUpper, pMetric.ArterialPressureUpper, v => metric.ArterialPressureUpper = v);
-            FillField(metric.Height, pMetric.Height, v => metric.Height = v);
-            FillField(metric.IntraocularPressure, pMetric.IntraocularPressure, v => metric.IntraocularPressure = v);
-            FillField(metric.Pulse, pMetric.Pulse, v => metric.Pulse = v);
-            FillField(metric.Weight, pMetric.Weight, v => metric.Weight = v);
+            metric.FillField(metric.Saturation, pMetric.Saturation, v => metric.Saturation = v);
+            metric.FillField(metric.AbdominalGirth, pMetric.AbdominalGirth, v => metric.AbdominalGirth = v);
+            metric.FillField(metric.ArterialPressureLower, pMetric.ArterialPressureLower, v => metric.ArterialPressureLower = v);
+            metric.FillField(metric.ArterialPressureUpper, pMetric.ArterialPressureUpper, v => metric.ArterialPressureUpper = v);
+            metric.FillField(metric.Height, pMetric.Height, v => metric.Height = v);
+            metric.FillField(metric.IntraocularPressure, pMetric.IntraocularPressure, v => metric.IntraocularPressure = v);
+            metric.FillField(metric.Pulse, pMetric.Pulse, v => metric.Pulse = v);
+            metric.FillField(metric.Weight, pMetric.Weight, v => metric.Weight = v);
 
             await _db.SaveChangesAsync();
 
@@ -136,26 +137,5 @@ namespace MyHealth.Api.Controllers
                 Weight = s.Weight,
             }).ToList());
         }
-
-
-        private void FillField(string pOld, string pNew, Action<string> pAction)
-        {
-            if (!string.IsNullOrWhiteSpace(pNew) && (!pOld?.Equals(pNew) ?? true))
-                pAction(pNew);
-        }
-
-        private void FillField(DateTime? pOld, DateTime? pNew, Action<DateTime?> pAction)
-        {
-            if (pNew != null && (!pOld?.Equals(pNew) ?? false))
-                pAction(pNew);
-        }
-
-        private void FillField<T>(T pOld, T pNew, Action<T> pAction)
-        {
-            if (pNew != null && !pOld.Equals(pNew))
-                pAction(pNew);
-        }
-
-
     }
 }

@@ -3,6 +3,7 @@ using Firebase.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyHealth.Api.Extension;
 using MyHealth.Api.Service;
 using MyHealth.Api.Static;
 using MyHealth.Data;
@@ -61,17 +62,17 @@ namespace MyHealth.Api.Controllers
             if (user == null)
                 return BadRequest("Пользователь не найден");
 
-            FillField(user.Email, pUser.Email, v => user.Email = v);
-            FillField(user.Phone, pUser.Phone, v => user.Phone = v);
-            FillField(user.FirstName, pUser.FirstName, v => user.FirstName = v);
-            FillField(user.LastName, pUser.LastName, v => user.LastName = v);
-            FillField(user.Patronymic, pUser.Patronymic, v => user.Patronymic = v);
-            FillField(user.INN, pUser.INN, v => user.INN = v);
-            FillField(user.Address, pUser.Address, v => user.Address = v);
-            FillField(user.Gender, pUser.Gender, v => user.Gender = v);
-            FillField(user.Blood, pUser.Blood, v => user.Blood = v);
-            FillField(user.RhFactor, pUser.RhFactor, v => user.RhFactor = v);
-            FillField(user.BirthDate, pUser.BirthDate, v => user.BirthDate = v);
+            user.FillField(user.Email, pUser.Email, v => user.Email = v);
+            user.FillField(user.Phone, pUser.Phone, v => user.Phone = v);
+            user.FillField(user.FirstName, pUser.FirstName, v => user.FirstName = v);
+            user.FillField(user.LastName, pUser.LastName, v => user.LastName = v);
+            user.FillField(user.Patronymic, pUser.Patronymic, v => user.Patronymic = v);
+            user.FillField(user.INN, pUser.INN, v => user.INN = v);
+            user.FillField(user.Address, pUser.Address, v => user.Address = v);
+            user.FillField(user.Gender, pUser.Gender, v => user.Gender = v);
+            user.FillField(user.Blood, pUser.Blood, v => user.Blood = v);
+            user.FillField(user.RhFactor, pUser.RhFactor, v => user.RhFactor = v);
+            user.FillField(user.BirthDate, pUser.BirthDate, v => user.BirthDate = v);
 
             await _db.SaveChangesAsync();
 
@@ -150,25 +151,5 @@ namespace MyHealth.Api.Controllers
 
             return  $"{Constants.FileStorageName}/{file.ID}.{file.Extension}";
         }
-
-        private void FillField(string pOld, string pNew, Action<string> pAction)
-        {
-            if (!string.IsNullOrWhiteSpace(pNew) && (!pOld?.Equals(pNew) ?? true))
-                pAction(pNew);
-        }
-
-        private void FillField(DateTime? pOld, DateTime? pNew, Action<DateTime?> pAction)
-        {
-            if (pNew != null && (!pOld?.Equals(pNew) ?? true))
-                pAction(pNew);
-        }
-
-        private void FillField<T>(T pOld, T pNew, Action<T> pAction)
-        {
-            if (pNew != null && !pOld.Equals(pNew))
-                pAction(pNew);
-        }
-
-
     }
 }
