@@ -58,6 +58,14 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
         public IActionResult GetRoleTypes() => Ok(GetEnumValues(typeof(RoleTypes)));
 
+        /// <summary>
+        /// Типы метрик
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("metric_types")]
+        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
+        public IActionResult GetMetricTypes() => Ok(GetEnumValues(typeof(MetricTypes)));
+
         private List<DictionaryDto> GetEnumValues(Type pType)
         {
             var dictionaries = new List<DictionaryDto>();

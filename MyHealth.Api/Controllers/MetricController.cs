@@ -7,6 +7,7 @@ using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
 using System.Net;
+using System.Linq.Dynamic.Core;
 
 namespace MyHealth.Api.Controllers
 {
@@ -109,13 +110,14 @@ namespace MyHealth.Api.Controllers
         /// <summary>
         /// Получить историю метрики пользователя
         /// </summary>
+        /// <param name="pMetricType">Тип метрики</param>
         /// <param name="pStart">Дата начала</param>
-        /// <param name="pEnd">Дата окончания</param>
+        /// <param name="pEnd">Дата окончани</param>
         /// <returns></returns>
         [HttpGet("history")]
-        [ProducesResponseType(typeof(List<MetricDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<dynamic>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetHistoryMetric(DateTime pStart, DateTime pEnd)
+        public async Task<IActionResult> GetHistoryMetric(MetricTypes pMetricType, DateTime pStart, DateTime pEnd)
         {
             var userId = _contextService.UserId();
             var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
@@ -123,19 +125,23 @@ namespace MyHealth.Api.Controllers
             if (!hasUser)
                 return BadRequest("Пользователь не найден");
 
-            var metrics = await _db.Metrics.Where(w => w.UserID == userId && w.DateFilling >= pStart && w.DateFilling <= pEnd).ToListAsync();
-            return Ok(metrics.Select(s => new MetricDto
-            {
-                Saturation = s.Saturation,
-                AbdominalGirth = s.AbdominalGirth,
-                ArterialPressureLower = s.ArterialPressureLower,
-                ArterialPressureUpper = s.ArterialPressureUpper,
-                DateFilling = s.DateFilling,
-                Height = s.Height,
-                IntraocularPressure = s.IntraocularPressure,
-                Pulse = s.Pulse,
-                Weight = s.Weight,
-            }).ToList());
+            var query = _db.Metrics
+                .OrderBy(o => o.DateFilling)
+                .Where(w => w.UserID == userId && w.DateFilling >= pStart && w.DateFilling <= pEnd)
+                .Select("new { DateFilling, " + pMetricType switch
+                {
+                    MetricTypes.Height => nameof(Metric.Height),
+                    MetricTypes.Weight => nameof(Metric.Weight),
+                    MetricTypes.Saturation => nameof(Metric.Saturation),
+                    MetricTypes.Pulse => nameof(Metric.Pulse),
+                    MetricTypes.IntraocularPressure => nameof(Metric.IntraocularPressure),
+                    MetricTypes.AbdominalGirth => nameof(Metric.AbdominalGirth),
+                    MetricTypes.ArterialPressure => $"{nameof(Metric.ArterialPressureLower)}, {nameof(Metric.ArterialPressureUpper)}",
+                    _ => $"{nameof(Metric.Height)}, {nameof(Metric.Weight)}, {nameof(Metric.Saturation)}, {nameof(Metric.Pulse)}, {nameof(Metric.IntraocularPressure)}, {nameof(Metric.AbdominalGirth)}, {nameof(Metric.ArterialPressureLower)}, {nameof(Metric.ArterialPressureUpper)}"
+                } + " }");
+
+            var metrics = await query.ToDynamicListAsync();
+            return Ok(metrics);
         }
     }
 }
