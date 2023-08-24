@@ -1,0 +1,25 @@
+﻿@typeparam TEntity
+
+<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Создать" Click="@Insert" Visible="!_isEdit" />
+<RadzenDataGrid TItem="TEntity" style="height: auto" @ref="_grid"
+                IsLoading="_isLoading"
+                Count="_count"
+                Data="_items"
+                LoadData="@LoadData"
+                AllowSorting="true"
+                AllowFiltering="true"
+                AllowPaging="true" Visible="!_isEdit"
+                PageSize="10"
+                PagerHorizontalAlign="HorizontalAlign.Center"
+                ColumnWidth="200px">
+    <Columns>
+        <RadzenDataGridColumn Width="5%" TItem="TEntity" Title="#" Filterable="false" Sortable="false" Frozen="true" TextAlign="TextAlign.Center">
+            <Template Context="item">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="() => Edit(item)" @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+        @Columns
+    </Columns>
+</RadzenDataGrid>
+

@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{1CC8932B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetEd.CoreAdmin", "Tools\DotNetEd.CoreAdmin\DotNetEd.CoreAdmin.csproj", "{19C7F926-5C30-4138-A1FE-647C72DB0377}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.AdminPanel", "MyHealth.AdminPanel\MyHealth.AdminPanel.csproj", "{62DEA8EF-3C98-422C-8585-78F59DE44E98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.Admin", "MyHealth.Admin\MyHealth.Admin.csproj", "{8547D732-33E3-49AE-9EAD-E234B479A97B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{19C7F926-5C30-4138-A1FE-647C72DB0377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19C7F926-5C30-4138-A1FE-647C72DB0377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19C7F926-5C30-4138-A1FE-647C72DB0377}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62DEA8EF-3C98-422C-8585-78F59DE44E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62DEA8EF-3C98-422C-8585-78F59DE44E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62DEA8EF-3C98-422C-8585-78F59DE44E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62DEA8EF-3C98-422C-8585-78F59DE44E98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8547D732-33E3-49AE-9EAD-E234B479A97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8547D732-33E3-49AE-9EAD-E234B479A97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8547D732-33E3-49AE-9EAD-E234B479A97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8547D732-33E3-49AE-9EAD-E234B479A97B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

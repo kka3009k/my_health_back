@@ -1,0 +1,11 @@
+﻿@page "/adminpanel"
+<PageTitle>AdminPanel</PageTitle>
+
+<Header Click="OnMenuItemClick" />
+
+@if (_form != null)
+{
+    <div style="padding: 5px;">
+        @_form
+    </div>
+}
