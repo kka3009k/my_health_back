@@ -2,7 +2,6 @@
 
 <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Создать" Click="@Insert" Visible="!_isEdit" />
 <RadzenDataGrid TItem="TEntity" style="height: auto" @ref="_grid"
-                IsLoading="_isLoading"
                 Count="_count"
                 Data="_items"
                 LoadData="@LoadData"

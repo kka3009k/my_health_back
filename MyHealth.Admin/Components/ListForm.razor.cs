@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
+using MyHealth.Admin.Services;
 using MyHealth.Data;
 using MyHealth.Data.Entities;
 using Radzen;
 using Radzen.Blazor;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Runtime.CompilerServices;
 
 namespace MyHealth.Admin.Components
 {
@@ -23,11 +25,12 @@ namespace MyHealth.Admin.Components
         [Inject]
         private IDbContextFactory<MyDbContext> _dbFactory { get; set; }
 
+        [Inject]
+        private SpinnerService _spinner { get; set; }
+
         private MyDbContext _ctx;
 
         private RadzenDataGrid<TEntity> _grid { get; set; }
-
-        private bool _isLoading { get; set; }
 
         private int _count { get; set; }
 
@@ -44,30 +47,29 @@ namespace MyHealth.Admin.Components
 
         private async Task LoadData(LoadDataArgs args)
         {
-            _isLoading = true;
-
-            // This demo is using https://dynamic-linq.net
-            var query = _ctx.Set<TEntity>().AsNoTracking();
-
-            if (!string.IsNullOrEmpty(args.Filter))
+            await _spinner.RunAsync(async () =>
             {
-                // Filter via the Where method
-                query = query.Where(args.Filter);
-            }
+                // This demo is using https://dynamic-linq.net
+                var query = _ctx.Set<TEntity>().AsNoTracking();
 
-            if (!string.IsNullOrEmpty(args.OrderBy))
-            {
-                // Sort via the OrderBy method
-                query = query.OrderBy(args.OrderBy);
-            }
+                if (!string.IsNullOrEmpty(args.Filter))
+                {
+                    // Filter via the Where method
+                    query = query.Where(args.Filter);
+                }
 
-            // Important!!! Make sure the Count property of RadzenDataGrid is set.
-            _count = query.Count();
+                if (!string.IsNullOrEmpty(args.OrderBy))
+                {
+                    // Sort via the OrderBy method
+                    query = query.OrderBy(args.OrderBy);
+                }
 
-            // Perform paging via Skip and Take.
-            _items = await query.Skip(args.Skip.Value).Take(args.Top.Value).ToListAsync();
+                // Important!!! Make sure the Count property of RadzenDataGrid is set.
+                _count = query.Count();
 
-            _isLoading = false;
+                // Perform paging via Skip and Take.
+                _items = await query.Skip(args.Skip.Value).Take(args.Top.Value).ToListAsync();
+            });
         }
 
         private void Insert()
@@ -78,8 +80,11 @@ namespace MyHealth.Admin.Components
 
         private async Task Edit(TEntity pItem)
         {
-            _selectedItem = await _ctx.Set<TEntity>().FirstOrDefaultAsync(f => f.ID == pItem.ID);
-            StartEdit();
+            await _spinner.RunAsync(async () =>
+             {
+                 _selectedItem = await _ctx.Set<TEntity>().FirstOrDefaultAsync(f => f.ID == pItem.ID);
+                 StartEdit();
+             });
         }
 
         private void StartEdit()
@@ -90,12 +95,15 @@ namespace MyHealth.Admin.Components
 
         public async Task Save()
         {
-            if (_selectedItem.ID == 0)
-                await _ctx.AddAsync(_selectedItem);
+            await _spinner.RunAsync(async () =>
+              {
+                  if (_selectedItem.ID == 0)
+                      await _ctx.AddAsync(_selectedItem);
 
-            await _ctx.SaveChangesAsync();
+                  await _ctx.SaveChangesAsync();
 
-            await EndEdit();
+                  await EndEdit();
+              });
         }
 
         public async Task EndEdit()

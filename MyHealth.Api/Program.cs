@@ -1,6 +1,5 @@
 using DotNetEnv;
 using MyHealth.Data;
-using MyHealth.Data.Seed;
 using MyHealth.Api.Extension;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
@@ -9,6 +8,7 @@ using Firebase.Auth;
 using Google;
 using Microsoft.Extensions.FileProviders;
 using MyHealth.Api.Static;
+using MyHealth.Api.Seed;
 
 Env.Load();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

@@ -1,4 +1,4 @@
-﻿@page "/admin/login"
+﻿@page "/login"
 
 <section class="vh-100 login">
     <div class="container">
@@ -8,10 +8,10 @@
                     <div class="card-body p-4 p-sm-5">
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Авторизация</h5>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Логин" value="@_username"
-                            @oninput="(val) => { _username = (string)val.Value;  }"
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Почта" value="@_email"
+                            @oninput="(val) => { _email = (string)val.Value;  }"
                             @onkeydown="OnKeyDown">
-                            <label for="floatingInput">Логин</label>
+                            <label for="floatingInput">Почта</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="floatingPassword" placeholder="Пароль" value="@_password"

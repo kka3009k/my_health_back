@@ -9,11 +9,13 @@ namespace MyHealth.Admin.Services
         public Action<CancellationToken?> OnSignOut { get; set; }
         public Action<CancellationToken?> OnSignIn { get; set; }
 
-        public bool IsAuthenticated => !string.IsNullOrWhiteSpace(Token);
+        public bool IsAuthenticated => !string.IsNullOrWhiteSpace(token);
 
         private ILocalStorageService _localStorageService;
 
-        private string Token { get; set; }
+        private string token { get; set; }
+
+
 
         public UserStateService(ILocalStorageService pLocalStorageService)
         {
@@ -22,7 +24,7 @@ namespace MyHealth.Admin.Services
 
         public async Task InitUserStateAsync()
         {
-            Token = await GetTokenAsync(default);
+            token = await GetTokenAsync(default);
         }
 
         public async Task<string> GetTokenAsync(CancellationToken pCancellationToken)
@@ -34,15 +36,15 @@ namespace MyHealth.Admin.Services
         public async Task SignInAsync(string pToken, CancellationToken pCancellationToken = default)
         {
             await _localStorageService.SetItemAsync("token", pToken);
-            Token = pToken;
+            token = pToken;
             OnSignIn?.Invoke(pCancellationToken);
         }
 
-        public async Task SignOutAsync(CancellationToken token = default)
+        public async Task SignOutAsync(CancellationToken pCancellationToken = default)
         {
-            Token = string.Empty;
-            await _localStorageService.RemoveItemAsync("token", token);
-            OnSignOut?.Invoke(token);
+            token = string.Empty;
+            await _localStorageService.RemoveItemAsync("token", pCancellationToken);
+            OnSignOut?.Invoke(pCancellationToken);
         }
     }
 }

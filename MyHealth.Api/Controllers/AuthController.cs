@@ -3,6 +3,7 @@ using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MyHealth.Api.Utils;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
@@ -42,8 +43,8 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> FirebaseAuth(string token)
         {
             var fbToken = await Firebase_Auth.DefaultInstance.VerifyIdTokenAsync(token);
-            var pUser = await Firebase_Auth.DefaultInstance.GetUserAsync(fbToken.Uid);
-            var res = await GenerateTokenFirebase(pUser);
+            var user = await Firebase_Auth.DefaultInstance.GetUserAsync(fbToken.Uid);
+            var res = await GenerateTokenFirebase(user);
             return Ok(res);
         }
 
@@ -56,9 +57,34 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> FirebaseAuthUid(string uid)
         {
-            var pUser = await Firebase_Auth.DefaultInstance.GetUserAsync(uid);
-            var res = await GenerateTokenFirebase(pUser);
+            var user = await Firebase_Auth.DefaultInstance.GetUserAsync(uid);
+            var res = await GenerateTokenFirebase(user);
             return Ok(res);
+        }
+
+        /// <summary>
+        /// Авторизация через Почту
+        /// </summary>
+        /// <param name="pEmailAuthPar">Данные авторизации</param>
+        /// <returns></returns>
+        [HttpPost("email")]
+        [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> EmailAuth(EmailAuthPar pEmailAuthPar)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(f => f.Email == pEmailAuthPar.Email);
+
+            if (user != null)
+            {
+                if (ValidPassword(pEmailAuthPar.Password, user))
+                {
+                    var res = GenerateToken(user);
+                    return Ok(res);
+                }
+
+                return BadRequest("Неверный пароль");
+            }
+
+            return BadRequest("Пользователь не найден");
         }
 
         /// <summary>
@@ -176,6 +202,12 @@ namespace MyHealth.Api.Controllers
         private bool IsDifferent(string pOld, string pNew)
         {
             return !string.IsNullOrWhiteSpace(pNew) && (!pOld?.Equals(pNew) ?? true);
+        }
+
+        private bool ValidPassword(string pInputPassword, User pUser)
+        {
+            var inputHashPassword = Сryptography.ComputeSha256Hash(pInputPassword);
+            return inputHashPassword.Equals(pUser.PasswordHash);
         }
     }
 }

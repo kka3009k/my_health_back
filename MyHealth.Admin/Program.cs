@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using MyHealth.Admin.Handlers;
 using MyHealth.Admin.Services;
 using MyHealth.Data;
+using MyHealth.Admin.Services;
+using Radzen;
 
 namespace MyHealth.Admin
 {
@@ -19,22 +21,31 @@ namespace MyHealth.Admin
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
             builder.Services.AddServerSideBlazor();
+
             builder.Services.AddBlazoredLocalStorage();
+
             builder.Services.AddScoped<UserStateService>();
-            builder.Services.AddScoped(sp =>
-                new HttpClient(new CustomHttpHandler(builder.Services.BuildServiceProvider().GetRequiredService<UserStateService>()))
-                {
-                    BaseAddress = new Uri(builder.Configuration["BackendUrl"]),
-                });
+
+            builder.Services.AddHttpClient();
+
+            //builder.Services.AddScoped(sp =>
+            //    new HttpClient(new CustomHttpHandler(builder.Services.BuildServiceProvider().GetRequiredService<UserStateService>()))
+            //    {
+            //        BaseAddress = new Uri(Env.GetString("BACKEND_URL")),
+            //    });
 
             var connectionString =
             $"Server={Env.GetString("DB_HOST")};Port={Env.GetString("DB_PORT")};Database={Env.GetString("DB_DATABASE")};User ID={Env.GetString("DB_USERNAME")};Password={Env.GetString("DB_PASSWORD")};Include Error Detail=true";
 
-            builder.Services.AddDbContextFactory<MyDbContext>(opt =>
-    opt.UseNpgsql(connectionString));
+            builder.Services.AddDbContextFactory<MyDbContext>(opt => opt.UseNpgsql(connectionString));
 
             builder.WebHost.UseUrls(Env.GetString("APP_URL"), Env.GetString("APP_URL_SSL"));
+
+            builder.Services.AddSpinner();
+
+            builder.Services.AddScoped<NotificationService>();
 
             var app = builder.Build();
 

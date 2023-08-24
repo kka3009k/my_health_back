@@ -1,0 +1,26 @@
+﻿.loading {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    opacity: 90%;
+}
+
+.loader {
+    left: 50%;
+    margin-left: -4em;
+    font-size: 10px;
+}
+
+.loader, .loader:after {
+    border-radius: 50%;
+    width: 8em;
+    height: 8em;
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -4.05em;
+}
