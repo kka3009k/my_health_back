@@ -23,7 +23,6 @@ builder.Services.ConfigureApi();
 builder.Services.ConfigureJwtAuthentication();
 builder.WebHost.UseUrls(Env.GetString("APP_URL"), Env.GetString("APP_URL_SSL"));
 builder.Services.AddRazorPages();
-builder.Services.AddCoreAdmin();
 
 var app = builder.Build();
 
@@ -45,7 +44,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCoreAdminCustomAuth((serviceProvider) => Task.FromResult(true));
 app.MapDefaultControllerRoute();
 
 app.Map("/", context =>

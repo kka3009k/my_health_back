@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyHealth.Data\MyHealth.Data.csproj" />
-    <ProjectReference Include="..\Tools\DotNetEd.CoreAdmin\DotNetEd.CoreAdmin.csproj" />
   </ItemGroup>
 
   <ItemGroup>
