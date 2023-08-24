@@ -75,7 +75,7 @@ namespace MyHealth.Data.Dto
         /// <summary>
         /// Путь к фото профиля
         /// </summary>
-        public string AvatarUrl { get; set; }
+        public string? AvatarUrl { get; set; }
 
     }
 }
