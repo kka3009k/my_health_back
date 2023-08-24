@@ -40,6 +40,8 @@ namespace MyHealth.Admin.Components
 
         private TEntity _selectedItem;
 
+        private string _searchString;
+
         protected override void OnInitialized()
         {
             _ctx = _dbFactory.CreateDbContext();
@@ -109,6 +111,12 @@ namespace MyHealth.Admin.Components
         public async Task EndEdit()
         {
             _isEdit = false;
+            await _grid.Reload();
+        }
+
+        private async Task OnSearch(string pText)
+        {
+            _searchString = pText;
             await _grid.Reload();
         }
     }

@@ -1,6 +1,12 @@
 ﻿@typeparam TEntity
 
-<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Создать" Click="@Insert" Visible="!_isEdit" />
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap" Visible="!_isEdit">
+    <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Создать" Click="@Insert" />
+    @*<RadzenFormField Text="Поиск">
+        <RadzenTextBox Placeholder="Поиск..." ValueChanged="OnSearch" />
+    </RadzenFormField>*@
+</RadzenStack>
+
 <RadzenDataGrid TItem="TEntity" style="height: auto" @ref="_grid"
                 Count="_count"
                 Data="_items"

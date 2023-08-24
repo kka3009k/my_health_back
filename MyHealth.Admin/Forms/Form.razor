@@ -1,0 +1,13 @@
+﻿@typeparam TEntity
+
+<ListForm TEntity="TEntity" @ref="_listForm" OnEdit="OnEditClick">
+    <Columns>
+        @Columns
+    </Columns>
+</ListForm>
+
+<EditEntityForm TEntity="TEntity" @ref="_editForm" OnSave="OnSaveClick" OnCancel="OnCancelClick">
+    <Fields Context="ctx">
+        @Fields(ctx)
+    </Fields>
+</EditEntityForm>

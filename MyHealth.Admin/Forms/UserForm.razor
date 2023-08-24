@@ -1,6 +1,4 @@
-﻿@inherits FormBase<User>
-
-<ListForm TEntity="User" @ref="_listForm" OnEdit="OnEditClick">
+﻿<Form TEntity="User">
     <Columns>
         <RadzenDataGridColumn TItem="User" Property="@nameof(User.ID)" Title="ID" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
         <RadzenDataGridColumn TItem="User" Property="@nameof(User.Phone)" Title="Phone" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
@@ -10,10 +8,7 @@
         <RadzenDataGridColumn TItem="User" Property="@nameof(User.Email)" Title="Email" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
         <RadzenDataGridColumn TItem="User" Property="@nameof(User.INN)" Title="INN" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
     </Columns>
-</ListForm>
-
-<EditEntityForm TEntity="User" @ref="_editForm" OnSave="OnSaveClick" OnCancel="OnCancelClick">
-    <Fields Context="ctx">
+     <Fields Context="ctx">
         <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
             <RadzenFormField Text="Phone">
                 <RadzenTextBox @bind-Value="@ctx.Phone" />
@@ -24,5 +19,45 @@
                 <RadzenTextBox @bind-Value="@ctx.FirstName" />
             </RadzenFormField>
         </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="LastName">
+                <RadzenTextBox @bind-Value="@ctx.LastName" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Patronymic">
+                <RadzenTextBox @bind-Value="@ctx.Patronymic" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Email">
+                <RadzenTextBox @bind-Value="@ctx.Email" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="FirebaseUid">
+                <RadzenTextBox @bind-Value="@ctx.FirebaseUid" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="INN">
+                <RadzenTextBox @bind-Value="@ctx.INN" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="BirthDate">
+                <RadzenDatePicker @bind-Value="@ctx.BirthDate" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Address">
+                <RadzenTextBox @bind-Value="@ctx.Address" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Gender">
+                <EnumField TEnum="GenderTypes?" @bind-Value="@ctx.Gender" />
+            </RadzenFormField>
+        </RadzenColumn>
     </Fields>
-</EditEntityForm>
+</Form>

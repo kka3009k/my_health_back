@@ -4,8 +4,14 @@ using MyHealth.Data.Entities;
 
 namespace MyHealth.Admin.Forms
 {
-    public class FormBase<TEntity> : ComponentBase where TEntity : EntityBase
+    public partial class Form<TEntity> where TEntity : EntityBase
     {
+        [Parameter]
+        public RenderFragment Columns { get; set; }
+
+        [Parameter]
+        public RenderFragment<TEntity> Fields { get; set; }
+
         private protected ListForm<TEntity> _listForm;
         private protected EditEntityForm<TEntity> _editForm;
 
