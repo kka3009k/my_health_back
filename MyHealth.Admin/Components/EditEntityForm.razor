@@ -3,5 +3,5 @@
 <RadzenRow AlignItems="AlignItems.End" Wrap="FlexWrap.Wrap" Gap="1rem" Class="rz-p-sm-12" Visible="_isEdit">
     @Fields(_item)
     <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="save" class="mt-2 mb-4" Text="Сохранить" Click="SaveClick" />
-    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="cancel" class="mt-2 mb-4" Text="Отмена" Click="() => OnCancel.InvokeAsync()" />
+    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="cancel" class="mt-2 mb-4" Text="Отмена" Click="CancelClick" />
 </RadzenRow>

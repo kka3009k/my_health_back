@@ -28,7 +28,7 @@ namespace MyHealth.Admin.Shared
 
         private void CheckAuth(CancellationToken? token)
         {
-            _navigationManager.NavigateTo(_userStateService.IsAuthenticated ? "adminpanel" : "login");
+            _navigationManager.NavigateTo(_userStateService.IsAuthenticated ? "admin/adminpanel" : "admin/login");
         }
 
         private async void OnUnauthorized(CancellationToken? token)

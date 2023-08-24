@@ -29,5 +29,11 @@ namespace MyHealth.Admin.Components
             _isEdit = false;
             OnSave.InvokeAsync();
         }
+
+        private void CancelClick()
+        {
+            _isEdit = false;
+            OnCancel.InvokeAsync();
+        }
     }
 }

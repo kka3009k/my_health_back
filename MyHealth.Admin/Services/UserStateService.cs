@@ -41,7 +41,7 @@ namespace MyHealth.Admin.Services
         public async Task SignOutAsync(CancellationToken token = default)
         {
             Token = string.Empty;
-            await _localStorageService.RemoveItemAsync("Token", token);
+            await _localStorageService.RemoveItemAsync("token", token);
             OnSignOut?.Invoke(token);
         }
     }
