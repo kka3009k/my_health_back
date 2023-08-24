@@ -15,7 +15,7 @@
 
         public static void FillField<TEntity>(this TEntity pTarget, DateTime? pOld, DateTime? pNew, Action<DateTime?> pAction)
         {
-            if (pNew != null && (!pOld?.Equals(pNew) ?? false))
+            if (pNew != null && (!pOld?.Equals(pNew) ?? true))
                 pAction(pNew);
         }
 
