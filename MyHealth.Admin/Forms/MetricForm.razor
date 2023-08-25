@@ -10,5 +10,50 @@
                 <SelectField TEntity="User" TValue="int" @bind-Value="@ctx.UserID" TextProperty="@nameof(User.FirstName)" ValueProperty="@nameof(User.ID)" />
             </RadzenFormField>
         </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="DateFilling">
+                <RadzenDatePicker @bind-Value="@ctx.DateFilling" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Height">
+                <RadzenNumeric @bind-Value="@ctx.Height" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Weight">
+                <RadzenNumeric @bind-Value="@ctx.Weight" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Saturation">
+                <RadzenNumeric @bind-Value="@ctx.Saturation" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Pulse">
+                <RadzenNumeric @bind-Value="@ctx.Pulse" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="IntraocularPressure">
+                <RadzenNumeric @bind-Value="@ctx.IntraocularPressure" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="AbdominalGirth">
+                <RadzenNumeric @bind-Value="@ctx.AbdominalGirth" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="ArterialPressureUpper">
+                <RadzenNumeric @bind-Value="@ctx.ArterialPressureUpper" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="ArterialPressureLower">
+                <RadzenNumeric @bind-Value="@ctx.ArterialPressureLower" />
+            </RadzenFormField>
+        </RadzenColumn>
     </Fields>
 </Form>
