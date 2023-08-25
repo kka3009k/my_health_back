@@ -1,4 +1,4 @@
 ﻿@typeparam TEnum
 
-<RadzenDropDown TValue="object" Value="Value as int?" ValueChanged="v=> ValueChanged.InvokeAsync((TEnum)v)" Data="_values"
+<RadzenDropDown TValue="TEnum" Value="Value" ValueChanged="v=> ValueChanged.InvokeAsync(v)" Data="_values"
                 TextProperty="@nameof(DictionaryDto.Value)" ValueProperty="@nameof(DictionaryDto.Key)" />

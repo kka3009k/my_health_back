@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyHealth.Common\MyHealth.Common.csproj" />
     <ProjectReference Include="..\MyHealth.Data\MyHealth.Data.csproj" />
   </ItemGroup>
   

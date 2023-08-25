@@ -55,8 +55,23 @@
             </RadzenFormField>
         </RadzenColumn>
         <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Role">
+                <EnumField TEnum="RoleTypes?" @bind-Value="@ctx.Role" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
             <RadzenFormField Text="Gender">
                 <EnumField TEnum="GenderTypes?" @bind-Value="@ctx.Gender" />
+            </RadzenFormField>
+        </RadzenColumn>
+         <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="Blood">
+                <EnumField TEnum="BloodTypes?" @bind-Value="@ctx.Blood" />
+            </RadzenFormField>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="RhFactor">
+                <EnumField TEnum="RhFactorTypes?" @bind-Value="@ctx.RhFactor" />
             </RadzenFormField>
         </RadzenColumn>
     </Fields>

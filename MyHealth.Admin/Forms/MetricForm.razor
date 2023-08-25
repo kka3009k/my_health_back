@@ -1,0 +1,14 @@
+﻿<Form TEntity="Metric">
+    <Columns>
+        <RadzenDataGridColumn TItem="Metric" Property="@nameof(Metric.ID)" Title="ID" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn TItem="Metric" Property="@nameof(Metric.UserID)" Title="UserID" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn TItem="Metric" Property="@nameof(Metric.DateFilling)" Title="DateFilling" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
+    </Columns>
+    <Fields Context="ctx">
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="UserID">
+                <SelectField TEntity="User" TValue="int" @bind-Value="@ctx.UserID" TextProperty="@nameof(User.FirstName)" ValueProperty="@nameof(User.ID)" />
+            </RadzenFormField>
+        </RadzenColumn>
+    </Fields>
+</Form>

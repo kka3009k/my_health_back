@@ -10,16 +10,22 @@ namespace MyHealth.Data.Dto
     /// <summary>
     /// Справочник
     /// </summary>
-    public class DictionaryDto
+    public class DictionaryDto<TKey, TValue>
     {
         /// <summary>
         /// Ключ
         /// </summary>
-        public int? Key { get; set; }
+        public TKey Key { get; set; }
 
         /// <summary>
         /// Значение
         /// </summary>
-        public string? Value { get; set; }
+        public TValue Value { get; set; }
+    }
+
+
+    public class DictionaryDto : DictionaryDto<int?, string?>
+    {
+
     }
 }

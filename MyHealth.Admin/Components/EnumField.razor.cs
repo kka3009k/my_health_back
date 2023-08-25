@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MyHealth.Common;
 using MyHealth.Data.Dto;
 using System.ComponentModel;
 using System.Reflection;
@@ -13,16 +14,16 @@ namespace MyHealth.Admin.Components
         [Parameter]
         public EventCallback<TEnum> ValueChanged { get; set; }
 
-        private List<DictionaryDto> _values;
+        private List<DictionaryDto<TEnum, string>> _values;
 
         protected override void OnInitialized()
         {
-            _values = GetEnumValues(typeof(TEnum));
+            _values = GetEnumValues(ValueUtil.GetType(typeof(TEnum)));
         }
 
-        private List<DictionaryDto> GetEnumValues(Type pType)
+        private List<DictionaryDto<TEnum, string>> GetEnumValues(Type pType)
         {
-            var dictionaries = new List<DictionaryDto>();
+            var dictionaries = new List<DictionaryDto<TEnum, string>>();
 
             foreach (var enumMemberName in Enum.GetValues(pType))
             {
@@ -30,9 +31,7 @@ namespace MyHealth.Admin.Components
 
                 var description = memInfo[0].GetCustomAttribute<DescriptionAttribute>();
 
-                var enumMemberValue = Convert.ToInt32(enumMemberName);
-
-                dictionaries.Add(new DictionaryDto { Key = enumMemberValue, Value = description.Description.Trim() });
+                dictionaries.Add(new DictionaryDto<TEnum, string> { Key = (TEnum)enumMemberName, Value = description.Description.Trim() });
             }
 
             return dictionaries;

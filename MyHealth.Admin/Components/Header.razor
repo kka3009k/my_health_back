@@ -1,6 +1,7 @@
 ﻿<RadzenMenu Click="args=> { if(args.Value != null) Click.InvokeAsync((Type)args.Value);}">
     <RadzenMenuItem Text="Справочники" Icon="analytics">
         <RadzenMenuItem Text="Пользователи" Icon="account_circle" Value="typeof(UserForm)"></RadzenMenuItem>
+        <RadzenMenuItem Text="Метрика" Icon="volunteer_activism" Value="typeof(MetricForm)"></RadzenMenuItem>
     </RadzenMenuItem>
     <RadzenMenuItem Icon="account_box">
         <RadzenMenuItem Text="Выйти" Click="OnSignOutClick"></RadzenMenuItem>

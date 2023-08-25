@@ -20,9 +20,6 @@ namespace MyHealth.Admin.Components
         public EventCallback<TEntity> OnEdit { get; set; }
 
         [Inject]
-        private HttpClient _client { get; set; }
-
-        [Inject]
         private IDbContextFactory<MyDbContext> _dbFactory { get; set; }
 
         [Inject]
