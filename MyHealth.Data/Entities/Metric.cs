@@ -39,9 +39,14 @@ namespace MyHealth.Data.Entities
         public int? Pulse { get; set; }
 
         /// <summary>
-        /// Глазное давление
+        /// Глаз. давление левое
         /// </summary>
-        public int? IntraocularPressure { get; set; }
+        public int? IntraocularPressureLeft { get; set; }
+
+        /// <summary>
+        /// Глаз. давление правое
+        /// </summary>
+        public int? IntraocularPressureRight { get; set; }
 
         /// <summary>
         /// Обхват живота

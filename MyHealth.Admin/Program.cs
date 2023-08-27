@@ -47,6 +47,8 @@ namespace MyHealth.Admin
 
             builder.Services.AddScoped<NotificationService>();
 
+            builder.Services.AddScoped<DialogService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

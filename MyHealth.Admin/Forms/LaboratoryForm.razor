@@ -1,0 +1,13 @@
+﻿<Form TEntity="Laboratory">
+    <Columns>
+        <RadzenDataGridColumn TItem="Laboratory" Property="@nameof(Laboratory.ID)" Title="ID" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn TItem="Laboratory" Property="@nameof(Laboratory.Name)" Title="@nameof(Laboratory.Name)" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
+    </Columns>
+    <Fields Context="ctx">
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="@nameof(Laboratory.Name)">
+                <RadzenTextBox @bind-Value="@ctx.Name" />
+            </RadzenFormField>
+        </RadzenColumn>
+    </Fields>
+</Form>

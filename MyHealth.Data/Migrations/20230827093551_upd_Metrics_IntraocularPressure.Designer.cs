@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyHealth.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyHealth.Data.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230827093551_upd_Metrics_IntraocularPressure")]
+    partial class upd_Metrics_IntraocularPressure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,115 +24,6 @@ namespace MyHealth.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("MyHealth.Data.Entities.Analysis", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("AnalysisTypeID")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<string>("ExtraInfo")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("LaboratoryID")
-                        .IsRequired()
-                        .HasColumnType("integer");
-
-                    b.Property<double?>("Price")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AnalysisTypeID");
-
-                    b.HasIndex("LaboratoryID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Analyzes");
-                });
-
-            modelBuilder.Entity("MyHealth.Data.Entities.AnalysisFile", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("AnalysisID")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.Property<int>("FileID")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AnalysisID");
-
-                    b.HasIndex("FileID");
-
-                    b.ToTable("AnalysisFiles");
-                });
-
-            modelBuilder.Entity("MyHealth.Data.Entities.AnalysisType", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AnalysisTypes");
-                });
 
             modelBuilder.Entity("MyHealth.Data.Entities.FileStorage", b =>
                 {
@@ -160,34 +54,6 @@ namespace MyHealth.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("FileStorages");
-                });
-
-            modelBuilder.Entity("MyHealth.Data.Entities.Laboratory", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(350)
-                        .HasColumnType("character varying(350)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("now()");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Laboratories");
                 });
 
             modelBuilder.Entity("MyHealth.Data.Entities.Metric", b =>
@@ -360,52 +226,6 @@ namespace MyHealth.Data.Migrations
                     b.HasIndex("AvatarFileID");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MyHealth.Data.Entities.Analysis", b =>
-                {
-                    b.HasOne("MyHealth.Data.Entities.AnalysisType", "AnalysisType")
-                        .WithMany()
-                        .HasForeignKey("AnalysisTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyHealth.Data.Entities.Laboratory", "Laboratory")
-                        .WithMany()
-                        .HasForeignKey("LaboratoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyHealth.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AnalysisType");
-
-                    b.Navigation("Laboratory");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyHealth.Data.Entities.AnalysisFile", b =>
-                {
-                    b.HasOne("MyHealth.Data.Entities.Analysis", "Analysis")
-                        .WithMany()
-                        .HasForeignKey("AnalysisID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyHealth.Data.Entities.FileStorage", "File")
-                        .WithMany()
-                        .HasForeignKey("FileID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Analysis");
-
-                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("MyHealth.Data.Entities.Metric", b =>

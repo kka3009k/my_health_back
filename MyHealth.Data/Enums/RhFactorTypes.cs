@@ -7,10 +7,10 @@ namespace MyHealth.Data.Entities
     /// </summary>
     public enum RhFactorTypes
     {
-        [Description("Положительная")]
+        [Description("Положительный")]
         Positive = 1,
 
-        [Description("Отрицательная")]
+        [Description("Отрицательный")]
         Negative
     }
 }

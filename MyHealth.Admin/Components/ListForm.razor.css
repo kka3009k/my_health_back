@@ -1,0 +1,17 @@
+﻿.component-wrapper {
+    border-top: solid #4340d2;
+    border-left: solid #4340d2;
+    border-right: solid #4340d2;
+    border-radius: 5px;
+    padding: 15px 10px 10px;
+}
+
+.component-wrapper .component-header {
+    position: absolute;
+    margin-top: -25px;
+    margin-left: 10px;
+    color: white;
+    background: #4340d2;
+    border-radius: 10px;
+    padding: 2px 10px;
+}

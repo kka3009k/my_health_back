@@ -62,7 +62,8 @@ namespace MyHealth.Api.Controllers
                 ArterialPressureUpper = currentMetric.ArterialPressureUpper,
                 DateFilling = currentMetric.DateFilling,
                 Height = currentMetric.Height,
-                IntraocularPressure = currentMetric.IntraocularPressure,
+                IntraocularPressureLeft = currentMetric.IntraocularPressureLeft,
+                IntraocularPressureRight = currentMetric.IntraocularPressureRight,
                 Pulse = currentMetric.Pulse,
                 Weight = currentMetric.Weight,
             });
@@ -98,7 +99,8 @@ namespace MyHealth.Api.Controllers
             metric.FillField(metric.ArterialPressureLower, pMetric.ArterialPressureLower, v => metric.ArterialPressureLower = v);
             metric.FillField(metric.ArterialPressureUpper, pMetric.ArterialPressureUpper, v => metric.ArterialPressureUpper = v);
             metric.FillField(metric.Height, pMetric.Height, v => metric.Height = v);
-            metric.FillField(metric.IntraocularPressure, pMetric.IntraocularPressure, v => metric.IntraocularPressure = v);
+            metric.FillField(metric.IntraocularPressureLeft, pMetric.IntraocularPressureLeft, v => metric.IntraocularPressureLeft = v);
+            metric.FillField(metric.IntraocularPressureRight, pMetric.IntraocularPressureRight, v => metric.IntraocularPressureRight = v);
             metric.FillField(metric.Pulse, pMetric.Pulse, v => metric.Pulse = v);
             metric.FillField(metric.Weight, pMetric.Weight, v => metric.Weight = v);
 
@@ -134,10 +136,10 @@ namespace MyHealth.Api.Controllers
                     MetricTypes.Weight => nameof(Metric.Weight),
                     MetricTypes.Saturation => nameof(Metric.Saturation),
                     MetricTypes.Pulse => nameof(Metric.Pulse),
-                    MetricTypes.IntraocularPressure => nameof(Metric.IntraocularPressure),
+                    MetricTypes.IntraocularPressure => $"{nameof(Metric.IntraocularPressureLeft)}, {nameof(Metric.IntraocularPressureRight)}",
                     MetricTypes.AbdominalGirth => nameof(Metric.AbdominalGirth),
                     MetricTypes.ArterialPressure => $"{nameof(Metric.ArterialPressureLower)}, {nameof(Metric.ArterialPressureUpper)}",
-                    _ => $"{nameof(Metric.Height)}, {nameof(Metric.Weight)}, {nameof(Metric.Saturation)}, {nameof(Metric.Pulse)}, {nameof(Metric.IntraocularPressure)}, {nameof(Metric.AbdominalGirth)}, {nameof(Metric.ArterialPressureLower)}, {nameof(Metric.ArterialPressureUpper)}"
+                    _ => $"{nameof(Metric.Height)}, {nameof(Metric.Weight)}, {nameof(Metric.Saturation)}, {nameof(Metric.Pulse)}, {nameof(Metric.IntraocularPressureLeft)}, {nameof(Metric.IntraocularPressureRight)}, {nameof(Metric.AbdominalGirth)}, {nameof(Metric.ArterialPressureLower)}, {nameof(Metric.ArterialPressureUpper)}"
                 } + " }");
 
             var metrics = await query.ToDynamicListAsync();

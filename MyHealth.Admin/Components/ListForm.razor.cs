@@ -25,6 +25,9 @@ namespace MyHealth.Admin.Components
         [Inject]
         private SpinnerService _spinner { get; set; }
 
+        [Inject]
+        private DialogService _dialogService { get; set; }
+
         private MyDbContext _ctx;
 
         private RadzenDataGrid<TEntity> _grid { get; set; }
@@ -115,6 +118,11 @@ namespace MyHealth.Admin.Components
         {
             _searchString = pText;
             await _grid.Reload();
+        }
+
+        private async Task OnDeleteClick(TEntity pItem)
+        {
+            var result = await _dialogService.Confirm("Вы уверенны что хотите удалить запись?", "Подтверждение", new ConfirmOptions { OkButtonText = "Да", CancelButtonText = "Нет" });
         }
     }
 }

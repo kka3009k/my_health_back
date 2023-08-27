@@ -66,6 +66,34 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
         public IActionResult GetMetricTypes() => Ok(GetEnumValues(typeof(MetricTypes)));
 
+        /// <summary>
+        /// Типы анализа
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("analysis_types")]
+        [ProducesResponseType(typeof(List<AnalysisTypeDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAnalysisTypes()
+        {
+            var analysisTypes = await _db.AnalysisTypes
+                .Select(s => new AnalysisTypeDto { ID = s.ID, Name = s.Name })
+                .ToListAsync();
+            return Ok(analysisTypes);
+        }
+
+        /// <summary>
+        /// Лаборатории
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("laboratories")]
+        [ProducesResponseType(typeof(List<LaboratoryDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetLaboratories()
+        {
+            var laboratories = await _db.Laboratories
+                 .Select(s => new LaboratoryDto { ID = s.ID, Name = s.Name })
+                .ToListAsync();
+            return Ok(laboratories);
+        }
+
         private List<DictionaryDto> GetEnumValues(Type pType)
         {
             var dictionaries = new List<DictionaryDto>();
