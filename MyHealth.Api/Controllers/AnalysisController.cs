@@ -13,7 +13,7 @@ using System.Reflection;
 namespace MyHealth.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("analyzes")]
     public class AnalysisController : ControllerBase
     {
         private readonly ILogger<AnalysisController> _logger;
@@ -35,7 +35,7 @@ namespace MyHealth.Api.Controllers
         /// <param name="pStart">Дата начала</param>
         /// <param name="pEnd">Дата окончаня</param>
         /// <returns></returns>
-        [HttpGet("analyzes")]
+        [HttpGet]
         [ProducesResponseType(typeof(List<GetAnalyzesRes>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAnalyzes(DateTime pStart, DateTime pEnd)
@@ -61,7 +61,7 @@ namespace MyHealth.Api.Controllers
         /// </summary>
         /// <param name="id">Код анализа</param>
         /// <returns></returns>
-        [HttpGet("analyzes/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(AnalysisDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAnalysis(int id)
@@ -141,7 +141,7 @@ namespace MyHealth.Api.Controllers
         /// </summary>
         /// <param name="pAnalysis"></param>
         /// <returns></returns>
-        [HttpPost("update")]
+        [HttpPut("update")]
         [ProducesResponseType(typeof(AnalysisDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateAnalysis([FromForm] UpdAnalysisPar pAnalysis)
         {
@@ -182,6 +182,25 @@ namespace MyHealth.Api.Controllers
 
             var analysisDto = await GetAnalysis(analysis.ID);
             return Ok(analysisDto);
+        }
+
+        /// <summary>
+        /// Удалить анализ
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAnalysis(int id)
+        {
+            var analysis = await _db.Analyzes.FirstOrDefaultAsync(f => f.ID == id);
+
+            if (analysis == null)
+                return BadRequest("Анализ не найден");
+
+            _db.Remove(analysis);
+            await _db.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }
