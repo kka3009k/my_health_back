@@ -30,10 +30,10 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Получить анализы
+        /// РџРѕР»СѓС‡РёС‚СЊ Р°РЅР°Р»РёР·С‹
         /// </summary>
-        /// <param name="pStart">Дата начала</param>
-        /// <param name="pEnd">Дата окончаня</param>
+        /// <param name="pStart">Р”Р°С‚Р° РЅР°С‡Р°Р»Р°</param>
+        /// <param name="pEnd">Р”Р°С‚Р° РѕРєРѕРЅС‡Р°РЅСЏ</param>
         /// <returns></returns>
         [HttpGet("analyzes")]
         [ProducesResponseType(typeof(List<GetAnalyzesRes>), (int)HttpStatusCode.OK)]
@@ -44,7 +44,7 @@ namespace MyHealth.Api.Controllers
             var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
 
             if (!hasUser)
-                return BadRequest("Пользователь не найден");
+                return BadRequest("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ");
 
             var analyzes = await _db.Analyzes.Where(w => w.UserID == userId && w.Date >= pStart && w.Date <= pEnd).Select(s => new GetAnalyzesRes
             {
@@ -57,9 +57,9 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Получить анализ
+        /// РџРѕР»СѓС‡РёС‚СЊ Р°РЅР°Р»РёР·
         /// </summary>
-        /// <param name="id">Код анализа</param>
+        /// <param name="id">РљРѕРґ Р°РЅР°Р»РёР·Р°</param>
         /// <returns></returns>
         [HttpGet("analyzes/{id}")]
         [ProducesResponseType(typeof(AnalysisDto), (int)HttpStatusCode.OK)]
@@ -70,12 +70,12 @@ namespace MyHealth.Api.Controllers
             var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
 
             if (!hasUser)
-                return BadRequest("Пользователь не найден");
+                return BadRequest("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ");
 
             var analysis = await _db.Analyzes.FirstOrDefaultAsync(f => f.ID == id);
 
             if (analysis == null)
-                return BadRequest("Анализ не найден");
+                return BadRequest("РђРЅР°Р»РёР· РЅРµ РЅР°Р№РґРµРЅ");
 
             var analysisDto = new AnalysisDto();
             analysisDto.ID = analysis.ID;
@@ -93,7 +93,7 @@ namespace MyHealth.Api.Controllers
 
 
         /// <summary>
-        /// Добавить анализ
+        /// Р”РѕР±Р°РІРёС‚СЊ Р°РЅР°Р»РёР·
         /// </summary>
         /// <param name="pAnalysis"></param>
         /// <returns></returns>
@@ -105,7 +105,7 @@ namespace MyHealth.Api.Controllers
             var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
 
             if (!hasUser)
-                return BadRequest("Пользователь не найден");
+                return BadRequest("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ");
 
             var analysis = new Analysis();
             analysis.AnalysisTypeID = pAnalysis.AnalysisTypeID;
@@ -137,7 +137,7 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Обновить анализ
+        /// РћР±РЅРѕРІРёС‚СЊ Р°РЅР°Р»РёР·
         /// </summary>
         /// <param name="pAnalysis"></param>
         /// <returns></returns>
@@ -149,13 +149,13 @@ namespace MyHealth.Api.Controllers
             var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
 
             if (!hasUser)
-                return BadRequest("Пользователь не найден");
+                return BadRequest("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ");
 
 
             var analysis = await _db.Analyzes.FirstOrDefaultAsync(f => f.ID == pAnalysis.ID);
 
             if (analysis == null)
-                return BadRequest("Анализ не найден");
+                return BadRequest("РђРЅР°Р»РёР· РЅРµ РЅР°Р№РґРµРЅ");
 
             analysis.FillField(analysis.AnalysisTypeID, pAnalysis.AnalysisTypeID, f => analysis.AnalysisTypeID = pAnalysis.AnalysisTypeID);
             analysis.FillField(analysis.LaboratoryID, pAnalysis.LaboratoryID, f => analysis.LaboratoryID = pAnalysis.LaboratoryID);
