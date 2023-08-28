@@ -19,6 +19,12 @@ namespace MyHealth.Data.Entities
 
         public string Extension { get; set; }
 
+        #region Relationships
+
+        public ICollection<AnalysisFile> AnalysisFiles { get; set; }
+
+        #endregion
+
         private protected override void CustomConfigure(EntityTypeBuilder<FileStorage> pBuilder)
         {
 

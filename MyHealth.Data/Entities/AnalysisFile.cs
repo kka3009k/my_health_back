@@ -24,7 +24,7 @@ namespace MyHealth.Data.Entities
         private protected override void CustomConfigure(EntityTypeBuilder<AnalysisFile> pBuilder)
         {
             pBuilder.HasOne(h => h.Analysis).WithMany().HasForeignKey(h => h.AnalysisID);
-            pBuilder.HasOne(h => h.File).WithMany().HasForeignKey(h => h.FileID);
+            pBuilder.HasOne(h => h.File).WithMany(w => w.AnalysisFiles).HasForeignKey(h => h.FileID);
         }
     }
 }

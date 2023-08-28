@@ -28,7 +28,7 @@ namespace MyHealth.Admin.Components
         [Inject]
         private DialogService _dialogService { get; set; }
 
-        private MyDbContext _ctx;
+        private MyDbContext _db;
 
         private RadzenDataGrid<TEntity> _grid { get; set; }
 
@@ -44,7 +44,7 @@ namespace MyHealth.Admin.Components
 
         protected override void OnInitialized()
         {
-            _ctx = _dbFactory.CreateDbContext();
+            _db = _dbFactory.CreateDbContext();
         }
 
         private async Task LoadData(LoadDataArgs args)
@@ -52,7 +52,7 @@ namespace MyHealth.Admin.Components
             await _spinner.RunAsync(async () =>
             {
                 // This demo is using https://dynamic-linq.net
-                var query = _ctx.Set<TEntity>().AsNoTracking();
+                var query = _db.Set<TEntity>().AsNoTracking();
 
                 if (!string.IsNullOrEmpty(args.Filter))
                 {
@@ -84,7 +84,7 @@ namespace MyHealth.Admin.Components
         {
             await _spinner.RunAsync(async () =>
              {
-                 _selectedItem = await _ctx.Set<TEntity>().FirstOrDefaultAsync(f => f.ID == pItem.ID);
+                 _selectedItem = await _db.Set<TEntity>().FirstOrDefaultAsync(f => f.ID == pItem.ID);
                  StartEdit();
              });
         }
@@ -100,9 +100,9 @@ namespace MyHealth.Admin.Components
             await _spinner.RunAsync(async () =>
               {
                   if (_selectedItem.ID == 0)
-                      await _ctx.AddAsync(_selectedItem);
+                      await _db.AddAsync(_selectedItem);
 
-                  await _ctx.SaveChangesAsync();
+                  await _db.SaveChangesAsync();
 
                   await EndEdit();
               });
@@ -123,6 +123,12 @@ namespace MyHealth.Admin.Components
         private async Task OnDeleteClick(TEntity pItem)
         {
             var result = await _dialogService.Confirm("Вы уверенны что хотите удалить запись?", "Подтверждение", new ConfirmOptions { OkButtonText = "Да", CancelButtonText = "Нет" });
+
+            if (result == true)
+            {
+                await _spinner.RunAsync(async () => await _db.Set<TEntity>().Where(w => w.ID == pItem.ID).ExecuteDeleteAsync());
+                await _grid.Reload();
+            }
         }
     }
 }

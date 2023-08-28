@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using MyHealth.Api.Swagger;
 using MyHealth.Api.Service;
 using MyHealth.Api.Static;
+using Newtonsoft.Json;
 
 namespace MyHealth.Api.Extension;
 
@@ -76,6 +77,7 @@ public static class ServiceExtension
         });
         services.AddHttpContextAccessor();
         services.AddScoped<HttpContextService>();
+        services.AddScoped<FileStorageService>();
     }
 
     public static void ConfigureDbContext(this IServiceCollection services)

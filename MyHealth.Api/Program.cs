@@ -15,7 +15,12 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
+    options.SerializerSettings.DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZ";
+});
+
 FirebaseApp.Create(new AppOptions { Credential = GoogleCredential.FromFile("firebase_key.json") });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureDbContext();

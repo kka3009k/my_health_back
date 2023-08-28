@@ -21,12 +21,14 @@ namespace MyHealth.Api.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly MyDbContext _db;
         private HttpContextService _contextService;
+        private readonly FileStorageService _fileStorageService;
 
-        public UserController(ILogger<UserController> logger, MyDbContext pDb, HttpContextService pContextService)
+        public UserController(ILogger<UserController> logger, MyDbContext pDb, HttpContextService pContextService, FileStorageService pFileStorageService)
         {
             _logger = logger;
             _db = pDb;
             _contextService = pContextService;
+            _fileStorageService = pFileStorageService;
         }
 
         /// <summary>
@@ -96,7 +98,7 @@ namespace MyHealth.Api.Controllers
                 INN = user.INN,
             };
 
-            userDto.AvatarUrl = await GetFilePath(user.AvatarFileID);
+            userDto.AvatarUrl = await _fileStorageService.GetFilePathAsync(user.AvatarFileID);
             return userDto;
         }
 
@@ -117,39 +119,12 @@ namespace MyHealth.Api.Controllers
             if (user == null)
                 return BadRequest("Пользователь не найден");
 
-            var fileInfo = pFile.FileName.Split('.');
-            var file = new FileStorage
-            {
-                Name = fileInfo[0],
-                Extension = fileInfo.Length > 1 ? fileInfo[fileInfo.Length - 1] : string.Empty,
-            };
-
-            await _db.AddAsync(file);
-            await _db.SaveChangesAsync();
-
-            using (var stream = new FileStream(Path.Combine(Constants.FileStoragePath, $"{file.ID}.{file.Extension}"), FileMode.Create))
-            {
-                //copy the contents of the received file to the newly created local file 
-                await pFile.CopyToAsync(stream);
-            }
+            var file = await _fileStorageService.SaveFileAsync(pFile);
 
             user.AvatarFileID = file.ID;
             await _db.SaveChangesAsync();
-            var path = await GetFilePath(file.ID);
+            var path = _fileStorageService.GetFilePath(file);
             return Ok(path);
-        }
-
-        private async Task<string> GetFilePath(int? pFileID)
-        {
-            if (pFileID == null)
-                return string.Empty;
-
-            var file = await _db.FileStorages.FirstOrDefaultAsync(f => f.ID == pFileID);
-
-            if (file == null)
-                return string.Empty;
-
-            return  $"{Constants.FileStorageName}/{file.ID}.{file.Extension}";
         }
     }
 }

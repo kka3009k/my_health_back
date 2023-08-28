@@ -58,6 +58,9 @@ namespace MyHealth.Data
 
         public DbSet<Laboratory> Laboratories { get; set; }
 
+        public DbSet<Analysis> Analyzes { get; set; }
+        public DbSet<AnalysisFile> AnalysisFiles { get; set; }
+
         #endregion
 
         #region Private methodes

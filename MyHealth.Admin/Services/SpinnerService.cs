@@ -1,9 +1,18 @@
-﻿namespace MyHealth.Admin.Services
+﻿using Radzen;
+
+namespace MyHealth.Admin.Services
 {
     public class SpinnerService
     {
         public event Action<CancellationToken?> OnShow;
         public event Action<CancellationToken?> OnHide;
+
+        private NotificationService _notificationService;
+
+        public SpinnerService(NotificationService pNotificationService)
+        {
+            _notificationService = pNotificationService;
+        }
 
         private void Show()
         {
