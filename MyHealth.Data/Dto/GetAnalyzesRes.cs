@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace MyHealth.Data.Dto
     public class GetAnalyzesRes : EntityBaseDto
     {
         /// <summary>
-        /// Наименование анализа
+        /// Наименование
         /// </summary>
-        public string AnalysisTypeName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Дата анализа

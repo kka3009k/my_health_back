@@ -49,7 +49,7 @@ namespace MyHealth.Api.Controllers
             var analyzes = await _db.Analyzes.Where(w => w.UserID == userId && w.Date >= pStart && w.Date <= pEnd).Select(s => new GetAnalyzesRes
             {
                 ID = s.ID,
-                AnalysisTypeName = s.AnalysisType.Name,
+                Name = s.Name,
                 Date = s.Date,
             }).ToListAsync();
 
@@ -80,7 +80,7 @@ namespace MyHealth.Api.Controllers
             var analysisDto = new AnalysisDto();
             analysisDto.ID = analysis.ID;
             analysisDto.LaboratoryID = analysis.LaboratoryID;
-            analysisDto.AnalysisTypeID = analysis.AnalysisTypeID;
+            analysisDto.Name = analysis.Name;
             analysisDto.Date = analysis.Date;
             analysisDto.ExtraInfo = analysis.ExtraInfo;
             analysisDto.Price = analysis.Price;
@@ -108,7 +108,7 @@ namespace MyHealth.Api.Controllers
                 return BadRequest("Пользователь не найден");
 
             var analysis = new Analysis();
-            analysis.AnalysisTypeID = pAnalysis.AnalysisTypeID;
+            analysis.Name = pAnalysis.Name;
             analysis.LaboratoryID = pAnalysis.LaboratoryID;
             analysis.Date = pAnalysis.Date;
             analysis.Price = pAnalysis.Price;
@@ -157,7 +157,7 @@ namespace MyHealth.Api.Controllers
             if (analysis == null)
                 return BadRequest("Анализ не найден");
 
-            analysis.FillField(analysis.AnalysisTypeID, pAnalysis.AnalysisTypeID, f => analysis.AnalysisTypeID = pAnalysis.AnalysisTypeID);
+            analysis.FillField(analysis.Name, pAnalysis.Name, f => analysis.Name = pAnalysis.Name);
             analysis.FillField(analysis.LaboratoryID, pAnalysis.LaboratoryID, f => analysis.LaboratoryID = pAnalysis.LaboratoryID);
             analysis.FillField(analysis.Date, pAnalysis.Date, f => analysis.Date = pAnalysis.Date);
             analysis.FillField(analysis.Price, pAnalysis.Price, f => analysis.Price = pAnalysis.Price);

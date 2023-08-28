@@ -67,20 +67,6 @@ namespace MyHealth.Api.Controllers
         public IActionResult GetMetricTypes() => Ok(GetEnumValues(typeof(MetricTypes)));
 
         /// <summary>
-        /// Типы анализа
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("analysis_types")]
-        [ProducesResponseType(typeof(List<AnalysisTypeDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAnalysisTypes()
-        {
-            var analysisTypes = await _db.AnalysisTypes
-                .Select(s => new AnalysisTypeDto { ID = s.ID, Name = s.Name })
-                .ToListAsync();
-            return Ok(analysisTypes);
-        }
-
-        /// <summary>
         /// Лаборатории
         /// </summary>
         /// <returns></returns>

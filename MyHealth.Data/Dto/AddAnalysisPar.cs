@@ -14,10 +14,11 @@ namespace MyHealth.Data.Dto
     public class AddAnalysisPar
     {
         /// <summary>
-        /// Тип анализа
+        /// Наименование
         /// </summary>
         [Required]
-        public int AnalysisTypeID { get; set; }
+        [StringLength(30)]
+        public string Name { get; set; }
 
         /// <summary>
         /// Дата анализа
@@ -38,6 +39,7 @@ namespace MyHealth.Data.Dto
         /// <summary>
         /// Доп. информация
         /// </summary>
+        [StringLength(150)]
         public string? ExtraInfo { get; set; }
 
         public IFormFile? File { get; set; }

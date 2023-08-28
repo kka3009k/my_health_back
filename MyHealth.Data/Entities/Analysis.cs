@@ -18,8 +18,10 @@ namespace MyHealth.Data.Entities
         public int UserID { get; set; }
         public User User { get; set; }
 
-        public int AnalysisTypeID { get; set; }
-        public AnalysisType AnalysisType { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string Name { get; set; }
 
         /// <summary>
         /// Дата анализа
@@ -39,12 +41,12 @@ namespace MyHealth.Data.Entities
         /// <summary>
         /// Доп. информация
         /// </summary>
+        [StringLength(150)]
         public string? ExtraInfo { get; set; }
 
 
         private protected override void CustomConfigure(EntityTypeBuilder<Analysis> pBuilder)
         {
-            pBuilder.HasOne(h => h.AnalysisType).WithMany().HasForeignKey(h => h.AnalysisTypeID);
             pBuilder.HasOne(h => h.Laboratory).WithMany().HasForeignKey(h => h.LaboratoryID);
         }
     }

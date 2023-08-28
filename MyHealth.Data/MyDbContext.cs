@@ -54,8 +54,6 @@ namespace MyHealth.Data
 
         public DbSet<FileStorage> FileStorages { get; set; }
 
-        public DbSet<AnalysisType> AnalysisTypes { get; set; }
-
         public DbSet<Laboratory> Laboratories { get; set; }
 
         public DbSet<Analysis> Analyzes { get; set; }
