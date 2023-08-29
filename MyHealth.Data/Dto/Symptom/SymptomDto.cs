@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 namespace MyHealth.Data.Dto
 {
     /// <summary>
-    /// Параметер добавления анализа
+    /// Симптом
     /// </summary>
-    public class UpdAnalysisPar : AddAnalysisPar
+    public class SymptomDto : UpdSymptomPar
     {
-        [Required]
-        public int ID { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace MyHealth.Api.Controllers
 {
     [ApiController]
     [Route("analyzes")]
+    [Authorize]
     public class AnalysisController : ControllerBase
     {
         private readonly ILogger<AnalysisController> _logger;
@@ -72,18 +73,18 @@ namespace MyHealth.Api.Controllers
             if (!hasUser)
                 return BadRequest("Пользователь не найден");
 
-            var analysis = await _db.Analyzes.FirstOrDefaultAsync(f => f.ID == id);
+            var analysisDto = await _db.Analyzes.Select(s => new AnalysisDto
+            {
+                ID = s.ID,
+                Name = s.Name,
+                Date = s.Date,
+                LaboratoryID = s.LaboratoryID,
+                ExtraInfo = s.ExtraInfo,
+                Price = s.Price,
+            }).FirstOrDefaultAsync(f => f.ID == id);
 
-            if (analysis == null)
+            if (analysisDto == null)
                 return BadRequest("Анализ не найден");
-
-            var analysisDto = new AnalysisDto();
-            analysisDto.ID = analysis.ID;
-            analysisDto.LaboratoryID = analysis.LaboratoryID;
-            analysisDto.Name = analysis.Name;
-            analysisDto.Date = analysis.Date;
-            analysisDto.ExtraInfo = analysis.ExtraInfo;
-            analysisDto.Price = analysis.Price;
 
             var analysisFile = await _db.AnalysisFiles.FirstOrDefaultAsync(f => f.AnalysisID == id);
             analysisDto.File = await _fileStorageService.GetFilePathAsync(analysisFile?.FileID);
@@ -120,17 +121,7 @@ namespace MyHealth.Api.Controllers
             await _db.SaveChangesAsync();
 
             if (pAnalysis.File != null)
-            {
-                var file = await _fileStorageService.SaveFileAsync(pAnalysis.File);
-                var analysisFile = new AnalysisFile
-                {
-                    AnalysisID = analysis.ID,
-                    FileID = file.ID
-                };
-
-                await _db.AddAsync(analysisFile);
-                await _db.SaveChangesAsync();
-            }
+                await SaveFile(pAnalysis.File, analysis.ID);
 
             var analysisDto = await GetAnalysis(analysis.ID);
             return Ok(analysisDto);
@@ -167,16 +158,7 @@ namespace MyHealth.Api.Controllers
 
             if (pAnalysis.File != null)
             {
-                var file = await _fileStorageService.SaveFileAsync(pAnalysis.File);
-
-                var analysisFile = new AnalysisFile
-                {
-                    AnalysisID = analysis.ID,
-                    FileID = file.ID
-                };
-
-                await _db.AddAsync(analysisFile);
-                await _db.SaveChangesAsync();
+                var file = await SaveFile(pAnalysis.File, analysis.ID);
                 await _db.AnalysisFiles.Where(w => w.AnalysisID == analysis.ID && w.FileID != file.ID).ExecuteDeleteAsync();
             }
 
@@ -187,7 +169,7 @@ namespace MyHealth.Api.Controllers
         /// <summary>
         /// Удалить анализ
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Код анализа</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAnalysis(int id)
@@ -201,6 +183,22 @@ namespace MyHealth.Api.Controllers
             await _db.SaveChangesAsync();
 
             return Ok();
+        }
+
+        private async Task<FileStorage> SaveFile(IFormFile pFile, int AnalysisID)
+        {
+            var file = await _fileStorageService.SaveFileAsync(pFile);
+
+            var analysisFile = new AnalysisFile
+            {
+                AnalysisID = AnalysisID,
+                FileID = file.ID
+            };
+
+            await _db.AddAsync(analysisFile);
+            await _db.SaveChangesAsync();
+
+            return file;
         }
     }
 }

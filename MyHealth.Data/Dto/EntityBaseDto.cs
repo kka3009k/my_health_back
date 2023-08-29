@@ -9,7 +9,7 @@ namespace MyHealth.Data.Dto
     public class EntityBaseDto
     {
         /// <summary>
-        /// Код справочника
+        /// Код
         /// </summary>
         public int ID { get; set; }
     }
