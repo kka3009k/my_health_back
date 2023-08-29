@@ -12,8 +12,5 @@ namespace MyHealth.Data.Entities
 
         [Description("Женский")]
         Female,
-
-        [Description("Другое")]
-        Other,
     }
 }

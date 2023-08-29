@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using MyHealth.Admin.Services;
+using MyHealth.Common;
 using MyHealth.Data;
 using MyHealth.Data.Entities;
 using Radzen;
@@ -21,7 +22,7 @@ namespace MyHealth.Admin.Components
         public string TextProperty { get; set; }
 
         [Parameter]
-        public string ValueProperty { get; set; }
+        public string ValueProperty { get; set; } = nameof(EntityBase.ID);
 
         [Inject]
         private IDbContextFactory<MyDbContext> _dbFactory { get; set; }
@@ -29,22 +30,33 @@ namespace MyHealth.Admin.Components
         [Inject]
         private SpinnerService _spinner { get; set; }
 
-        private MyDbContext _ctx;
+        private MyDbContext _db;
 
         private int _count { get; set; }
 
         private List<TEntity> _items { get; set; }
 
+        private TEntity _selectedValue;
+
         protected override void OnInitialized()
         {
-            _ctx = _dbFactory.CreateDbContext();
+            _db = _dbFactory.CreateDbContext();
+
+            if (Value != null && ValueUtil.GetType(typeof(TValue)) == typeof(int))
+            {
+                _spinner.Run(() =>
+               {
+                   var id = Value as int?;
+                   _selectedValue = _db.Set<TEntity>().FirstOrDefault(f => f.ID == id);
+               });
+            }
         }
 
         private async Task LoadData(LoadDataArgs args)
         {
             await _spinner.RunAsync(async () =>
              {
-                 var query = _ctx.Set<TEntity>().AsNoTracking();
+                 var query = _db.Set<TEntity>().AsNoTracking();
 
                  if (!string.IsNullOrEmpty(args.Filter))
                  {

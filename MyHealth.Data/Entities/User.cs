@@ -58,6 +58,9 @@ namespace MyHealth.Data.Entities
         public int? AvatarFileID { get; set; }
         public FileStorage? AvatarFile { get; set; }
 
+        [NotMapped]
+        public string FullName => $"{LastName} {FirstName} {Patronymic}".Trim();
+
         #region Relationships
 
         public ICollection<Metric> Metrics { get; set; }
