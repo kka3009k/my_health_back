@@ -23,6 +23,8 @@ namespace MyHealth.Data.Entities
 
         public ICollection<AnalysisFile> AnalysisFiles { get; set; }
 
+        public ICollection<SymptomFile> SymptomFiles { get; set; }
+
         #endregion
 
         private protected override void CustomConfigure(EntityTypeBuilder<FileStorage> pBuilder)

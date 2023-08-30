@@ -62,6 +62,8 @@ namespace MyHealth.Data
 
         public DbSet<Symptom> Symptoms { get; set; }
 
+        public DbSet<SymptomFile> SymptomFiles { get; set; }
+
         #endregion
 
         #region Private methodes

@@ -1,8 +1,10 @@
+using Firebase.Auth.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyHealth.Api.Extension;
 using MyHealth.Api.Service;
+using MyHealth.Api.Static;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
@@ -71,12 +73,21 @@ namespace MyHealth.Api.Controllers
             if (!hasUser)
                 return BadRequest("Пользователь не найден");
 
-            var symptomDto = await _db.Symptoms.Select(s => new SymptomDto
-            {
-                ID = s.ID,
-                Description = s.Description,
-                Date = s.Date,
-            }).FirstOrDefaultAsync(f => f.ID == id);
+            var symptomDto = await _db.Symptoms
+                .Where(w => w.ID == id)
+                .Select(s => new SymptomDto
+                {
+                    ID = s.ID,
+                    Description = s.Description,
+                    Date = s.Date,
+                    Files = _db.SymptomFiles.Where(w => w.SymptomID == id).Select(s => new FileDto
+                    {
+                        ID = s.FileID,
+                        Extension = s.File.Extension,
+                        Name = s.File.Name,
+                        Path = $"{Constants.FileStorageName}/{s.FileID}.{s.File.Extension}"
+                    }).ToList()
+                }).FirstOrDefaultAsync();
 
             if (symptomDto == null)
                 return BadRequest("Симптом не найден");
@@ -109,6 +120,8 @@ namespace MyHealth.Api.Controllers
 
             await _db.SaveChangesAsync();
 
+            await SaveFiles(pSymptom.Files, symptom.ID);
+
             var symptomDto = await GetSymptom(symptom.ID);
             return Ok(symptomDto);
         }
@@ -139,6 +152,8 @@ namespace MyHealth.Api.Controllers
 
             await _db.SaveChangesAsync();
 
+            await SaveFiles(pSymptom.Files, symptom.ID);
+
             var symptomDto = await GetSymptom(symptom.ID);
             return Ok(symptomDto);
         }
@@ -160,6 +175,47 @@ namespace MyHealth.Api.Controllers
             await _db.SaveChangesAsync();
 
             return Ok();
+        }
+
+
+        /// <summary>
+        /// Удалить файл симптома
+        /// </summary>
+        /// <param name="id">Код файла</param>
+        /// <returns></returns>
+        [HttpDelete("file/{id}")]
+        public async Task<IActionResult> DeleteSymptomFile(int id)
+        {
+            var symptomFile = await _db.SymptomFiles.FirstOrDefaultAsync(f => f.FileID == id);
+
+            if (symptomFile == null)
+                return BadRequest("Файл не найден");
+
+            _db.Remove(symptomFile);
+            await _db.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        private async Task SaveFiles(List<IFormFile> pFiles, int SymptomID)
+        {
+            if (pFiles == null)
+                return;
+
+            foreach (var formFile in pFiles)
+            {
+                var file = await _fileStorageService.SaveFileAsync(formFile);
+
+                var symptomFile = new SymptomFile
+                {
+                    SymptomID = SymptomID,
+                    FileID = file.ID
+                };
+
+                await _db.AddAsync(symptomFile);
+                await _db.SaveChangesAsync();
+            }
         }
     }
 }

@@ -13,5 +13,6 @@ namespace MyHealth.Data.Dto
     /// </summary>
     public class SymptomDto : UpdSymptomPar
     {
+        public new List<FileDto> Files { get; set; }
     }
 }
