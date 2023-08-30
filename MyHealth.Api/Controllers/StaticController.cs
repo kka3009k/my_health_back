@@ -29,7 +29,7 @@ namespace MyHealth.Api.Controllers
         [HttpGet("terms_of_use")]
         public async Task<ContentResult> TermOfUse()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "static", "TermsOfUse.html");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Static", "TermsOfUse.html");
             var html = await new StreamReader(path).ReadToEndAsync();
             return Content(html, "text/html");
         }
