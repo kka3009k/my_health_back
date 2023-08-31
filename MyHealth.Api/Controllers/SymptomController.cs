@@ -42,10 +42,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> GetSymptoms(DateTime pStart, DateTime pEnd)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
 
             var analyzes = await _db.Symptoms.Where(w => w.UserID == userId && w.Date >= pStart && w.Date <= pEnd).Select(s => new GetSymptomsRes
             {

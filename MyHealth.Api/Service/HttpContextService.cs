@@ -1,13 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using MyHealth.Data;
+using Newtonsoft.Json;
 
 namespace MyHealth.Api.Service
 {
     public class HttpContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public HttpContextService(IHttpContextAccessor pHttpContextAccessor)
+        private readonly MyDbContext _db;
+
+        public HttpContextService(IHttpContextAccessor pHttpContextAccessor, MyDbContext pDb)
         {
             _httpContextAccessor = pHttpContextAccessor;
+            _db = pDb;
         }
         public void GetUser()
         {
@@ -17,7 +21,15 @@ namespace MyHealth.Api.Service
         public int UserId()
         {
             var user = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == "UserId");
-            return user != null ? int.Parse(user.Value) : 0;
+            var userId = user != null ? int.Parse(user.Value) : 0;
+            var hasUser =  _db.Users.Any(f => f.ID == userId);
+
+            if (!hasUser)
+            {
+                throw new UnauthorizedAccessException("Пользователь не найден");
+            }
+
+            return userId;
         }
 
         public void GetUserName()
