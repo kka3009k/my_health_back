@@ -5,6 +5,7 @@ using MyHealth.Api.Service;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
+using MyHealth.Data.Utils;
 using System.ComponentModel;
 using System.Net;
 using System.Reflection;
@@ -17,9 +18,9 @@ namespace MyHealth.Api.Controllers
     {
         private readonly ILogger<DictionaryController> _logger;
         private readonly MyDbContext _db;
-        private HttpContextService _contextService;
+        private UserContextService _contextService;
 
-        public DictionaryController(ILogger<DictionaryController> logger, MyDbContext pDb, HttpContextService pContextService)
+        public DictionaryController(ILogger<DictionaryController> logger, MyDbContext pDb, UserContextService pContextService)
         {
             _logger = logger;
             _db = pDb;
@@ -31,40 +32,40 @@ namespace MyHealth.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("blood_types")]
-        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
-        public IActionResult GetBloodTypes() => Ok(GetEnumValues(typeof(BloodTypes)));
+        [ProducesResponseType(typeof(List<DictionaryDto<int, string>>), (int)HttpStatusCode.OK)]
+        public IActionResult GetBloodTypes() => Ok(EnumUtil.GetEnumValues<BloodTypes>());
 
         /// <summary>
         /// Пол
         /// </summary>
         /// <returns></returns>
         [HttpGet("gender_types")]
-        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
-        public IActionResult GetGenderTypes() => Ok(GetEnumValues(typeof(GenderTypes)));
+        [ProducesResponseType(typeof(List<DictionaryDto<int, string>>), (int)HttpStatusCode.OK)]
+        public IActionResult GetGenderTypes() => Ok(EnumUtil.GetEnumValues<GenderTypes>());
 
         /// <summary>
         /// Резус фактор
         /// </summary>
         /// <returns></returns>
         [HttpGet("rh_factor_types")]
-        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
-        public IActionResult GetRhFactorTypes() => Ok(GetEnumValues(typeof(RhFactorTypes)));
+        [ProducesResponseType(typeof(List<DictionaryDto<int, string>>), (int)HttpStatusCode.OK)]
+        public IActionResult GetRhFactorTypes() => Ok(EnumUtil.GetEnumValues<RhFactorTypes>());
 
         /// <summary>
         /// Роли системы
         /// </summary>
         /// <returns></returns>
         [HttpGet("role_types")]
-        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
-        public IActionResult GetRoleTypes() => Ok(GetEnumValues(typeof(RoleTypes)));
+        [ProducesResponseType(typeof(List<DictionaryDto<int, string>>), (int)HttpStatusCode.OK)]
+        public IActionResult GetRoleTypes() => Ok(EnumUtil.GetEnumValues<RoleTypes>());
 
         /// <summary>
         /// Типы метрик
         /// </summary>
         /// <returns></returns>
         [HttpGet("metric_types")]
-        [ProducesResponseType(typeof(List<DictionaryDto>), (int)HttpStatusCode.OK)]
-        public IActionResult GetMetricTypes() => Ok(GetEnumValues(typeof(MetricTypes)));
+        [ProducesResponseType(typeof(List<DictionaryDto<int, string>>), (int)HttpStatusCode.OK)]
+        public IActionResult GetMetricTypes() => Ok(EnumUtil.GetEnumValues<MetricTypes>());
 
         /// <summary>
         /// Лаборатории
@@ -80,22 +81,6 @@ namespace MyHealth.Api.Controllers
             return Ok(laboratories);
         }
 
-        private List<DictionaryDto> GetEnumValues(Type pType)
-        {
-            var dictionaries = new List<DictionaryDto>();
-
-            foreach (var enumMemberName in Enum.GetValues(pType))
-            {
-                var memInfo = pType.GetMember(enumMemberName.ToString());
-
-                var description = memInfo[0].GetCustomAttribute<DescriptionAttribute>();
-
-                var enumMemberValue = Convert.ToInt32(enumMemberName);
-
-                dictionaries.Add(new DictionaryDto { Key = enumMemberValue, Value = description.Description.Trim() });
-            }
-
-            return dictionaries;
-        }
+        
     }
 }

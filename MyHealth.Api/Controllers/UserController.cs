@@ -20,10 +20,10 @@ namespace MyHealth.Api.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly MyDbContext _db;
-        private HttpContextService _contextService;
+        private UserContextService _contextService;
         private readonly FileStorageService _fileStorageService;
 
-        public UserController(ILogger<UserController> logger, MyDbContext pDb, HttpContextService pContextService, FileStorageService pFileStorageService)
+        public UserController(ILogger<UserController> logger, MyDbContext pDb, UserContextService pContextService, FileStorageService pFileStorageService)
         {
             _logger = logger;
             _db = pDb;

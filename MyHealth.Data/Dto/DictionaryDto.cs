@@ -22,10 +22,4 @@ namespace MyHealth.Data.Dto
         /// </summary>
         public TValue Value { get; set; }
     }
-
-
-    public class DictionaryDto : DictionaryDto<int?, string?>
-    {
-
-    }
 }

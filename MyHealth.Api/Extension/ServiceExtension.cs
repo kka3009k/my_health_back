@@ -76,7 +76,7 @@ public static class ServiceExtension
             });
         });
         services.AddHttpContextAccessor();
-        services.AddScoped<HttpContextService>();
+        services.AddScoped<UserContextService>();
         services.AddScoped<FileStorageService>();
     }
 

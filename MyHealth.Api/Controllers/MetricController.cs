@@ -21,9 +21,9 @@ namespace MyHealth.Api.Controllers
     {
         private readonly ILogger<MetricController> _logger;
         private readonly MyDbContext _db;
-        private HttpContextService _contextService;
+        private UserContextService _contextService;
 
-        public MetricController(ILogger<MetricController> logger, MyDbContext pDb, HttpContextService pContextService)
+        public MetricController(ILogger<MetricController> logger, MyDbContext pDb, UserContextService pContextService)
         {
             _logger = logger;
             _db = pDb;

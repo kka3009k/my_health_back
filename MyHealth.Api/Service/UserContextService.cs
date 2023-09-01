@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 
 namespace MyHealth.Api.Service
 {
-    public class HttpContextService
+    public class UserContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly MyDbContext _db;
 
-        public HttpContextService(IHttpContextAccessor pHttpContextAccessor, MyDbContext pDb)
+        public UserContextService(IHttpContextAccessor pHttpContextAccessor, MyDbContext pDb)
         {
             _httpContextAccessor = pHttpContextAccessor;
             _db = pDb;
