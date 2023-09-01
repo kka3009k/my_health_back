@@ -42,10 +42,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> GetAnalyzes(DateTime pStart, DateTime pEnd)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
 
             var analyzes = await _db.Analyzes.Where(w => w.UserID == userId && w.Date >= pStart && w.Date <= pEnd).Select(s => new GetAnalyzesRes
             {
@@ -68,10 +64,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> GetAnalysis(int id)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
 
             var analysisDto = await _db.Analyzes.Select(s => new AnalysisDto
             {
@@ -103,10 +95,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> AddAnalysis([FromForm] AddAnalysisPar pAnalysis)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
 
             var analysis = new Analysis();
             analysis.Name = pAnalysis.Name;
@@ -137,11 +125,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> UpdateAnalysis([FromForm] UpdAnalysisPar pAnalysis)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
-
 
             var analysis = await _db.Analyzes.FirstOrDefaultAsync(f => f.ID == pAnalysis.ID);
 

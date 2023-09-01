@@ -1,4 +1,5 @@
 ﻿using MyHealth.Data;
+using MyHealth.Data.Entities;
 using Newtonsoft.Json;
 
 namespace MyHealth.Api.Service
@@ -13,20 +14,22 @@ namespace MyHealth.Api.Service
             _httpContextAccessor = pHttpContextAccessor;
             _db = pDb;
         }
-        public void GetUser()
+        public User User()
         {
-            throw new NotImplementedException();
+            var userId = UserId();
+            var user = _db.Users.FirstOrDefault(f => f.ID == userId);
+            return user;
         }
 
         public int UserId()
         {
             var user = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == "UserId");
             var userId = user != null ? int.Parse(user.Value) : 0;
-            var hasUser =  _db.Users.Any(f => f.ID == userId);
+            var hasUser = _db.Users.Any(f => f.ID == userId);
 
             if (!hasUser)
             {
-                throw new UnauthorizedAccessException("Пользователь не найден");
+                throw new UnauthorizedAccessException("User not found");
             }
 
             return userId;

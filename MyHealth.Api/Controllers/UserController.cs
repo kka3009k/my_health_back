@@ -41,11 +41,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> GetUser()
         {
             var userId = _contextService.UserId();
-            var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == userId);
-
-            if (user == null)
-                return BadRequest("Пользователь не найден");
-
             return Ok(await LoadUser(userId));
         }
 
@@ -58,11 +53,7 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UserDto pUser)
         {
-            var userId = _contextService.UserId();
-            var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == userId);
-
-            if (user == null)
-                return BadRequest("Пользователь не найден");
+            var user = _contextService.User();
 
             user.FillField(user.Email, pUser.Email, v => user.Email = v);
             user.FillField(user.Phone, pUser.Phone, v => user.Phone = v);
@@ -78,7 +69,7 @@ namespace MyHealth.Api.Controllers
 
             await _db.SaveChangesAsync();
 
-            return Ok(await LoadUser(userId));
+            return Ok(await LoadUser(user.ID));
         }
 
         private async Task<UserDto> LoadUser(int pUserID)
@@ -113,12 +104,7 @@ namespace MyHealth.Api.Controllers
         [HttpPost("update/avatar")]
         public async Task<IActionResult> UpdateUserAvatar(IFormFile pFile)
         {
-            var userId = _contextService.UserId();
-            var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == userId);
-
-            if (user == null)
-                return BadRequest("Пользователь не найден");
-
+            var user = _contextService.User();
             var file = await _fileStorageService.SaveFileAsync(pFile);
 
             user.AvatarFileID = file.ID;

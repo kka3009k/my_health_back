@@ -9,6 +9,7 @@ using Google;
 using Microsoft.Extensions.FileProviders;
 using MyHealth.Api.Static;
 using MyHealth.Api.Seed;
+using MyHealth.Api.Middlewares;
 
 Env.Load();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -45,7 +46,7 @@ app.UseStaticFiles(new StaticFileOptions()
     RequestPath = new PathString("/file_storage")
 });
 app.UseRouting();
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 

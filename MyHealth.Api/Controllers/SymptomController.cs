@@ -64,10 +64,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> GetSymptom(int id)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
 
             var symptomDto = await _db.Symptoms
                 .Where(w => w.ID == id)
@@ -102,10 +98,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> AddSymptom([FromForm] AddSymptomPar pSymptom)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
 
             var symptom = new Symptom();
             symptom.Description = pSymptom.Description;
@@ -132,12 +124,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> UpdateSymptom([FromForm] UpdSymptomPar pSymptom)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
-
-
             var symptom = await _db.Symptoms.FirstOrDefaultAsync(f => f.ID == pSymptom.ID);
 
             if (symptom == null)

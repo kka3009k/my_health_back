@@ -44,11 +44,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> GetCurrentMetric()
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
-
             var currentMetric = await _db.Metrics.OrderByDescending(o => o.DateFilling).FirstOrDefaultAsync(f => f.UserID == userId);
 
             if (currentMetric == null)
@@ -79,11 +74,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> UpdateMetric([FromBody] MetricDto pMetric)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
-
             var metric = await _db.Metrics.FirstOrDefaultAsync(f => f.UserID == userId && f.DateFilling == pMetric.DateFilling);
 
             if (metric == null)
@@ -122,10 +112,6 @@ namespace MyHealth.Api.Controllers
         public async Task<IActionResult> GetHistoryMetric(MetricTypes pMetricType, DateTime pStart, DateTime pEnd)
         {
             var userId = _contextService.UserId();
-            var hasUser = await _db.Users.AnyAsync(f => f.ID == userId);
-
-            if (!hasUser)
-                return BadRequest("Пользователь не найден");
 
             var query = _db.Metrics
                 .OrderBy(o => o.DateFilling)
