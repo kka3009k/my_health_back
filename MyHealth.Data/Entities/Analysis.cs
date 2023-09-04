@@ -31,7 +31,7 @@ namespace MyHealth.Data.Entities
         public DateTime Date { get; set; }
 
         public int? LaboratoryID { get; set; }
-        public Laboratory Laboratory { get; set; }
+        public Laboratory? Laboratory { get; set; }
 
         /// <summary>
         /// Цена
