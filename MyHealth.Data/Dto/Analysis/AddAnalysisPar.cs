@@ -29,6 +29,7 @@ namespace MyHealth.Data.Dto
         /// <summary>
         /// Лаборатория
         /// </summary>
+        [Required]
         public int? LaboratoryID { get; set; }
 
         /// <summary>

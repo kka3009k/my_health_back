@@ -70,7 +70,7 @@ namespace MyHealth.Api.Controllers
                 ID = s.ID,
                 Name = s.Name,
                 Date = s.Date,
-                LaboratoryID = s.LaboratoryID,
+                LaboratoryID = s.LaboratoryID == null ? 0 : s.LaboratoryID.Value,
                 ExtraInfo = s.ExtraInfo,
                 Price = s.Price,
             }).FirstOrDefaultAsync(f => f.ID == id);
