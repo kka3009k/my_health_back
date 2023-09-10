@@ -1,0 +1,13 @@
+[
+  {
+    "relation": [ "delegate_permission/common.handle_all_urls" ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.a1canea.myhealth",
+      "sha256_cert_fingerprints": [
+        "F1:2D:04:7C:C4:2C:1A:2C:AE:C7:32:95:1C:71:1C:C9:52:22:33:97:CF:F2:F9:4F:DD:79:22:E4:E4:0B:FF:B7",
+        "cd:e2:e3:ca:9d:af:97:58:93:4d:d5:5a:17:d1:7e:72:79:59:53:5a:c8:71:aa:c2:56:61:99:a7:0e:95:e8:38"
+      ]
+    }
+  }
+]
