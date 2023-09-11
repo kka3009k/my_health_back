@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.Api", "MyHealth.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.Data", "MyHealth.Data\MyHealth.Data.csproj", "{F7425B5C-F7DB-4E15-AA72-8DB148197195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.Admin", "MyHealth.Admin\MyHealth.Admin.csproj", "{8547D732-33E3-49AE-9EAD-E234B479A97B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.Admin", "MyHealth.Admin\MyHealth.Admin.csproj", "{8547D732-33E3-49AE-9EAD-E234B479A97B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.Common", "MyHealth.Common\MyHealth.Common.csproj", "{33EA57FC-8308-4F36-A536-0E4B116D6CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.Common", "MyHealth.Common\MyHealth.Common.csproj", "{33EA57FC-8308-4F36-A536-0E4B116D6CFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.Cabinet", "MyHealth.Cabinet\Client\MyHealth.Cabinet.csproj", "{5A7A4733-13E3-44F9-920B-1D688328472D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{33EA57FC-8308-4F36-A536-0E4B116D6CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33EA57FC-8308-4F36-A536-0E4B116D6CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33EA57FC-8308-4F36-A536-0E4B116D6CFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7A4733-13E3-44F9-920B-1D688328472D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7A4733-13E3-44F9-920B-1D688328472D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7A4733-13E3-44F9-920B-1D688328472D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7A4733-13E3-44F9-920B-1D688328472D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
