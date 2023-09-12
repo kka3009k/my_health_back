@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.Admin", "MyHealth.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.Common", "MyHealth.Common\MyHealth.Common.csproj", "{33EA57FC-8308-4F36-A536-0E4B116D6CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.Cabinet", "MyHealth.Cabinet\Client\MyHealth.Cabinet.csproj", "{5A7A4733-13E3-44F9-920B-1D688328472D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealth.Cabinet", "MyHealth.Cabinet\MyHealth.Cabinet.csproj", "{5A7A4733-13E3-44F9-920B-1D688328472D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
