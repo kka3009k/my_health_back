@@ -63,8 +63,6 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAnalysis(int id)
         {
-            var userId = _contextService.UserId();
-
             var analysisDto = await _db.Analyzes.Select(s => new AnalysisDto
             {
                 ID = s.ID,
