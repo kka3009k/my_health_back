@@ -44,5 +44,17 @@ namespace MyHealth.Api.Controllers
             var html = await new StreamReader(path).ReadToEndAsync();
             return Content(html, "application/json");
         }
+
+        /// <summary>
+        /// Apple app site association
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(".well-known/apple-app-site-association")]
+        public async Task<ContentResult> AppleAssociation()
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Static", "apple-app-site-association");
+            var html = await new StreamReader(path).ReadToEndAsync();
+            return Content(html, "application/json");
+        }
     }
 }
