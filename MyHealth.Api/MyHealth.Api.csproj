@@ -11,6 +11,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Static\apple-app-site-association" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Static\apple-app-site-association">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="2.5.0" />
     <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
     <PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
@@ -44,6 +54,9 @@
 
   <ItemGroup>
     <Content Update="firebase_key.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Static\assetlinks.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

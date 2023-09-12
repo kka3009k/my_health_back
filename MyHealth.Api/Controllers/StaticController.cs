@@ -10,7 +10,6 @@ using System.Text;
 namespace MyHealth.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class StaticController : ControllerBase
     {
         private readonly ILogger<StaticController> _logger;
@@ -32,6 +31,30 @@ namespace MyHealth.Api.Controllers
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Static", "TermsOfUse.html");
             var html = await new StreamReader(path).ReadToEndAsync();
             return Content(html, "text/html");
+        }
+
+        /// <summary>
+        /// Assetlinks
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(".well-known/assetlinks.json")]
+        public async Task<ContentResult> Assetlinks()
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Static", "assetlinks.json");
+            var html = await new StreamReader(path).ReadToEndAsync();
+            return Content(html, "application/json");
+        }
+
+        /// <summary>
+        /// Apple app site association
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(".well-known/apple-app-site-association")]
+        public async Task<ContentResult> AppleAssociation()
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Static", "apple-app-site-association");
+            var html = await new StreamReader(path).ReadToEndAsync();
+            return Content(html, "application/json");
         }
     }
 }

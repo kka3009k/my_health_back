@@ -8,6 +8,8 @@ using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
 using System.Net;
 using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
+using System;
 
 namespace MyHealth.Api.Controllers
 {
@@ -35,7 +37,7 @@ namespace MyHealth.Api.Controllers
         /// </summary>
         /// <remarks>
         /// Возравщает актуальную информацию по метрики отсортированную по DateFilling,
-        /// если метрики не найдены, то вернет пустые данные с DateFilling = текущая дата
+        /// вернет данные с DateFilling = текущая дата
         /// </remarks>
         /// <returns></returns>
         [HttpGet("current")]
@@ -43,25 +45,46 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetCurrentMetric()
         {
+            var currentMetric = await GetCurrentMetric(DateTime.UtcNow.Date);
+            return Ok(currentMetric);
+        }
+
+        private async Task<MetricDto> GetCurrentMetric(DateTime pDateFilling)
+        {
             var userId = _contextService.UserId();
-            var currentMetric = await _db.Metrics.OrderByDescending(o => o.DateFilling).FirstOrDefaultAsync(f => f.UserID == userId);
+            var baseQueryMetric = _db.Metrics.OrderByDescending(o => o.DateFilling).Where(w => w.UserID == userId && w.DateFilling <= pDateFilling);
+            var query = from user in _db.Users
+                        let Saturation = baseQueryMetric.FirstOrDefault(f => f.Saturation != null)
+                        let AbdominalGirth = baseQueryMetric.FirstOrDefault(f => f.AbdominalGirth != null)
+                        let ArterialPressureLower = baseQueryMetric.FirstOrDefault(f => f.ArterialPressureLower != null)
+                        let ArterialPressureUpper = baseQueryMetric.FirstOrDefault(f => f.ArterialPressureUpper != null)
+                        let Height = baseQueryMetric.FirstOrDefault(f => f.Height != null)
+                        let IntraocularPressureLeft = baseQueryMetric.FirstOrDefault(f => f.IntraocularPressureLeft != null)
+                        let IntraocularPressureRight = baseQueryMetric.FirstOrDefault(f => f.IntraocularPressureRight != null)
+                        let Pulse = baseQueryMetric.FirstOrDefault(f => f.Pulse != null)
+                        let Weight = baseQueryMetric.FirstOrDefault(f => f.Weight != null)
+                        select new MetricDto
+                        {
+                            DateFilling = pDateFilling,
+                            Saturation = Saturation != null ? Saturation.Saturation : null,
+                            AbdominalGirth = AbdominalGirth != null ? AbdominalGirth.AbdominalGirth : null,
+                            ArterialPressureLower = ArterialPressureLower != null ? ArterialPressureLower.ArterialPressureLower : null,
+                            ArterialPressureUpper = ArterialPressureUpper != null ? ArterialPressureUpper.ArterialPressureUpper : null,
+                            Height = Height != null ? Height.Height : null,
+                            IntraocularPressureLeft = IntraocularPressureLeft != null ? IntraocularPressureLeft.IntraocularPressureLeft : null,
+                            IntraocularPressureRight = IntraocularPressureRight != null ? IntraocularPressureRight.IntraocularPressureRight : null,
+                            Pulse = Pulse != null ? Pulse.Pulse : null,
+                            Weight = Weight != null ? Weight.Weight : null,
+                        };
+
+
+
+            var currentMetric = await query.FirstOrDefaultAsync();
 
             if (currentMetric == null)
-                return Ok(new MetricDto { DateFilling = DateTime.UtcNow.Date, });
+                currentMetric = new MetricDto { DateFilling = pDateFilling };
 
-            return Ok(new MetricDto
-            {
-                Saturation = currentMetric.Saturation,
-                AbdominalGirth = currentMetric.AbdominalGirth,
-                ArterialPressureLower = currentMetric.ArterialPressureLower,
-                ArterialPressureUpper = currentMetric.ArterialPressureUpper,
-                DateFilling = currentMetric.DateFilling,
-                Height = currentMetric.Height,
-                IntraocularPressureLeft = currentMetric.IntraocularPressureLeft,
-                IntraocularPressureRight = currentMetric.IntraocularPressureRight,
-                Pulse = currentMetric.Pulse,
-                Weight = currentMetric.Weight,
-            });
+            return currentMetric;
         }
 
         /// <summary>
@@ -96,7 +119,8 @@ namespace MyHealth.Api.Controllers
 
             await _db.SaveChangesAsync();
 
-            return Ok(pMetric);
+            var currentMetric = await GetCurrentMetric(DateTime.UtcNow.Date);
+            return Ok(currentMetric);
         }
 
         /// <summary>
