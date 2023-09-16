@@ -133,7 +133,7 @@ namespace MyHealth.Api.Controllers
             analysis.FillField(analysis.LaboratoryID, pAnalysis.LaboratoryID, f => analysis.LaboratoryID = pAnalysis.LaboratoryID);
             analysis.FillField(analysis.Date, pAnalysis.Date, f => analysis.Date = pAnalysis.Date);
             analysis.FillField(analysis.Price, pAnalysis.Price, f => analysis.Price = pAnalysis.Price);
-            analysis.FillField(analysis.ExtraInfo, pAnalysis.ExtraInfo, f => analysis.ExtraInfo = pAnalysis.ExtraInfo);
+            analysis.ExtraInfo = pAnalysis.ExtraInfo;
 
             await _db.SaveChangesAsync();
 
