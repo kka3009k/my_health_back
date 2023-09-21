@@ -81,6 +81,20 @@ namespace MyHealth.Api.Controllers
             return Ok(laboratories);
         }
 
-        
+        /// <summary>
+        /// Типы связи пользователя 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("user_link_types")]
+        [ProducesResponseType(typeof(List<UserLinkTypeDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetUserLinkTypes()
+        {
+            var userLinkTypes = await _db.UserLinkTypes
+                 .Select(s => new UserLinkTypeDto { ID = s.ID, Name = s.Name })
+                .ToListAsync();
+            return Ok(userLinkTypes);
+        }
+
+
     }
 }

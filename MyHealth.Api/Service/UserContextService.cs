@@ -1,4 +1,5 @@
-﻿using MyHealth.Data;
+﻿using MyHealth.Api.Static;
+using MyHealth.Data;
 using MyHealth.Data.Entities;
 using Newtonsoft.Json;
 
@@ -23,16 +24,21 @@ namespace MyHealth.Api.Service
 
         public int UserId()
         {
-            var user = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == "UserId");
-            var userId = user != null ? int.Parse(user.Value) : 0;
-            var hasUser = _db.Users.Any(f => f.ID == userId);
+            var headers = _httpContextAccessor.HttpContext?.Request?.Headers;
 
-            if (!hasUser)
+            if (headers.Any(a => a.Key == Constants.UserIdHeaderLower))
             {
-                throw new UnauthorizedAccessException("User not found");
+                var user = _httpContextAccessor.HttpContext?.Request?.Headers[Constants.UserIdHeaderLower];
+                var userId = int.Parse(user.Value);
+                var hasUser = _db.Users.Any(f => f.ID == userId);
+
+                if (hasUser)
+                    return userId;
+
+                return userId;
             }
 
-            return userId;
+            throw new UnauthorizedAccessException("User not found");
         }
 
         public void GetUserName()

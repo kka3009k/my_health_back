@@ -1,0 +1,13 @@
+﻿<Form TEntity="UserLinkType">
+    <Columns>
+        <RadzenDataGridColumn TItem="UserLinkType" Property="@nameof(UserLinkType.ID)" Title="ID" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn TItem="UserLinkType" Property="@nameof(UserLinkType.Name)" Title="@nameof(UserLinkType.Name)" Frozen="true" Width="10%" TextAlign="TextAlign.Center" />
+    </Columns>
+    <Fields Context="ctx">
+        <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+            <RadzenFormField Text="@nameof(UserLinkType.Name)">
+                <RadzenTextBox @bind-Value="@ctx.Name" />
+            </RadzenFormField>
+        </RadzenColumn>
+    </Fields>
+</Form>
