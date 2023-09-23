@@ -25,11 +25,11 @@ namespace MyHealth.Api.Service
         public int UserId()
         {
             var headers = _httpContextAccessor.HttpContext?.Request?.Headers;
+            var header = headers.FirstOrDefault(a => a.Key.ToLower() == Constants.UserIdHeaderLower);
 
-            if (headers.Any(a => a.Key == Constants.UserIdHeaderLower))
+            if (!string.IsNullOrEmpty(header.Value))
             {
-                var user = _httpContextAccessor.HttpContext?.Request?.Headers[Constants.UserIdHeaderLower];
-                var userId = int.Parse(user.Value);
+                var userId = int.Parse(header.Value);
                 var hasUser = _db.Users.Any(f => f.ID == userId);
 
                 if (hasUser)
