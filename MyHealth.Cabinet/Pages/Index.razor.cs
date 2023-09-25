@@ -8,9 +8,10 @@ namespace MyHealth.Cabinet.Pages
 
 
         [Inject] private HttpClient httpClient { get; set; }
+        [Inject] private NavigationManager NavManager { get; set; }
         public async void UserRegistration()
         {
-            
+            NavManager.NavigateTo("/Registration");
         }
     }
 }
