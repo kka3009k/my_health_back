@@ -79,6 +79,7 @@ namespace MyHealth.Api.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Patronymic = user.Patronymic,
                 Email = user.Email,
                 Phone = user.Phone,
                 RhFactor = user.RhFactor,
