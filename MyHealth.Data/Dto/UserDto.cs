@@ -77,5 +77,9 @@ namespace MyHealth.Data.Dto
         /// </summary>
         public string? AvatarUrl { get; set; }
 
+        /// <summary>
+        /// Главный пользователь
+        /// </summary>
+        public bool? IsMain { get; set; }
     }
 }

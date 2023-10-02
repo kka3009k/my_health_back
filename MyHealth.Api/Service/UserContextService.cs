@@ -45,5 +45,13 @@ namespace MyHealth.Api.Service
         {
             throw new NotImplementedException();
         }
+
+        public bool IsMain(int pUserId)
+        {
+            var user = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == "UserId");
+            return user != null 
+                && int.TryParse(user.Value, out int userId) 
+                && pUserId == userId;
+        }
     }
 }

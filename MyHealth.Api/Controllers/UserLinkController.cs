@@ -19,62 +19,26 @@ namespace MyHealth.Api.Controllers
     public class UserLinkController : ControllerBase
     {
         private readonly ILogger<UserLinkController> _logger;
-        private readonly AuthService _authService;
         private readonly MyDbContext _db;
         private UserContextService _contextService;
 
-        public UserLinkController(ILogger<UserLinkController> logger, AuthService pAuthService, MyDbContext pDb, UserContextService pContextService)
+        public UserLinkController(ILogger<UserLinkController> logger, MyDbContext pDb, UserContextService pContextService)
         {
             _logger = logger;
-            _authService = pAuthService;
             _db = pDb;
             _contextService = pContextService;
         }
-
         /// <summary>
-        /// Добавление через Firebase
+        /// Добавить доп. профиль
         /// </summary>
-        /// <param name="token">Токен firebase</param>
-        /// <param name="userLinkTypeID">Тип связи с пользователем</param>
+        /// <param name="pUserLink">Данные добавдения доп. профиля</param>
         /// <returns></returns>
-        [HttpPost("add/firebase")]
-        [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> AddLink(string token, int userLinkTypeID)
+        [HttpPost("add")]
+        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> AddLink(AddUserLinkDto pUserLink)
         {
-            try
-            {
-                var res = await _authService.FirebaseAuthAsync(token);
-                await CreateLink(res, userLinkTypeID);
-                return Ok(res);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.ToString());
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Добавление через Firebase по Uid, использовать только для тестов
-        /// </summary>
-        /// <param name="uid">Индентификатор firebase</param>
-        /// <param name="userLinkTypeID">Тип связи с пользователем</param>
-        /// <returns></returns>
-        [HttpPost("add/firebase/uid")]
-        [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> FirebaseAuthUid(string uid, int userLinkTypeID)
-        {
-            try
-            {
-                var res = await _authService.FirebaseAuthUidAsync(uid);
-                await CreateLink(res, userLinkTypeID);
-                return Ok(res);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.ToString());
-                return BadRequest(ex.Message);
-            }
+            var res = await CreateLink(pUserLink);
+            return Ok(res);
         }
 
         /// <summary>
@@ -110,23 +74,35 @@ namespace MyHealth.Api.Controllers
             }).ToList());
         }
 
-        private async Task CreateLink(AuthResDto pSecondaryUser, int pUserLinkTypeID)
+        private async Task<int> CreateLink(AddUserLinkDto pUserLink)
         {
             var mainUserID = _contextService.UserId();
             var userLink = await _db.UserLinks
-                .FirstOrDefaultAsync(f => f.MainUserID == mainUserID && f.SecondaryUserID == pSecondaryUser.UserID);
+                .FirstOrDefaultAsync(f => f.MainUserID == mainUserID
+                && f.SecondaryUser.FirstName == pUserLink.FirstName.Trim()
+                && f.SecondaryUser.LastName == pUserLink.LastName.Trim()
+                && f.SecondaryUser.Patronymic == pUserLink.Patronymic.Trim()
+                );
 
             if (userLink == null)
             {
-                userLink = new UserLink();
+                var user = new User();
+                user.FirstName = pUserLink.FirstName;
+                user.LastName = pUserLink.LastName;
+                user.Patronymic = pUserLink.Patronymic;
+                user.Role = RoleTypes.Client;
+                await _db.Users.AddAsync(user);
+
+                userLink = new UserLink() { SecondaryUser = user };
                 await _db.UserLinks.AddAsync(userLink);
             }
 
             userLink.MainUserID = mainUserID;
-            userLink.SecondaryUserID = pSecondaryUser.UserID ?? default;
-            userLink.UserLinkTypeID = pUserLinkTypeID;
+            userLink.UserLinkTypeID = pUserLink.UserLinkTypeID;
 
             await _db.SaveChangesAsync();
+
+            return userLink.SecondaryUserID;
         }
     }
 }
