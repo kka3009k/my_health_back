@@ -17,7 +17,7 @@
             }
             catch (UnauthorizedAccessException ex)
             {
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 await context.Response.WriteAsync(ex.Message);
             }
             catch (Exception ex)

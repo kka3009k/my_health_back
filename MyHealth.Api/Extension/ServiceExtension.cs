@@ -74,10 +74,12 @@ public static class ServiceExtension
                     new string[] { }
                 }
             });
+            c.OperationFilter<AddRequiredHeaderParameter>();
         });
         services.AddHttpContextAccessor();
         services.AddScoped<UserContextService>();
         services.AddScoped<FileStorageService>();
+        services.AddScoped<AuthService>();
     }
 
     public static void ConfigureDbContext(this IServiceCollection services)

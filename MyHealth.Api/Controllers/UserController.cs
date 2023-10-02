@@ -79,6 +79,7 @@ namespace MyHealth.Api.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Patronymic = user.Patronymic,
                 Email = user.Email,
                 Phone = user.Phone,
                 RhFactor = user.RhFactor,
@@ -87,6 +88,7 @@ namespace MyHealth.Api.Controllers
                 Blood = user.Blood,
                 Gender = user.Gender,
                 INN = user.INN,
+                IsMain = _contextService.IsMain(pUserID)
             };
 
             userDto.AvatarUrl = await _fileStorageService.GetFilePathAsync(user.AvatarFileID);

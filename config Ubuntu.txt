@@ -1,0 +1,75 @@
+[Unit]
+Description=My health api
+[Service]
+WorkingDirectory=/var/www/my_health_api
+ExecStart=/usr/bin/dotnet /var/www/my_health_api/MyHealth.Api.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-web-app
+# This user should exist on the server and have ownership of the deployment directory
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+[Install]
+WantedBy=multi-user.target
+
+
+[Unit]
+Description=My health admin
+[Service]
+WorkingDirectory=/var/www/my_health_admin
+ExecStart=/usr/bin/dotnet /var/www/my_health_admin/MyHealth.Admin.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-web-app
+# This user should exist on the server and have ownership of the deployment directory
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+[Install]
+WantedBy=multi-user.target
+
+
+
+server {
+    listen        80;
+    location / {
+        proxy_pass         http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen        5555;
+    location / {
+        proxy_pass         http://127.0.0.1:2001;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+
+#Commands
+
+sudo ln -s /etc/nginx/sites-available/admin /etc/nginx/sites-enabled/admin
+
+sudo chmod 777 /var/www/my_health_api/
+
+ sudo apt update
+    2  sudo apt install postgresql postgresql-contrib nginx curl
+    3  sudo apt install dotnet-sdk-7.0
+    4  git clone -b main https://github.com/kka3009k/my_health_back
+	
+	sudo nano /etc/systemd/system/my_health_admin.service
