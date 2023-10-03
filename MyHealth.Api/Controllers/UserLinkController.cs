@@ -74,6 +74,28 @@ namespace MyHealth.Api.Controllers
             }).ToList());
         }
 
+        /// <summary>
+        /// Удалить связь пользователя
+        /// </summary>
+        /// <param name="pSecondaryUserID">Код доп. пользователя</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IActionResult> DeleteLink(int pSecondaryUserID)
+        {
+            var userId = _contextService.UserId();
+            var userLink = await _db.UserLinks
+                .FirstOrDefaultAsync(f => f.SecondaryUserID == pSecondaryUserID
+                    && f.MainUserID == userId);
+
+            if (userLink == null)
+                return BadRequest("Связь не найдена");
+
+            _db.Remove(userLink);
+            await _db.SaveChangesAsync();
+
+            return Ok();
+        }
+
         private async Task<int> CreateLink(AddUserLinkDto pUserLink)
         {
             var mainUserID = _contextService.UserId();

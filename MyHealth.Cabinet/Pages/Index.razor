@@ -1,0 +1,56 @@
+﻿@page "/"
+<style>
+    .custom-purple-text {
+        color:cornflowerblue /* Код цвета сирени */
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+
+                    <h1 class=" custom-purple-text card-title text-center mb-5 fw-light fs-1"><i>Den-Sooluk</i></h1>
+
+                    <h5 class="card-title text-center mb-5 fw-light fs-5">Авторизация</h5>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Эл.адрес, логин или телефон" @*value="@_email"
+                               @oninput="(val) => { _email = (string)val.Value;  }"
+                               @onkeydown="OnKeyDown" *@>
+                        <label for="floatingInput">Эл.адрес, логин или телефон</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Пароль" @*value="@_password"
+                               @oninput="(val) => { _password = (string)val.Value; }"
+                               @onkeydown="OnKeyDown" *@>
+                        <label for="floatingPassword">Пароль</label>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-login text-uppercase fw-bold"
+                                @*disabled="@(!Validate())"
+                                @onclick="SignIn" *@>
+                            Войти
+                        </button>
+
+                        <h5 class="card-title text-center mt-5 mb-5 fw-light fs-5">----- или -----</h5>
+
+
+                        <button class="btn btn-ornflowerblue btn-login text-uppercase fw-bold" action="Registration"
+                                @onclick="UserRegistration">
+                            Зарегистрироваться
+                        </button>
+
+                        @*<div class="form-container">
+                            <form id="registration-form" action="Registration"
+                                <input type="submit" value="Зарегистрироваться"  class="btn btn-ornflowerblue btn-login text-uppercase fw-bold">
+                            </form>
+                         </div>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
