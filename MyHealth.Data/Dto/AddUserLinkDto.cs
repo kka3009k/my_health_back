@@ -23,7 +23,8 @@ namespace MyHealth.Data.Dto
         /// Имя
         /// </summary>
         [StringLength(128)]
-        public string? FirstName { get; set; }
+        [Required]
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Фамилия
