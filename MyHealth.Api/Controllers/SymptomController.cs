@@ -61,7 +61,7 @@ namespace MyHealth.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(SymptomDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetSymptom(int id)
+        public async Task<IActionResult> GetSymptom(Guid id)
         {
             var userId = _contextService.UserId();
 
@@ -146,7 +146,7 @@ namespace MyHealth.Api.Controllers
         /// <param name="id">Код симптома</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAnalysis(int id)
+        public async Task<IActionResult> DeleteAnalysis(Guid id)
         {
             var symptom = await _db.Symptoms.FirstOrDefaultAsync(f => f.ID == id);
 
@@ -166,7 +166,7 @@ namespace MyHealth.Api.Controllers
         /// <param name="id">Код файла</param>
         /// <returns></returns>
         [HttpDelete("file/{id}")]
-        public async Task<IActionResult> DeleteSymptomFile(int id)
+        public async Task<IActionResult> DeleteSymptomFile(Guid id)
         {
             var symptomFile = await _db.SymptomFiles.FirstOrDefaultAsync(f => f.FileID == id);
 
@@ -180,7 +180,7 @@ namespace MyHealth.Api.Controllers
         }
 
 
-        private async Task SaveFiles(List<IFormFile> pFiles, int SymptomID)
+        private async Task SaveFiles(List<IFormFile> pFiles, Guid SymptomID)
         {
             if (pFiles == null)
                 return;

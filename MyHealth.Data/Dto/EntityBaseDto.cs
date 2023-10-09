@@ -11,6 +11,6 @@ namespace MyHealth.Data.Dto
         /// <summary>
         /// Код
         /// </summary>
-        public int ID { get; set; }
+        public Guid ID { get; set; }
     }
 }

@@ -16,15 +16,15 @@ namespace MyHealth.Data.Entities
     public class UserLink : EntityBase<UserLink>
     {
         [Required]
-        public int MainUserID { get; set; }
+        public Guid MainUserID { get; set; }
         public User MainUser { get; set; }
 
         [Required]
-        public int SecondaryUserID { get; set; }
+        public Guid SecondaryUserID { get; set; }
         public User SecondaryUser { get; set; }
 
         [Required]
-        public int UserLinkTypeID { get; set; }
+        public Guid UserLinkTypeID { get; set; }
         public UserLinkType UserLinkType { get; set; }
 
         private protected override void CustomConfigure(EntityTypeBuilder<UserLink> pBuilder)

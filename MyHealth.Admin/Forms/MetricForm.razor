@@ -7,7 +7,7 @@
     <Fields Context="ctx">
         <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
             <RadzenFormField Text="UserID">
-                <SelectField TEntity="User" TValue="int" @bind-Value="@ctx.UserID" TextProperty="@nameof(User.FirstName)" />
+                <SelectField TEntity="User" TValue="Guid" @bind-Value="@ctx.UserID" TextProperty="@nameof(User.FirstName)" />
             </RadzenFormField>
         </RadzenColumn>
         <RadzenColumn Size="12" SizeMD="6" SizeLG="3">

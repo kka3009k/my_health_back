@@ -18,7 +18,7 @@ namespace MyHealth.Data.Entities
         /// Второстипенный пользвотель
         /// </summary>
         [Required]
-        public int SecondaryUserID { get; set; }
+        public Guid SecondaryUserID { get; set; }
 
         /// <summary>
         /// ФИО
@@ -29,7 +29,7 @@ namespace MyHealth.Data.Entities
         /// Тип связи
         /// </summary>
         [Required]
-        public int UserLinkTypeID { get; set; }
+        public Guid UserLinkTypeID { get; set; }
 
         /// <summary>
         /// Путь к фото профиля

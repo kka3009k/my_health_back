@@ -22,14 +22,14 @@ namespace MyHealth.Api.Service
             return user;
         }
 
-        public int UserId()
+        public Guid UserId()
         {
             var headers = _httpContextAccessor.HttpContext?.Request?.Headers;
             var header = headers.FirstOrDefault(a => a.Key.ToLower() == Constants.UserIdHeaderLower);
 
             if (!string.IsNullOrEmpty(header.Value))
             {
-                var userId = int.Parse(header.Value);
+                var userId = Guid.Parse(header.Value);
                 var hasUser = _db.Users.Any(f => f.ID == userId);
 
                 if (hasUser)
@@ -46,11 +46,11 @@ namespace MyHealth.Api.Service
             throw new NotImplementedException();
         }
 
-        public bool IsMain(int pUserId)
+        public bool IsMain(Guid pUserId)
         {
             var user = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == "UserId");
             return user != null 
-                && int.TryParse(user.Value, out int userId) 
+                && Guid.TryParse(user.Value, out Guid userId) 
                 && pUserId == userId;
         }
     }

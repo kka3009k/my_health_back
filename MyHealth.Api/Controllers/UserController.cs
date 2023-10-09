@@ -72,7 +72,7 @@ namespace MyHealth.Api.Controllers
             return Ok(await LoadUser(user.ID));
         }
 
-        private async Task<UserDto> LoadUser(int pUserID)
+        private async Task<UserDto> LoadUser(Guid pUserID)
         {
             var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == pUserID);
             var userDto = new UserDto()

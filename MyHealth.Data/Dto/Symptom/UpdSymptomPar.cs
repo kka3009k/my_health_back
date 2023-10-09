@@ -14,6 +14,6 @@ namespace MyHealth.Data.Dto
     public class UpdSymptomPar : AddSymptomPar
     {
         [Required]
-        public int ID { get; set; }
+        public Guid ID { get; set; }
     }
 }

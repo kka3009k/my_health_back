@@ -20,7 +20,7 @@ namespace MyHealth.Data.Entities
         /// Код сущности
         /// </summary>
         [Key]
-        public virtual int ID { get; set; }
+        public virtual Guid ID { get; set; }
 
         /// <summary>
         /// Время создания

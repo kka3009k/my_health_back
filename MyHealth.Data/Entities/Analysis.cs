@@ -15,7 +15,7 @@ namespace MyHealth.Data.Entities
     [Table("Analyzes")]
     public class Analysis : EntityBase<Analysis>
     {
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
         public User User { get; set; }
 
 
@@ -30,7 +30,7 @@ namespace MyHealth.Data.Entities
         [Required]
         public DateTime Date { get; set; }
 
-        public int? LaboratoryID { get; set; }
+        public Guid? LaboratoryID { get; set; }
         public Laboratory? Laboratory { get; set; }
 
         /// <summary>
@@ -48,6 +48,7 @@ namespace MyHealth.Data.Entities
         private protected override void CustomConfigure(EntityTypeBuilder<Analysis> pBuilder)
         {
             pBuilder.HasOne(h => h.Laboratory).WithMany().HasForeignKey(h => h.LaboratoryID);
+            pBuilder.HasOne(h => h.User).WithMany().HasForeignKey(h => h.UserID);
         }
     }
 }
