@@ -99,7 +99,7 @@ namespace MyHealth.Admin.Components
         {
             await _spinner.RunAsync(async () =>
               {
-                  if (_selectedItem.ID == 0)
+                  if (_selectedItem.ID == default)
                       await _db.AddAsync(_selectedItem);
 
                   await _db.SaveChangesAsync();

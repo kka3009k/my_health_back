@@ -15,10 +15,10 @@ namespace MyHealth.Data.Entities
     [Table("SymptomFiles")]
     public class SymptomFile : EntityBase<SymptomFile>
     {
-        public int SymptomID { get; set; }
+        public Guid SymptomID { get; set; }
         public Symptom Symptom { get; set; }
 
-        public int FileID { get; set; }
+        public Guid FileID { get; set; }
         public FileStorage File { get; set; }
 
         private protected override void CustomConfigure(EntityTypeBuilder<SymptomFile> pBuilder)

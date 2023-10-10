@@ -80,7 +80,7 @@ namespace MyHealth.Api.Controllers
         /// <param name="pSecondaryUserID">Код доп. пользователя</param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IActionResult> DeleteLink(int pSecondaryUserID)
+        public async Task<IActionResult> DeleteLink(Guid pSecondaryUserID)
         {
             var userId = _contextService.UserId();
             var userLink = await _db.UserLinks
@@ -96,7 +96,7 @@ namespace MyHealth.Api.Controllers
             return Ok();
         }
 
-        private async Task<int> CreateLink(AddUserLinkDto pUserLink)
+        private async Task<Guid> CreateLink(AddUserLinkDto pUserLink)
         {
             var mainUserID = _contextService.UserId();
             var userLink = await _db.UserLinks

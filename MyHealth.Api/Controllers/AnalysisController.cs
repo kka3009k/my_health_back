@@ -61,14 +61,14 @@ namespace MyHealth.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(AnalysisDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetAnalysis(int id)
+        public async Task<IActionResult> GetAnalysis(Guid id)
         {
             var analysisDto = await _db.Analyzes.Select(s => new AnalysisDto
             {
                 ID = s.ID,
                 Name = s.Name,
                 Date = s.Date,
-                LaboratoryID = s.LaboratoryID == null ? 0 : s.LaboratoryID.Value,
+                LaboratoryID = s.LaboratoryID == null ? default : s.LaboratoryID.Value,
                 ExtraInfo = s.ExtraInfo,
                 Price = s.Price,
             }).FirstOrDefaultAsync(f => f.ID == id);
@@ -153,7 +153,7 @@ namespace MyHealth.Api.Controllers
         /// <param name="id">Код анализа</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAnalysis(int id)
+        public async Task<IActionResult> DeleteAnalysis(Guid id)
         {
             var analysis = await _db.Analyzes.FirstOrDefaultAsync(f => f.ID == id);
 
@@ -166,7 +166,7 @@ namespace MyHealth.Api.Controllers
             return Ok();
         }
 
-        private async Task<FileStorage> SaveFile(IFormFile pFile, int AnalysisID)
+        private async Task<FileStorage> SaveFile(IFormFile pFile, Guid AnalysisID)
         {
             var file = await _fileStorageService.SaveFileAsync(pFile);
 

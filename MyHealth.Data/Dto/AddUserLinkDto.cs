@@ -17,7 +17,7 @@ namespace MyHealth.Data.Dto
         /// Тип связи
         /// </summary>
         [Required]
-        public int UserLinkTypeID { get; set; }
+        public Guid UserLinkTypeID { get; set; }
 
         /// <summary>
         /// Имя

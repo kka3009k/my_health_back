@@ -15,10 +15,10 @@ namespace MyHealth.Data.Entities
     [Table("AnalysisFiles")]
     public class AnalysisFile : EntityBase<AnalysisFile>
     {
-        public int AnalysisID { get; set; }
+        public Guid AnalysisID { get; set; }
         public Analysis Analysis { get; set; }
 
-        public int FileID { get; set; }
+        public Guid FileID { get; set; }
         public FileStorage File { get; set; }
 
         private protected override void CustomConfigure(EntityTypeBuilder<AnalysisFile> pBuilder)

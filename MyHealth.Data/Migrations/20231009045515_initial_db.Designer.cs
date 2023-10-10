@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyHealth.Data.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20230829085018_add_Symptoms")]
-    partial class add_Symptoms
+    [Migration("20231009045515_initial_db")]
+    partial class initial_db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Analysis", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -45,9 +43,8 @@ namespace MyHealth.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<int?>("LaboratoryID")
-                        .IsRequired()
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("LaboratoryID")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -62,8 +59,8 @@ namespace MyHealth.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID");
 
@@ -76,22 +73,20 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.AnalysisFile", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("AnalysisID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("AnalysisID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("FileID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("FileID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -109,11 +104,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.FileStorage", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -140,11 +133,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Laboratory", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -168,11 +159,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Metric", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<double?>("AbdominalGirth")
                         .HasColumnType("double precision");
@@ -211,8 +200,8 @@ namespace MyHealth.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
 
                     b.Property<double?>("Weight")
                         .HasColumnType("double precision");
@@ -226,11 +215,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.PhoneVerificationData", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -262,11 +249,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Symptom", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -285,8 +270,8 @@ namespace MyHealth.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID");
 
@@ -295,19 +280,48 @@ namespace MyHealth.Data.Migrations
                     b.ToTable("Symptoms");
                 });
 
+            modelBuilder.Entity("MyHealth.Data.Entities.SymptomFile", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<Guid>("FileID")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SymptomID")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("FileID");
+
+                    b.HasIndex("SymptomID");
+
+                    b.ToTable("SymptomFiles");
+                });
+
             modelBuilder.Entity("MyHealth.Data.Entities.User", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<int?>("AvatarFileID")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("AvatarFileID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("date");
@@ -373,13 +387,73 @@ namespace MyHealth.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("MyHealth.Data.Entities.UserLink", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<Guid>("MainUserID")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SecondaryUserID")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<Guid>("UserLinkTypeID")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MainUserID");
+
+                    b.HasIndex("SecondaryUserID");
+
+                    b.HasIndex("UserLinkTypeID");
+
+                    b.ToTable("UserLinks");
+                });
+
+            modelBuilder.Entity("MyHealth.Data.Entities.UserLinkType", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("UserLinkTypes");
+                });
+
             modelBuilder.Entity("MyHealth.Data.Entities.Analysis", b =>
                 {
                     b.HasOne("MyHealth.Data.Entities.Laboratory", "Laboratory")
                         .WithMany()
-                        .HasForeignKey("LaboratoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LaboratoryID");
 
                     b.HasOne("MyHealth.Data.Entities.User", "User")
                         .WithMany()
@@ -433,6 +507,25 @@ namespace MyHealth.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MyHealth.Data.Entities.SymptomFile", b =>
+                {
+                    b.HasOne("MyHealth.Data.Entities.FileStorage", "File")
+                        .WithMany("SymptomFiles")
+                        .HasForeignKey("FileID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyHealth.Data.Entities.Symptom", "Symptom")
+                        .WithMany()
+                        .HasForeignKey("SymptomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("File");
+
+                    b.Navigation("Symptom");
+                });
+
             modelBuilder.Entity("MyHealth.Data.Entities.User", b =>
                 {
                     b.HasOne("MyHealth.Data.Entities.FileStorage", "AvatarFile")
@@ -442,9 +535,38 @@ namespace MyHealth.Data.Migrations
                     b.Navigation("AvatarFile");
                 });
 
+            modelBuilder.Entity("MyHealth.Data.Entities.UserLink", b =>
+                {
+                    b.HasOne("MyHealth.Data.Entities.User", "MainUser")
+                        .WithMany()
+                        .HasForeignKey("MainUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyHealth.Data.Entities.User", "SecondaryUser")
+                        .WithMany()
+                        .HasForeignKey("SecondaryUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyHealth.Data.Entities.UserLinkType", "UserLinkType")
+                        .WithMany()
+                        .HasForeignKey("UserLinkTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MainUser");
+
+                    b.Navigation("SecondaryUser");
+
+                    b.Navigation("UserLinkType");
+                });
+
             modelBuilder.Entity("MyHealth.Data.Entities.FileStorage", b =>
                 {
                     b.Navigation("AnalysisFiles");
+
+                    b.Navigation("SymptomFiles");
                 });
 
             modelBuilder.Entity("MyHealth.Data.Entities.User", b =>

@@ -24,11 +24,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Analysis", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -42,8 +40,8 @@ namespace MyHealth.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<int?>("LaboratoryID")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("LaboratoryID")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -58,8 +56,8 @@ namespace MyHealth.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID");
 
@@ -72,22 +70,20 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.AnalysisFile", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("AnalysisID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("AnalysisID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("FileID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("FileID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -105,11 +101,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.FileStorage", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -136,11 +130,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Laboratory", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -164,11 +156,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Metric", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<double?>("AbdominalGirth")
                         .HasColumnType("double precision");
@@ -207,8 +197,8 @@ namespace MyHealth.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
 
                     b.Property<double?>("Weight")
                         .HasColumnType("double precision");
@@ -222,11 +212,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.PhoneVerificationData", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -258,11 +246,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.Symptom", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -281,8 +267,8 @@ namespace MyHealth.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID");
 
@@ -293,22 +279,20 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.SymptomFile", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("FileID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("FileID")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("SymptomID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("SymptomID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -326,17 +310,15 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.User", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<int?>("AvatarFileID")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("AvatarFileID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("date");
@@ -404,30 +386,28 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.UserLink", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("MainUserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("MainUserID")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("SecondaryUserID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("SecondaryUserID")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("UserLinkTypeID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserLinkTypeID")
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID");
 
@@ -442,11 +422,9 @@ namespace MyHealth.Data.Migrations
 
             modelBuilder.Entity("MyHealth.Data.Entities.UserLinkType", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()

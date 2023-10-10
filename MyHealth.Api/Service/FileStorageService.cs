@@ -36,7 +36,7 @@ namespace MyHealth.Api.Service
             return file;
         }
 
-        public async Task<string> GetFilePathAsync(int? pFileID)
+        public async Task<string> GetFilePathAsync(Guid? pFileID)
         {
             if (pFileID == null)
                 return string.Empty;

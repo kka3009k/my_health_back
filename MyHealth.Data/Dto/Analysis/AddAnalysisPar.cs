@@ -30,7 +30,7 @@ namespace MyHealth.Data.Dto
         /// Лаборатория
         /// </summary>
         [Required]
-        public int? LaboratoryID { get; set; }
+        public Guid? LaboratoryID { get; set; }
 
         /// <summary>
         /// Цена

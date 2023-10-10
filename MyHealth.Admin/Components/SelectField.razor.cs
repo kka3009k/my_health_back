@@ -42,11 +42,11 @@ namespace MyHealth.Admin.Components
         {
             _db = _dbFactory.CreateDbContext();
 
-            if (Value != null && ValueUtil.GetType(typeof(TValue)) == typeof(int))
+            if (Value != null && ValueUtil.GetType(typeof(TValue)) == typeof(Guid))
             {
                 _spinner.Run(() =>
                {
-                   var id = Value as int?;
+                   var id = Value as Guid?;
                    _selectedValue = _db.Set<TEntity>().FirstOrDefault(f => f.ID == id);
                });
             }

@@ -21,6 +21,6 @@ namespace MyHealth.Data.Dto
 
         public DateTime? RefreshTokenExpiresAt { get; set; }
 
-        public int? UserID { get; set; }
+        public Guid? UserID { get; set; }
     }
 }

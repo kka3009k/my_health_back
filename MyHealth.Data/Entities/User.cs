@@ -55,7 +55,7 @@ namespace MyHealth.Data.Entities
 
         public RhFactorTypes? RhFactor { get; set; }
 
-        public int? AvatarFileID { get; set; }
+        public Guid? AvatarFileID { get; set; }
         public FileStorage? AvatarFile { get; set; }
 
         [NotMapped]

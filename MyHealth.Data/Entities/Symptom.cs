@@ -15,7 +15,7 @@ namespace MyHealth.Data.Entities
     [Table("Symptoms")]
     public class Symptom : EntityBase<Symptom>
     {
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
         public User User { get; set; }
 
 

@@ -25,6 +25,6 @@ namespace MyHealth.Data.Dto
         [Required]
         public DateTime Date { get; set; }
 
-        public List<IFormFile> Files { get; set; }
+        public List<IFormFile>? Files { get; set; }
     }
 }
