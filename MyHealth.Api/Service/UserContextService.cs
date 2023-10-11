@@ -1,4 +1,5 @@
-﻿using MyHealth.Api.Static;
+﻿using Firebase.Auth;
+using MyHealth.Api.Static;
 using MyHealth.Data;
 using MyHealth.Data.Entities;
 using Newtonsoft.Json;
@@ -15,27 +16,40 @@ namespace MyHealth.Api.Service
             _httpContextAccessor = pHttpContextAccessor;
             _db = pDb;
         }
-        public User User()
+
+        /// <summary>
+        /// Получить текущего пользователя
+        /// </summary>
+        /// <param name="pByToken">Поиск по токену</param>
+        /// <returns></returns>
+        public User User(bool pByToken = false)
         {
-            var userId = UserId();
+            var userId = UserId(pByToken);
             var user = _db.Users.FirstOrDefault(f => f.ID == userId);
             return user;
         }
 
-        public Guid UserId()
+        /// <summary>
+        /// Получить код текущего пользователя
+        /// </summary>
+        /// <param name="pByToken">Поиск по токену</param>
+        /// <returns></returns>
+        public Guid UserId(bool pByToken = false)
         {
-            var headers = _httpContextAccessor.HttpContext?.Request?.Headers;
-            var header = headers.FirstOrDefault(a => a.Key.ToLower() == Constants.UserIdHeaderLower);
+            var userId = string.Empty;
 
-            if (!string.IsNullOrEmpty(header.Value))
+            if (pByToken)
+                userId = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == "UserId")?.Value;
+            else
+                userId = _httpContextAccessor.HttpContext?.Request?.Headers?
+                    .FirstOrDefault(a => a.Key.ToLower() == Constants.UserIdHeaderLower).Value;
+
+            if (Guid.TryParse(userId, out Guid id))
             {
-                var userId = Guid.Parse(header.Value);
-                var hasUser = _db.Users.Any(f => f.ID == userId);
+                var hasUser = _db.Users.Any(f => f.ID == id);
 
                 if (hasUser)
-                    return userId;
-
-                return userId;
+                    return id;
             }
 
             throw new UnauthorizedAccessException("User not found");
@@ -48,10 +62,8 @@ namespace MyHealth.Api.Service
 
         public bool IsMain(Guid pUserId)
         {
-            var user = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == "UserId");
-            return user != null 
-                && Guid.TryParse(user.Value, out Guid userId) 
-                && pUserId == userId;
+            var userId = UserId(true);
+            return pUserId == userId;
         }
     }
 }
