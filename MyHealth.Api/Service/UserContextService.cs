@@ -1,5 +1,4 @@
-﻿using Firebase.Auth;
-using MyHealth.Api.Static;
+﻿using MyHealth.Api.Static;
 using MyHealth.Data;
 using MyHealth.Data.Entities;
 using Newtonsoft.Json;
