@@ -15,10 +15,9 @@ namespace MyHealth.Data.Entities
     public class UserLinkDto
     {
         /// <summary>
-        /// Второстипенный пользвотель
+        /// Код пользователя
         /// </summary>
-        [Required]
-        public Guid SecondaryUserID { get; set; }
+        public Guid UserID { get; set; }
 
         /// <summary>
         /// ФИО
@@ -28,12 +27,16 @@ namespace MyHealth.Data.Entities
         /// <summary>
         /// Тип связи
         /// </summary>
-        [Required]
-        public Guid UserLinkTypeID { get; set; }
+        public Guid? UserLinkTypeID { get; set; }
 
         /// <summary>
         /// Путь к фото профиля
         /// </summary>
         public string? AvatarUrl { get; set; }
+
+        /// <summary>
+        /// Главный пользователь
+        /// </summary>
+        public bool IsMain { get; set; }
     }
 }
