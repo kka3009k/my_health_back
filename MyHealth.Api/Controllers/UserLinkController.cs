@@ -50,7 +50,7 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetLinks()
         {
-            var user = _contextService.User();
+            var user = _contextService.User(true);
             var userLinks = await (
                 from link in _db.UserLinks
                 join secondaryUser in _db.Users on link.SecondaryUserID equals secondaryUser.ID
