@@ -16,9 +16,8 @@ namespace MyHealth.Data.Dto
         /// <summary>
         /// Телефон
         /// </summary>
-        [Required]
         [StringLength(14)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         /// <summary>
         /// Имя

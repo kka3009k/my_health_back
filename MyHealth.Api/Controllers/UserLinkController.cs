@@ -50,28 +50,38 @@ namespace MyHealth.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetLinks()
         {
-            var userId = _contextService.UserId();
+            var user = _contextService.User();
             var userLinks = await (
                 from link in _db.UserLinks
                 join secondaryUser in _db.Users on link.SecondaryUserID equals secondaryUser.ID
                 join avatar in _db.FileStorages on secondaryUser.AvatarFileID equals avatar.ID into avatars
                 from avatar in avatars.DefaultIfEmpty()
-                where link.MainUserID == userId
+                where link.MainUserID == user.ID
                 select new
                 {
                     SecondaryUser = secondaryUser,
-                    UserLinkTypeID = link.UserLinkTypeID,
+                    link.UserLinkTypeID,
                     AvatarUrl = avatar != null ? $"{Constants.FileStorageName}/{avatar.ID}.{avatar.Extension}" : null
                 }
                 ).ToListAsync();
 
-            return Ok(userLinks.Select(s => new UserLinkDto
+            var profiles = userLinks.Select(s => new UserLinkDto
             {
-                SecondaryUserID = s.SecondaryUser.ID,
+                UserID = s.SecondaryUser.ID,
                 FullName = s.SecondaryUser.FullName,
                 UserLinkTypeID = s.UserLinkTypeID,
                 AvatarUrl = s.AvatarUrl,
-            }).ToList());
+            }).ToList();
+
+            profiles.Add(new UserLinkDto
+            {
+                UserID = user.ID,
+                FullName = user.FullName,
+                AvatarUrl = await new FileStorageService(_db).GetFilePathAsync(user.AvatarFileID),
+                IsMain = true
+            });
+
+            return Ok(profiles);
         }
 
         /// <summary>
