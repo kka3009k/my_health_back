@@ -92,7 +92,7 @@ namespace MyHealth.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteLink(Guid pSecondaryUserID)
         {
-            var userId = _contextService.UserId();
+            var userId = _contextService.UserId(true);
             var userLink = await _db.UserLinks
                 .FirstOrDefaultAsync(f => f.SecondaryUserID == pSecondaryUserID
                     && f.MainUserID == userId);
@@ -108,7 +108,7 @@ namespace MyHealth.Api.Controllers
 
         private async Task<Guid> CreateLink(AddUserLinkDto pUserLink)
         {
-            var mainUserID = _contextService.UserId();
+            var mainUserID = _contextService.UserId(true);
             var userLink = await _db.UserLinks
                 .FirstOrDefaultAsync(f => f.MainUserID == mainUserID
                 && (pUserLink.FirstName == null || f.SecondaryUser.FirstName == pUserLink.FirstName.Trim())
