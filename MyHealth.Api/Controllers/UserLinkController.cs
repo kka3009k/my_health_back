@@ -111,9 +111,9 @@ namespace MyHealth.Api.Controllers
             var mainUserID = _contextService.UserId();
             var userLink = await _db.UserLinks
                 .FirstOrDefaultAsync(f => f.MainUserID == mainUserID
-                && f.SecondaryUser.FirstName == pUserLink.FirstName.Trim()
-                && f.SecondaryUser.LastName == pUserLink.LastName.Trim()
-                && f.SecondaryUser.Patronymic == pUserLink.Patronymic.Trim()
+                && (pUserLink.FirstName == null || f.SecondaryUser.FirstName == pUserLink.FirstName.Trim())
+                && (pUserLink.LastName == null || f.SecondaryUser.LastName == pUserLink.LastName.Trim())
+                && (pUserLink.Patronymic == null || f.SecondaryUser.Patronymic == pUserLink.Patronymic.Trim())
                 );
 
             if (userLink == null)
