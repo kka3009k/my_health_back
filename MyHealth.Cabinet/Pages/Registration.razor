@@ -18,54 +18,54 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Name</label>
-                <input asp-for="Name" @bind-value="_doctor.FirstName" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Number" class="control-label">Номер телефона</label>
+                <input asp-for="Number" @bind-value="_doctor.Phone" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" @bind-value="_doctor.Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label">Фамилия</label>
                 <input asp-for="Surname" @bind-value="_doctor.LastName" class="form-control" />
                 <span asp-validation-for="Surname"  class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="Name" class="control-label">Имя</label>
+                <input asp-for="Name" @bind-value="_doctor.FirstName" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
+                <label asp-for="Patronymic" class="control-label">Отчество</label>
+                <input asp-for="Patronymic" @bind-value="_doctor.Patronymic" class="form-control" />
+                <span asp-validation-for="Patronymic" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label">Пол</label>
+                <input asp-for="Gender" @bind-value="_doctor.Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label">Дата рождения</label>
+                <input asp-for="BirthDate" @bind-value="_doctor.BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" @onclick="CreateDoctor" value="Create" class="btn btn-primary" />
             </div>
+
         </form>
     </div>
-</div>
-
-<div class="input-group input-group-sm mb-3">
-    <span class="input-group-text" id="inputGroup-sizing-sm">Номер телефона или e-mail</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-</div>
-
-<div class="input-group input-group-sm mb-3">
-    <span class="input-group-text" id="inputGroup-sizing-sm">Фамилия</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-</div>
-
-<div class="input-group input-group-sm mb-3">
-    <span class="input-group-text" id="inputGroup-sizing-sm">Имя</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-</div>
-
-<div class="input-group input-group-sm mb-3">
-    <span class="input-group-text" id="inputGroup-sizing-sm">Отчество</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-</div>
-
-<div class="input-group input-group-sm mb-3">
-    <span class="input-group-text" id="inputGroup-sizing-sm">Пол</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 </div>
