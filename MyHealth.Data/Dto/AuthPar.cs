@@ -9,12 +9,12 @@ namespace MyHealth.Data.Dto
     /// <summary>
     /// Данные авторизации через почту
     /// </summary>
-    public class EmailAuthPar
+    public class AuthPar
     {
         /// <summary>
-        /// Почта
+        /// Логин(телефон или почта)
         /// </summary>
-        public string Email { get; set; }
+        public string Login { get; set; }
 
         /// <summary>
         /// Пароль

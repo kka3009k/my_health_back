@@ -6,6 +6,9 @@ using MyHealth.Data.Entities;
 
 namespace MyHealth.Api.Service
 {
+    /// <summary>
+    /// Обработчик файлов пользователя
+    /// </summary>
     public class FileStorageService
     {
         private readonly MyDbContext _db;
@@ -29,7 +32,6 @@ namespace MyHealth.Api.Service
 
             using (var stream = new FileStream(Path.Combine(Constants.FileStoragePath, $"{file.ID}.{file.Extension}"), FileMode.Create))
             {
-                //copy the contents of the received file to the newly created local file 
                 await pFile.CopyToAsync(stream);
             }
 

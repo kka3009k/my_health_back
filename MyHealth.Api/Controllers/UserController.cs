@@ -13,6 +13,9 @@ using System.Net;
 
 namespace MyHealth.Api.Controllers
 {
+    /// <summary>
+    /// Контроллер для взаимодействия с пользовательскими данными
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     [Authorize]

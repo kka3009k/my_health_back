@@ -32,9 +32,9 @@ namespace MyHealth.Admin.Pages
              {
                  var client = _clientFactory.CreateClient();
                  client.BaseAddress = new Uri(Env.GetString("BACKEND_URL"));
-                 var result = await client.PostAsJsonAsync("auth/email", new EmailAuthPar
+                 var result = await client.PostAsJsonAsync("auth/login", new AuthPar
                  {
-                     Email = _email,
+                     Login = _email,
                      Password = _password
                  });
 

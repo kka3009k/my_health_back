@@ -78,17 +78,17 @@ namespace MyHealth.Api.Controllers
         }
 
         /// <summary>
-        /// Авторизация через Почту
+        /// Авторизация через Логин
         /// </summary>
-        /// <param name="pEmailAuthPar">Данные авторизации</param>
+        /// <param name="pAuthPar">Данные авторизации</param>
         /// <returns></returns>
-        [HttpPost("email")]
+        [HttpPost("login")]
         [ProducesResponseType(typeof(AuthResDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> EmailAuth(EmailAuthPar pEmailAuthPar)
+        public async Task<IActionResult> LoginAuth(AuthPar pAuthPar)
         {
             try
             {
-                var res = await _authService.EmailAuthAsync(pEmailAuthPar);
+                var res = await _authService.LoginAuthAsync(pAuthPar);
                 return Ok(res);
             }
             catch (Exception ex)

@@ -42,13 +42,14 @@ namespace MyHealth.Api.Service
             return res;
         }
 
-        public async Task<AuthResDto> EmailAuthAsync(EmailAuthPar pEmailAuthPar)
+        public async Task<AuthResDto> LoginAuthAsync(AuthPar pAuthPar)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(f => f.Email == pEmailAuthPar.Email);
+            var user = await _db.Users
+                .FirstOrDefaultAsync(f => (pAuthPar.Login.Contains("@") && f.Email == pAuthPar.Login) || f.Phone == pAuthPar.Login);
 
             if (user != null)
             {
-                if (ValidPassword(pEmailAuthPar.Password, user))
+                if (ValidPassword(pAuthPar.Password, user))
                 {
                     var res = GenerateToken(user);
                     return res;

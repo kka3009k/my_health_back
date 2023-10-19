@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace MyHealth.Api.Service
 {
+    /// <summary>
+    /// Читатель данные пользователя из контекста запроса
+    /// </summary>
     public class UserContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
