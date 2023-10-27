@@ -4,12 +4,16 @@
     {
         private static List<Dictionary<string, string>> _sentOtps;
 
-        public static void SetOtp(string pKey, string pOtp)
+        public static string GenerateOtp(string pKey)
         {
+            var otp = GenerateOtp();
+
             if (_sentOtps == null)
                 _sentOtps = new();
 
-            _sentOtps.Add(new Dictionary<string, string> { { pKey, pOtp } });
+            _sentOtps.Add(new Dictionary<string, string> { { pKey, otp } });
+
+            return otp;
         }
 
         public static void RemoveOtp(string pKey)
@@ -20,6 +24,12 @@
         public static bool HasOtp(string pKey, string pOtp)
         {
             return _sentOtps.Any(p => p.Any(a => a.Key == pKey && a.Value == pOtp));
+        }
+
+        private static string GenerateOtp()
+        {
+            var otp = $"H-{Random.Shared.Next(1000, 9999)}";
+            return otp;
         }
     }
 }

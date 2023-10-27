@@ -16,12 +16,12 @@ namespace MyHealth.Api.Service
         {
         }
 
-        public async Task SendAsync(string pSubject, string pMessage, params MailboxAddress[] pRecipients)
+        public async Task SendAsync(string pSubject, string pMessage, params string[] pRecipients)
         {
             var email = new MimeMessage();
 
             email.From.Add(new MailboxAddress("MyHealth", Env.GetString("SMTP_SENDER_EMAIL")));
-            email.To.AddRange(pRecipients);
+            email.To.AddRange(pRecipients.Select(s => new MailboxAddress("MyHealthClient", s)));
 
             email.Subject = pSubject;
             email.Body = new TextPart(MimeKit.Text.TextFormat.Text)

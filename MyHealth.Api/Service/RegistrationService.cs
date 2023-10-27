@@ -25,13 +25,14 @@ namespace MyHealth.Api.Service
 
         public async Task RegistrationAsync(RegistrationPar pPar)
         {
-            var otp = $"H-{Random.Shared.Next(1000, 9999)}";
+            if (await _db.Users.AnyAsync(a => a.Email == pPar.Email))
+                throw new Exception("С такой почтой пользователь уже существует");
 
-            await _mailService.SendAsync("Подтверждение регистрации", 
-                $"Код ОТП для подтверждения регистрации: {otp}", 
-                new MailboxAddress("MyHealthClient", pPar.Email));
+            var otp = OtpProvider.GenerateOtp(pPar.Email);
 
-            OtpProvider.SetOtp(pPar.Email, otp);
+            await _mailService.SendAsync("Подтверждение регистрации",
+                $"Код ОТП для подтверждения регистрации: {otp}",
+                pPar.Email);
         }
 
         public async Task<AuthResDto> ConfirmRegistrationAsync(ConfirmRegistrationPar pPar)
@@ -51,7 +52,7 @@ namespace MyHealth.Api.Service
             }
 
             user.Role = RoleTypes.Client;
-            user.PasswordHash = Сryptography.ComputeSha256Hash(pPar.Password);
+            user.PasswordHash = Cryptography.ComputeSha256Hash(pPar.Password);
             await _db.SaveChangesAsync();
             var res = _authService.GenerateToken(user);
             return res;

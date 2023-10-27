@@ -47,7 +47,7 @@ namespace MyHealth.Api.Seed
             };
 
             user.Email = email;
-            user.PasswordHash = Сryptography.ComputeSha256Hash(password);
+            user.PasswordHash = Cryptography.ComputeSha256Hash(password);
             user.FirstName = "admin";
             user.Role = RoleTypes.Admin;
 

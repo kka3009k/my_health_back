@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace MyHealth.Data.Dto
 {
     /// <summary>
-    /// Подтверждение регистрации через почту
+    /// Данные подтверждения сброса пароля
     /// </summary>
-    public class ConfirmRegistrationPar : RegistrationPar
+    public class ConfirmResetPasswordPar : RegistrationPar
     {
         /// <summary>
         /// Код подтверждения
@@ -22,6 +22,6 @@ namespace MyHealth.Data.Dto
         /// Пароль
         /// </summary>
         [Required]
-        public string Password { get; set; }
+        public string NewPassword { get; set; }
     }
 }

@@ -118,5 +118,47 @@ namespace MyHealth.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Сброс пароля
+        /// </summary>
+        /// <param name="email">Почта</param>
+        /// <returns></returns>
+        [HttpPost("reset_password")]
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            try
+            {
+                await _authService.ResetPasswordAsync(email);
+                return Ok("На вашу почту был отправлен проверочный код");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Подтверждение сброса пароля
+        /// </summary>
+        /// <param name="email">Почта</param>
+        /// <param name="otp">Код ОТП</param>
+        /// <param name="new_password">Новый пароль</param>
+        /// <returns></returns>
+        [HttpPost("reset_password/confirm")]
+        public async Task<IActionResult> ConfirmResetPassword(ConfirmResetPasswordPar pConfirmResetPasswordPar)
+        {
+            try
+            {
+                await _authService.ConfirmResetPasswordAsync(pConfirmResetPasswordPar);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

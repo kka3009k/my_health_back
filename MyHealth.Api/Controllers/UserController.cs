@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using MyHealth.Api.Extension;
 using MyHealth.Api.Service;
 using MyHealth.Api.Static;
+using MyHealth.Api.Utils;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
@@ -116,6 +117,25 @@ namespace MyHealth.Api.Controllers
             await _db.SaveChangesAsync();
             var path = _fileStorageService.GetFilePath(file);
             return Ok(path);
+        }
+
+        /// <summary>
+        /// Изменить пароль пользователя
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("change_password")]
+        public async Task<IActionResult> ChangeUserPassword(ChangePasswordPar pChangePasswordPar)
+        {
+            var user = _contextService.User();
+
+            if (Cryptography.ValidPassword(pChangePasswordPar.Password, user.PasswordHash))
+            {
+                user.PasswordHash = Cryptography.ComputeSha256Hash(pChangePasswordPar.NewPassword);
+                await _db.SaveChangesAsync();
+                return Ok();
+            }
+
+            return BadRequest("Неверный пароль");
         }
     }
 }
