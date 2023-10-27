@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyHealth.Api.Controllers;
 using MyHealth.Api.Static;
 using MyHealth.Data;
 using MyHealth.Data.Entities;

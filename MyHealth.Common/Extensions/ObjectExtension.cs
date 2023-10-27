@@ -57,7 +57,7 @@
                     return false;
             }
         }
-        
+
         public static bool IsBoolean(this object? o, bool checkUnderlying = true)
         {
             return o != null && IsBoolean(o.GetType(), checkUnderlying);
@@ -80,7 +80,7 @@
                     return false;
             }
         }
-        
+
         public static bool IsDateTime(this object? o, bool checkUnderlying = true)
         {
             return o != null && IsDateTime(o.GetType(), checkUnderlying);

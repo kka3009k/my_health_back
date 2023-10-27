@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using MyHealth.Common.Extensions;
+﻿using MyHealth.Common.Extensions;
+using System.Reflection;
 
 namespace MyHealth.Common
 {
@@ -118,7 +118,7 @@ namespace MyHealth.Common
             var property = pType.GetProperty(path[0],
                 BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
 
-            if (property == null) 
+            if (property == null)
                 return null;
 
             if (path.Length > 1)

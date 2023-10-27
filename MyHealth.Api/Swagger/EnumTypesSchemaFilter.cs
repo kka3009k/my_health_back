@@ -35,7 +35,7 @@ namespace MyHealth.Api.Swagger
 
                     var enumMemberValue = Convert.ToInt64(enumMemberName);
 
-                    schema.Description += $"<li><i>{enumMemberValue}</i> - {(description== null ? enumMemberName : description.Description.Trim())}</li>";
+                    schema.Description += $"<li><i>{enumMemberValue}</i> - {(description == null ? enumMemberName : description.Description.Trim())}</li>";
                 }
 
                 schema.Description += "</ul>";

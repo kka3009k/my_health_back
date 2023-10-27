@@ -1,5 +1,4 @@
-﻿using Google.Apis.Discovery;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using MyHealth.Api.Static;
 using Swashbuckle.AspNetCore.SwaggerGen;
 

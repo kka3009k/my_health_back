@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 namespace MyHealth.Cabinet.Pages
 {
     public partial class Registration
-    { 
+    {
 
 
         [Inject] private HttpClient httpClient { get; set; }

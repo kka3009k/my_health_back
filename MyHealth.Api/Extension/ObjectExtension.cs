@@ -4,7 +4,7 @@
     {
         public static void FillEntity<T>(this T pTarget, T pSource)
         {
-           
+
         }
 
         public static void FillField<TEntity>(this TEntity pTarget, string pOld, string pNew, Action<string> pAction)

@@ -1,12 +1,6 @@
-﻿using MyHealth.Data;
-using MyHealth.Data.Dto;
+﻿using DotNetEnv;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
-using DotNetEnv;
-using Microsoft.EntityFrameworkCore;
-using MyHealth.Data.Entities;
-using MyHealth.Api.Utils;
 
 namespace MyHealth.Api.Service
 {

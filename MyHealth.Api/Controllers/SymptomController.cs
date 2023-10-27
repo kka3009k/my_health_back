@@ -1,5 +1,3 @@
-using Firebase.Auth.Requests;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyHealth.Api.Extension;
@@ -8,9 +6,7 @@ using MyHealth.Api.Static;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
-using System.ComponentModel;
 using System.Net;
-using System.Reflection;
 
 namespace MyHealth.Api.Controllers
 {

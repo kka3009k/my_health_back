@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MyHealth.Cabinet;
 
 namespace MyHealth.Cabinet
 {
@@ -16,7 +15,7 @@ namespace MyHealth.Cabinet
             builder.Services.AddScoped(sp =>
             new HttpClient
             {
-                 BaseAddress = new Uri("https://localhost:7001/")
+                BaseAddress = new Uri("https://localhost:7001/")
             });
             await builder.Build().RunAsync();
         }

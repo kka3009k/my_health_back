@@ -6,7 +6,6 @@ using MyHealth.Data;
 using MyHealth.Data.Entities;
 using Radzen;
 using System.Linq.Dynamic.Core;
-using System.Runtime.CompilerServices;
 
 namespace MyHealth.Admin.Components
 {

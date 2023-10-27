@@ -1,12 +1,8 @@
 using Blazored.LocalStorage;
 using DotNetEnv;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
-using MyHealth.Admin.Handlers;
 using MyHealth.Admin.Services;
 using MyHealth.Data;
-using MyHealth.Admin.Services;
 using Radzen;
 
 namespace MyHealth.Admin

@@ -1,15 +1,12 @@
 using DotNetEnv;
-using MyHealth.Data;
-using MyHealth.Api.Extension;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-using FirebaseAdmin.Auth;
-using Firebase.Auth;
-using Google;
 using Microsoft.Extensions.FileProviders;
-using MyHealth.Api.Static;
-using MyHealth.Api.Seed;
+using MyHealth.Api.Extension;
 using MyHealth.Api.Middlewares;
+using MyHealth.Api.Seed;
+using MyHealth.Api.Static;
+using MyHealth.Data;
 
 Env.Load();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -34,9 +31,15 @@ var app = builder.Build();
 
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(x =>
+{
+    x.ShowCommonExtensions();
+    x.ShowExtensions();
+    x.DisplayRequestDuration();
+    x.EnableDeepLinking();
+    x.EnableFilter();
+});
 
-//app.UseHttpsRedirection();
 app.MapControllers();
 
 app.UseStaticFiles();

@@ -6,9 +6,7 @@ using MyHealth.Api.Service;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
-using System.ComponentModel;
 using System.Net;
-using System.Reflection;
 
 namespace MyHealth.Api.Controllers
 {
