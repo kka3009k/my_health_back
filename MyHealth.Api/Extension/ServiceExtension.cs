@@ -80,6 +80,8 @@ public static class ServiceExtension
         services.AddScoped<UserContextService>();
         services.AddScoped<FileStorageService>();
         services.AddScoped<AuthService>();
+        services.AddScoped<RegistrationService>();
+        services.AddScoped<MailService>();
     }
 
     public static void ConfigureDbContext(this IServiceCollection services)

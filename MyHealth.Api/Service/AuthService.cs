@@ -112,7 +112,7 @@ namespace MyHealth.Api.Service
             return res;
         }
 
-        private AuthResDto GenerateToken(User pUser)
+        public AuthResDto GenerateToken(User pUser)
         {
             var identity = GetIdentity(pUser);
             var now = DateTime.UtcNow;
