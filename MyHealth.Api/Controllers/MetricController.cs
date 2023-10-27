@@ -6,10 +6,8 @@ using MyHealth.Api.Service;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
-using System.Net;
 using System.Linq.Dynamic.Core;
-using System.Linq.Expressions;
-using System;
+using System.Net;
 
 namespace MyHealth.Api.Controllers
 {

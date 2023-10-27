@@ -1,11 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MyHealth.Data;
-using MyHealth.Data.Dto;
-using MyHealth.Data.Entities;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MyHealth.Api.Controllers
 {

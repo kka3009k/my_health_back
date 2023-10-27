@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MyHealth.Admin.Forms;
-using Radzen;
 
 namespace MyHealth.Admin.Pages
 {

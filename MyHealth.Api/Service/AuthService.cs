@@ -1,19 +1,15 @@
 ﻿using DotNetEnv;
 using FirebaseAdmin.Auth;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MyHealth.Api.Controllers;
 using MyHealth.Api.Utils;
+using MyHealth.Data;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
-using MyHealth.Data;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Text;
 using Firebase_Auth = FirebaseAdmin.Auth.FirebaseAuth;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace MyHealth.Api.Service
 {

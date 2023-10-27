@@ -1,11 +1,8 @@
 ﻿using DotNetEnv;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using MyHealth.Api.Utils;
 using MyHealth.Data;
 using MyHealth.Data.Entities;
-using System.Data;
 
 namespace MyHealth.Api.Seed
 {

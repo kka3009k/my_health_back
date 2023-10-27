@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MyHealth.Common;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Utils;
-using System.ComponentModel;
-using System.Reflection;
 
 namespace MyHealth.Admin.Components
 {

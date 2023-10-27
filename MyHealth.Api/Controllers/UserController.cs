@@ -1,15 +1,11 @@
-using DotNetEnv;
-using Firebase.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyHealth.Api.Extension;
 using MyHealth.Api.Service;
-using MyHealth.Api.Static;
 using MyHealth.Api.Utils;
 using MyHealth.Data;
 using MyHealth.Data.Dto;
-using MyHealth.Data.Entities;
 using System.Net;
 
 namespace MyHealth.Api.Controllers

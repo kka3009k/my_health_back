@@ -1,11 +1,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHealth.Data.Entities
 {
@@ -31,7 +26,7 @@ namespace MyHealth.Data.Entities
 
         private protected override void CustomConfigure(EntityTypeBuilder<Symptom> pBuilder)
         {
-           
+
         }
     }
 }

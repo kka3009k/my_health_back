@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MyHealth.Data;
-using MyHealth.Data.Dto;
-using MyHealth.Data.Entities;
 
 namespace MyHealth.Api.Controllers.Cabinet
 {
@@ -22,7 +18,7 @@ namespace MyHealth.Api.Controllers.Cabinet
 
         //public async Task<IActionResult> Registration(UserRegistrationDto pUser)
         //{
-           
+
 
         //    var user = new User
         //    {

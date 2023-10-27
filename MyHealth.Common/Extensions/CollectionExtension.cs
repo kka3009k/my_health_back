@@ -19,17 +19,17 @@ public static class CollectionExtension
     {
         return collection == null || !collection.Any();
     }
-        
+
     public static bool IsEmpty<T>(this T[]? collection)
     {
         return collection == null || collection.Length == 0;
     }
-        
+
     public static bool IsNotEmpty<T>(this IEnumerable<T>? collection)
     {
         return !IsEmpty(collection);
     }
-        
+
     public static bool IsNotEmpty<T>(this T[]? collection)
     {
         return !IsEmpty(collection);

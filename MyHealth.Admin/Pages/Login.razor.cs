@@ -1,11 +1,9 @@
 ﻿using DotNetEnv;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using MyHealth.Admin.Components;
 using MyHealth.Admin.Services;
 using MyHealth.Data.Dto;
 using Radzen;
-using System.Runtime.CompilerServices;
 
 namespace MyHealth.Admin.Pages
 {

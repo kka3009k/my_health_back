@@ -1,7 +1,6 @@
 ﻿using MyHealth.Api.Static;
 using MyHealth.Data;
 using MyHealth.Data.Entities;
-using Newtonsoft.Json;
 
 namespace MyHealth.Api.Service
 {

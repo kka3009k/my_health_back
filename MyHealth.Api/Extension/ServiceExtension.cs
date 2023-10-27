@@ -1,17 +1,13 @@
-using MyHealth.Data;
-using System;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using DotNetEnv;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using MyHealth.Api.Swagger;
 using MyHealth.Api.Service;
 using MyHealth.Api.Static;
-using Newtonsoft.Json;
+using MyHealth.Api.Swagger;
+using MyHealth.Data;
+using System.Text;
 
 namespace MyHealth.Api.Extension;
 
