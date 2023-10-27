@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using Firebase_Auth = FirebaseAdmin.Auth.FirebaseAuth;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace MyHealth.Api.Service
 {
@@ -20,11 +21,13 @@ namespace MyHealth.Api.Service
     {
         private readonly MyDbContext _db;
         private UserContextService _contextService;
+        private MailService _mailService;
 
-        public AuthService(MyDbContext pDb, UserContextService pContextService)
+        public AuthService(MyDbContext pDb, UserContextService pContextService, MailService pMailService)
         {
             _db = pDb;
             _contextService = pContextService;
+            _mailService = pMailService;
         }
         public async Task<AuthResDto> FirebaseAuthAsync(string token)
         {
@@ -49,7 +52,7 @@ namespace MyHealth.Api.Service
 
             if (user != null)
             {
-                if (ValidPassword(pAuthPar.Password, user))
+                if (Cryptography.ValidPassword(pAuthPar.Password, user.PasswordHash))
                 {
                     var res = GenerateToken(user);
                     return res;
@@ -112,7 +115,7 @@ namespace MyHealth.Api.Service
             return res;
         }
 
-        private AuthResDto GenerateToken(User pUser)
+        public AuthResDto GenerateToken(User pUser)
         {
             var identity = GetIdentity(pUser);
             var now = DateTime.UtcNow;
@@ -172,10 +175,33 @@ namespace MyHealth.Api.Service
             return !string.IsNullOrWhiteSpace(pNew) && (!pOld?.Equals(pNew) ?? true);
         }
 
-        private bool ValidPassword(string pInputPassword, User pUser)
+        public async Task ResetPasswordAsync(string pEmail)
         {
-            var inputHashPassword = Сryptography.ComputeSha256Hash(pInputPassword);
-            return inputHashPassword.Equals(pUser.PasswordHash);
+            var user = await _db.Users.FirstOrDefaultAsync(f => f.Email == pEmail);
+
+            if (user == null)
+                throw new Exception("Пользователь не найден");
+
+            var otp = OtpProvider.GenerateOtp(pEmail);
+            await _mailService.SendAsync("Подтверждение сброса пароля", $"Код ОТП для подтверждения сброса пароля: {otp}", pEmail);
+        }
+
+        public async Task ConfirmResetPasswordAsync(ConfirmResetPasswordPar pConfirmResetPasswordPar)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(f => f.Email == pConfirmResetPasswordPar.Email);
+
+            if (user == null)
+                throw new Exception("Пользователь не найден");
+
+            if (OtpProvider.HasOtp(pConfirmResetPasswordPar.Email, pConfirmResetPasswordPar.Otp))
+            {
+                user.PasswordHash = Cryptography.ComputeSha256Hash(pConfirmResetPasswordPar.NewPassword);
+                await _db.SaveChangesAsync();
+                OtpProvider.RemoveOtp(pConfirmResetPasswordPar.Email);
+                return;
+            }
+
+            throw new Exception("Неверный код ОТП");
         }
     }
 }

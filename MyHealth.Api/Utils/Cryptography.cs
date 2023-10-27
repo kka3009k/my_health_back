@@ -3,7 +3,7 @@ using System.Text;
 
 namespace MyHealth.Api.Utils
 {
-    public class Сryptography
+    public class Cryptography
     {
         public static string ComputeSha256Hash(string pRawData)
         {
@@ -22,6 +22,12 @@ namespace MyHealth.Api.Utils
 
                 return builder.ToString();
             }
+        }
+
+        public static bool ValidPassword(string pInputPassword, string pPasswordHash)
+        {
+            var inputHashPassword = ComputeSha256Hash(pInputPassword);
+            return inputHashPassword.Equals(pPasswordHash);
         }
     }
 }
