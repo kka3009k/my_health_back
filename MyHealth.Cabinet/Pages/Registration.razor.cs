@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MyHealth.Data.Dto;
 using MyHealth.Data.Entities;
 using System.Net.Http.Json;
 
@@ -9,7 +10,7 @@ namespace MyHealth.Cabinet.Pages
 
 
         [Inject] private HttpClient httpClient { get; set; }
-        User _doctor = new User();
+        DoctorUserDto _doctor = new DoctorUserDto();
         public async void UserRegistration()
         {
             //var response = await httpClient.PostAsJsonAsync("/registration", );

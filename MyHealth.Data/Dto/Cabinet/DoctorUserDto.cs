@@ -1,7 +1,7 @@
 ﻿using MyHealth.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace MyHealth.Data.Dto
+namespace MyHealth.Data.Dto.Cabinet
 {
     /// <summary>
     /// Данные пользователя

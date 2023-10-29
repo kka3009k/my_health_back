@@ -1,39 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyHealth.Api.Utils;
+using MyHealth.Data;
+using MyHealth.Data.Dto;
+using MyHealth.Data.Entities;
+using MyHealth.Data.Entities.DoctorCabinet;
 
 namespace MyHealth.Api.Controllers.Cabinet
 {
+    [ApiController]
+    [Route("[controller]")]
     public class DoctorRegistrationController : Controller
     {
-        //private readonly MyDbContext _db;
-        //public IActionResult Registration()
-        //{
-        //    var userExists =  _db.Users.Any(a => a.Phone == pUser.Phone);
+        private readonly MyDbContext _db;
 
-        //    if (userExists)
-        //        return BadRequest("Пользователь существует");
+        public IActionResult Registration(DoctorUserDto pUser)
+        {
+            var userExists = _db.Users.Any(a => a.Phone == pUser.Phone);
 
-
-        //    return View();
-        //}
-
-        //public async Task<IActionResult> Registration(UserRegistrationDto pUser)
-        //{
+            if (userExists)
+                return BadRequest("Пользователь существует");
 
 
-        //    var user = new User
-        //    {
-        //        FirstName = pUser.FirstName,
-        //        LastName = pUser.LastName,
-        //        Role = RoleTypes.Client,
-        //        Email = pUser.Email,
-        //        Phone = pUser.Phone,
-        //        PasswordHash = ComputeSha256Hash(pUser.Password)
-        //    };
+            return View();
+        }
 
-        //    await _db.AddAsync(user);
-        //    await _db.SaveChangesAsync();
+        public async Task<IActionResult> DoctorRegistration(DoctorUserDto pUser)
+        {
+            var user = new User
+            {
+                FirstName = pUser.FirstName,
+                LastName = pUser.LastName,
+                Role = RoleTypes.Doctor,
+                Email = pUser.Email,
+                Phone = pUser.Phone,
+                //PasswordHash = Cryptography.ComputeSha256Hash(pUser.Password)
 
-        //    return Ok();
-        //}
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }
