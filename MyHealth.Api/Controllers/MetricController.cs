@@ -91,7 +91,7 @@ namespace MyHealth.Api.Controllers
         /// <param name="pMetric"></param>
         /// <returns></returns>
         [HttpPost("update")]
-        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(DoctorUserDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateMetric([FromBody] MetricDto pMetric)
         {
             var userId = _contextService.UserId();
