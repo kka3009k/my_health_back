@@ -6,7 +6,7 @@ namespace MyHealth.Data.Dto
     /// <summary>
     /// Данные пользователя
     /// </summary>
-    public class DoctorUserDto
+    public class UserDto
     {
         /// <summary>
         /// Телефон

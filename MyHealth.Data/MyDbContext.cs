@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyHealth.Data.Entities;
+using MyHealth.Data.Entities.DoctorCabinet;
 using MyHealth.Data.Utils;
 
 namespace MyHealth.Data
@@ -62,6 +63,10 @@ namespace MyHealth.Data
         public DbSet<UserLinkType> UserLinkTypes { get; set; }
 
         public DbSet<UserLink> UserLinks { get; set; }
+
+        public DbSet<DoctorUser> DoctorUsers { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
 
         #endregion
 

@@ -1,0 +1,11 @@
+﻿.nav-link {
+    color: black;
+}
+
+.dropdown-user-settings {
+    margin-left: -60px;
+}
+
+    .dropdown-user-settings .dropdown-item {
+        cursor: pointer;
+    }

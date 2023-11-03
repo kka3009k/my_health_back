@@ -1,71 +1,80 @@
 ﻿@page "/registration"
 
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="login-wrap p-4 p-md-5">
+                <div class="icon d-flex align-items-center justify-content-center">
+                    <span class="fa fa-user-o"></span>
+                </div>
+                <h3 class="text-center mb-4">Регистрация</h3>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-i">
+                            <i class="bi bi-person-circle" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control rounded-left" placeholder="Почта" value="@_username"
+                               disabled="@_confirmation"
+                        @oninput="(val) => _username = (string)val.Value">
+                    </div>
+                </div>
+                @if (_confirmation)
+                {
+                    <div class="form-group d-flex">
+                        <div class="input-group">
+                            <div class="input-group-i">
+                                <span><i class="bi bi-key"></i></span>
+                            </div>
+                            <input class="form-control rounded-left" placeholder="Проверочный код" type="text"
+                            @bind-value="_otp" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group d-flex">
+                        <div class="input-group">
+                            <div class="input-group-i">
+                                @if (_pwdTypeInput == "password")
+                                {
+                                    <span @onclick="showPassword">
+                                        <i class="bi bi-eye"></i>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span @onclick="showPassword">
+                                        <i class="bi bi-eye-slash"></i>
+                                    </span>
+                                }
+                            </div>
+                            <input class="form-control rounded-left" placeholder="Пароль" type="@_pwdTypeInput"
+                            @bind-value="_password"
+                                   autocomplete="off">
+                        </div>
+                    </div>
+                }
+                <div class="d-flex justify-content-between">
+                    @if (!_confirmation)
+                    {
+                        <button class="btn btn-primary" @onclick="_navigationService.Back"><i class="bi bi-x"></i> Отмена</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary" @onclick="() => _confirmation = false"><i class="bi bi-x"></i> Назад</button>
+                    }
 
-
-<h1>Registration</h1>
-
-<h4>User</h4>
-<hr />
-
-
-@*<div class="password-container">
-                <i class="fa-lock input-password" id="lock"></i>
-                <input style="padding:7px 1px 6px 29px;" type="password" placeholder="Пароль" id="myInput" >
-                <i class="fa-solid fa-eye" onclick="myFunction()" id="eye"></i>
-</div>*@
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="Number" class="control-label">Номер телефона</label>
-                <input asp-for="Number" @bind-value="_doctor.Phone" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
+                    @if (!_confirmation)
+                    {
+                        <button class="btn btn-primary" @onclick="Next" disabled="@(!Validate())">
+                            <i class="bi bi-arrow-right"></i> Далее
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary" @onclick="Confirm" disabled="@(!ValidateConfirm())">
+                            <i class="bi bi-box-arrow-in-right"></i> Зарегистрироваться
+                        </button>
+                    }
+                </div>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Email" class="control-label">Email</label>
-                <input asp-for="Email" @bind-value="_doctor.Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Surname" class="control-label">Фамилия</label>
-                <input asp-for="Surname" @bind-value="_doctor.LastName" class="form-control" />
-                <span asp-validation-for="Surname"  class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Name" class="control-label">Имя</label>
-                <input asp-for="Name" @bind-value="_doctor.FirstName" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Patronymic" class="control-label">Отчество</label>
-                <input asp-for="Patronymic" @bind-value="_doctor.Patronymic" class="form-control" />
-                <span asp-validation-for="Patronymic" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label">Пол</label>
-                <input asp-for="Gender" @bind-value="_doctor.Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="BirthDate" class="control-label">Дата рождения</label>
-                <input asp-for="BirthDate" @bind-value="_doctor.BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <input type="submit" @onclick="CreateDoctor" value="Create" class="btn btn-primary" />
-            </div>
-
-        </form>
+        </div>
     </div>
-</div>
+</section>

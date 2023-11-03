@@ -142,7 +142,7 @@ namespace MyHealth.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("AddressID")
+                    b.Property<Guid?>("AddressID")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -151,11 +151,9 @@ namespace MyHealth.Data.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Diplomas")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Speciality")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -562,9 +560,7 @@ namespace MyHealth.Data.Migrations
                 {
                     b.HasOne("MyHealth.Data.Entities.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressID");
 
                     b.HasOne("MyHealth.Data.Entities.User", "User")
                         .WithMany()

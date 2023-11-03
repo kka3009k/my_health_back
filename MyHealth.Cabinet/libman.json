@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "bootstrap-icons@1.11.1",
+      "destination": "wwwroot/libraries/bootstrap-icons/"
+    },
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/libraries/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "bootstrap@5.3.2",
+      "destination": "wwwroot/libraries/bootstrap/"
+    },
+    {
+      "library": "bootstrap@5.2.0",
+      "destination": "wwwroot/bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "css/bootstrap.min.css",
+        "js/bootstrap.bundle.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap@5.3.2",
+      "destination": "wwwroot/libraries/bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "css/bootstrap.min.css",
+        "js/bootstrap.bundle.min.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+﻿namespace MyHealth.Cabinet.Services
+{
+    public class SpinnerService
+    {
+        public event Action<CancellationToken?> OnShow;
+        public event Action<CancellationToken?> OnHide;
+
+        public async Task Show()
+        {
+            OnShow?.Invoke(CancellationToken.None);
+        }
+
+        public async Task Hide()
+        {
+            OnHide?.Invoke(CancellationToken.None);
+        }
+
+        public void Run(Action action)
+        {
+            Show();
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Hide();
+            }
+        }
+
+        public T Run<T>(Func<T> action)
+        {
+            T result = default;
+
+            Run(() =>
+            {
+                result = action();
+            });
+
+            return result;
+        }
+
+        public async Task RunAsync(Func<Task> action)
+        {
+            Show();
+
+            try
+            {
+                await action();
+            }
+            finally
+            {
+                Hide();
+            }
+        }
+
+        public async Task<T> RunAsync<T>(Func<Task<T>> action)
+        {
+            T result = default;
+
+            await RunAsync(async () =>
+            {
+                result = await action();
+            });
+
+            return result;
+        }
+    }
+}

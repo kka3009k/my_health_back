@@ -36,7 +36,7 @@ namespace MyHealth.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("me")]
-        [ProducesResponseType(typeof(DoctorUserDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUser()
         {
@@ -50,8 +50,8 @@ namespace MyHealth.Api.Controllers
         /// <param name="pUser"></param>
         /// <returns></returns>
         [HttpPost("update")]
-        [ProducesResponseType(typeof(DoctorUserDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateUser([FromBody] DoctorUserDto pUser)
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> UpdateUser([FromBody] UserDto pUser)
         {
             var user = _contextService.User();
 
@@ -72,10 +72,10 @@ namespace MyHealth.Api.Controllers
             return Ok(await LoadUser(user.ID));
         }
 
-        private async Task<DoctorUserDto> LoadUser(Guid pUserID)
+        private async Task<UserDto> LoadUser(Guid pUserID)
         {
             var user = await _db.Users.FirstOrDefaultAsync(f => f.ID == pUserID);
-            var userDto = new DoctorUserDto()
+            var userDto = new UserDto()
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,

@@ -79,3 +79,4 @@ MigrationBackup/
 /src/DotNetEd.CoreAdmin/out/*
 
 file_storage/
+appsettings.json

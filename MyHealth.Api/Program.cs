@@ -49,6 +49,7 @@ app.UseStaticFiles(new StaticFileOptions()
     RequestPath = new PathString("/file_storage")
 });
 app.UseRouting();
+app.UseCors(options => options.WithOrigins("0.0.0.0").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();

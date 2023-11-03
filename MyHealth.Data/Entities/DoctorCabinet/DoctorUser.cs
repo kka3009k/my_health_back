@@ -24,18 +24,18 @@ namespace MyHealth.Data.Entities.DoctorCabinet
         /// <summary>
         /// Специальность
         /// </summary>
-        public string Speciality { get; set; }
+        public string? Speciality { get; set; }
 
         /// <summary>
         /// Дипломы/Сертификаты
         /// </summary>
-        public string Diplomas { get; set; }
+        public string? Diplomas { get; set; }
 
         /// <summary>
         /// Адрес
         /// </summary>
-        public Guid AddressID { get; set; }
-        public Address Address { get; set; }
+        public Guid? AddressID { get; set; }
+        public Address? Address { get; set; }
 
 
         #region Relationships

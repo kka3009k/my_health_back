@@ -1,0 +1,105 @@
+﻿@page "/settings"
+
+<div class="card">
+    <div class="card-header">
+        Настройки
+    </div>
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Профиль</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Безопасность</button>
+            </li>
+            @*
+            <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+            </li> *@
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="col-auto">
+                            <label>Фамилия</label>
+                            <input type="text" class="form-control form-control-sm" @bind-value="_editUser.LastName">
+                        </div>
+                        <div class="col-auto">
+                            <label>Имя</label>
+                            <input type="text" class="form-control form-control-sm" @bind-value="_editUser.FirstName">
+                        </div>
+                        <div class="col-auto">
+                            <label>Отчество</label>
+                            <input type="text" class="form-control form-control-sm" @bind-value="_editUser.Patronymic">
+                        </div>
+                        <div class="col-auto">
+                            <label>ИНН</label>
+                            <input type="text" class="form-control form-control-sm" @bind-value="_editUser.INN">
+                        </div>
+                        <div class="col-auto">
+                            <label>Дата рождения</label>
+                            <input type="date" class="form-control form-control-sm" @bind-value="_editUser.BirthDate">
+                        </div>
+                        <div class="col-auto">
+                            <label>Телефон</label>
+                            <input type="text" class="form-control form-control-sm" @bind-value="_editUser.Phone">
+                        </div>
+                        <div class="col-auto">
+                            <label>Почта</label>
+                            <input type="text" class="form-control form-control-sm" @bind-value="_editUser.Email">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label>Специальность</label>
+                                <input type="text" class="form-control form-control-sm" @bind-value="_doctor.Speciality">
+                            </div>
+                            <div class="col-12">
+                                <label>Дипломы/Сертификаты</label>
+                                <input type="text" class="form-control form-control-sm" @bind-value="_doctor.Diplomas">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card">
+                            <h5 class="card-header">Адрес</h5>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-xl-6 col-sm-12">
+                                        <label>Область</label>
+                                        <input type="text" class="form-control form-control-sm" @bind-value="_doctor.Address.Region">
+                                    </div>
+                                    <div class="col-xl-6 col-sm-12">
+                                        <label>Город</label>
+                                        <input type="text" class="form-control form-control-sm" @bind-value="_doctor.Address.City">
+                                    </div>
+                                    <div class="col-xl-6 col-sm-12">
+                                        <label>Улица</label>
+                                        <input type="text" class="form-control form-control-sm" @bind-value="_doctor.Address.Street">
+                                    </div>
+                                    <div class="col-xl-6 col-sm-12">
+                                        <label>Дом</label>
+                                        <input type="text" class="form-control form-control-sm" @bind-value="_doctor.Address.House">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div>
+                        <button class="btn btn-secondary" @onclick="ShowWarrning">Отмена</button>
+                    </div>
+                    <div class="mg-left-5">
+                        <button class="btn btn-primary" @onclick="() => _spinnerService.RunAsync(SaveProfile)">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                <SettingsSecurity />
+            </div>
+            @*<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> *@
+        </div>
+    </div>
+</div>
