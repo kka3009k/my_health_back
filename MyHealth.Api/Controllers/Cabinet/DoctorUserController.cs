@@ -84,6 +84,7 @@ namespace MyHealth.Api.Controllers.Cabinet
             {
                 doctor = new DoctorUser { UserID = pUserID };
                 await _db.AddAsync(doctor);
+                await _db.Users.Where(w => w.ID == pUserID).ExecuteUpdateAsync(p => p.SetProperty(s => s.Role, v => Data.Entities.RoleTypes.Doctor));
                 await _db.SaveChangesAsync();
             }
 

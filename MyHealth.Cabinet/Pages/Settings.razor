@@ -20,7 +20,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row g-3">
-                    <div class="col-6">
+                    <div class="col-xl-6 col-sm-12">
                         <div class="col-auto">
                             <label>Фамилия</label>
                             <input type="text" class="form-control form-control-sm" @bind-value="_editUser.LastName">
@@ -38,6 +38,17 @@
                             <input type="text" class="form-control form-control-sm" @bind-value="_editUser.INN">
                         </div>
                         <div class="col-auto">
+                            <label>Пол</label>
+                            <select class="form-select form-select-sm" value="@_editUser.Gender" @onchange="f=> _editUser.Gender = EnumUtil.Parse<GenderTypes>(f.Value.ToString())">
+                                <option value="" class="d-none"></option>
+
+                                @foreach (var gender in EnumUtil.GetEnumValues<GenderTypes>())
+                                {
+                                    <option value="@gender.Key">@gender.Value</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-auto">
                             <label>Дата рождения</label>
                             <input type="date" class="form-control form-control-sm" @bind-value="_editUser.BirthDate">
                         </div>
@@ -50,7 +61,7 @@
                             <input type="text" class="form-control form-control-sm" @bind-value="_editUser.Email">
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-xl-6 col-sm-12">
                         <div class="row g-3">
                             <div class="col-12">
                                 <label>Специальность</label>
@@ -87,12 +98,13 @@
                         </div>
                     </div>
                 </div>
+                <br />
                 <div class="d-flex justify-content-end">
                     <div>
-                        <button class="btn btn-secondary" @onclick="ShowWarrning">Отмена</button>
+                        <button class="btn btn-secondary btn-sm" @onclick="ShowWarrning">Отмена</button>
                     </div>
                     <div class="mg-left-5">
-                        <button class="btn btn-primary" @onclick="() => _spinnerService.RunAsync(SaveProfile)">Сохранить</button>
+                        <button class="btn btn-primary btn-sm" @onclick="() => _spinnerService.RunAsync(SaveProfile)">Сохранить</button>
                     </div>
                 </div>
             </div>

@@ -67,6 +67,7 @@ namespace MyHealth.Data
         public DbSet<DoctorUser> DoctorUsers { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Patient> Patients { get; set; }
 
         #endregion
 

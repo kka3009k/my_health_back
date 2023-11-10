@@ -26,14 +26,4 @@ public static class ServiceExtension
         services.AddScoped<NavigationService>();
 
     }
-
-    public static void ConfigureDbContext(this IServiceCollection services)
-    {
-
-    }
-
-    public static void ConfigureJwtAuthentication(this IServiceCollection services)
-    {
-
-    }
 }

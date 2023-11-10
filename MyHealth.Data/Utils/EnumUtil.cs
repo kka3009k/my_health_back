@@ -22,5 +22,13 @@ namespace MyHealth.Data.Utils
 
             return dictionaries;
         }
+
+        public static TEnum Parse<TEnum>(string pValue)
+        {
+            if (string.IsNullOrWhiteSpace(pValue))
+                return default;
+
+            return (TEnum)Enum.Parse(typeof(TEnum), pValue);
+        }
     }
 }

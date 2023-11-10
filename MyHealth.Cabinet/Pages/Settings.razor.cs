@@ -6,6 +6,8 @@ using MyHealth.Cabinet.Components;
 using MyHealth.Cabinet.Services;
 using MyHealth.Data.Dto;
 using MyHealth.Data.Dto.Cabinet;
+using MyHealth.Data.Entities;
+using MyHealth.Data.Utils;
 using System.Net.Http.Json;
 
 namespace MyHealth.Cabinet.Pages

@@ -1,0 +1,46 @@
+﻿@page "/patients"
+
+<div class="card">
+    <h5 class="card-header">Пациенты</h5>
+    <div class="card-body">
+        <div class="table-responsive table-fixed-head">
+            <table class="table table-sm table-light table-striped table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Телефон</th>
+                        <th>Последний визит</th>
+                        <th>Почта</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (_patients?.Count > 0)
+                    {
+                        @foreach (var patient in _patients)
+                        {
+                            <tr>
+                                <td>@patient.LastName</td>
+                                <td>@patient.FirstName</td>
+                                <td>@patient.Patronymic</td>
+                                <td>@patient.Phone</td>
+                                <td></td>
+                                <td>@patient.Email</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-start">
+            <div class="mg-left-5">
+                <button class="btn btn-primary btn-sm" @onclick="Add"><i class="bi bi-person-plus"></i> Новый</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<PatientCreate @ref="_patientCreateModal" OnSave="LoadPatient" />

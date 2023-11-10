@@ -1,0 +1,76 @@
+﻿<Modal Visible="_visible">
+    <div class="modal-header">
+        <h5 class="modal-title">Новый пациент</h5>
+    </div>
+    <div class="modal-body">
+        <div class="row g-3">
+            <div class="col-xl-6 col-sm-12">
+                <div class="col-auto">
+                    <label class="required">Телефон</label>
+                    <input type="text" class="form-control form-control-sm" @bind-value="_patient.User.Phone">
+                </div>
+                <div class="col-auto">
+                    <label class="required">Фамилия</label>
+                    <input type="text" class="form-control form-control-sm" @bind-value="_patient.User.LastName">
+                </div>
+                <div class="col-auto">
+                    <label>Имя</label>
+                    <input type="text" class="form-control form-control-sm" @bind-value="_patient.User.FirstName">
+                </div>
+                <div class="col-auto">
+                    <label>Отчтество</label>
+                    <input type="text" class="form-control form-control-sm" @bind-value="_patient.User.Patronymic">
+                </div>
+                <div class="col-auto">
+                    <label>Пол</label>
+                    <select class="form-select form-select-sm" value="@_patient.User.Gender" @onchange="f=> _patient.User.Gender = EnumUtil.Parse<GenderTypes>(f.Value.ToString())">
+                        <option value="" class="d-none"></option>
+
+                        @foreach (var gender in EnumUtil.GetEnumValues<GenderTypes>())
+                        {
+                            <option value="@gender.Key">@gender.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label>Дата рождения</label>
+                    <input type="date" class="form-control form-control-sm" @bind-value="_patient.User.BirthDate">
+                </div>
+                <div class="col-auto">
+                    <label>Почта</label>
+                    <input type="text" class="form-control form-control-sm" @bind-value="_patient.User.Email">
+                </div>
+            </div>
+            <div class="col-xl-6 col-sm-12">
+                <div class="card">
+                    <h5 class="card-header">Адрес</h5>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-xl-6 col-sm-12">
+                                <label>Область</label>
+                                <input type="text" class="form-control form-control-sm" @bind-value="_patient.Address.Region">
+                            </div>
+                            <div class="col-xl-6 col-sm-12">
+                                <label>Город</label>
+                                <input type="text" class="form-control form-control-sm" @bind-value="_patient.Address.City">
+                            </div>
+                            <div class="col-xl-6 col-sm-12">
+                                <label>Улица</label>
+                                <input type="text" class="form-control form-control-sm" @bind-value="_patient.Address.Street">
+                            </div>
+                            <div class="col-xl-6 col-sm-12">
+                                <label>Дом</label>
+                                <input type="text" class="form-control form-control-sm" @bind-value="_patient.Address.House">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" @onclick="Cancel">Отмена</button>
+        <button type="button" class="btn btn-primary btn-sm" disabled="@(!Validate())"
+        @onclick="() => _spinnerService.RunAsync(Save)">Сохранить</button>
+    </div>
+</Modal>

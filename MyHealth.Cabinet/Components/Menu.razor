@@ -21,8 +21,18 @@
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a @onclick="@(() => Navigate("patients"))" class="nav-link px-0 align-middle">
                             <i class="bi bi-person-video2"></i> <span class="ms-1 d-none d-sm-inline">Пациенты</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a @onclick="@(() => Navigate("calendar"))" class="nav-link px-0 align-middle">
+                            <i class="bi bi-calendar2-week"></i> <span class="ms-1 d-none d-sm-inline">График</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a @onclick="@(() => Navigate("finances"))" class="nav-link px-0 align-middle">
+                            <i class="bi bi-cash-coin"></i> <span class="ms-1 d-none d-sm-inline">Финансы</span>
                         </a>
                     </li>
                 </ul>

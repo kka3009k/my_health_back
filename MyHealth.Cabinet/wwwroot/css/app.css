@@ -119,3 +119,47 @@ a, .btn-link {
 .tab-pane {
     padding-top: 5px;
 }
+
+a {
+    cursor: pointer;
+}
+
+    a:hover {
+        color: #0071c1;
+    }
+
+    a span:hover {
+        color: #0071c1;
+    }
+
+    a i:hover {
+        color: #0071c1;
+    }
+
+.form-select-sm {
+    font-size: .75rem;
+}
+
+.blazored-toast-container {
+    z-index: 9999 !important;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.table-fixed-head {
+    overflow: auto;
+    max-height: 70vh;
+}
+
+    .table-fixed-head thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+tr {
+    cursor:pointer;
+}
